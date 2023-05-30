@@ -1,0 +1,77 @@
+{
+  "migIndex": 1,
+  "data": [
+    {
+      "path": "assets/fonts/TTNorms-Black.otf",
+      "sha1": "cd6944c09b8c6e834bd8484c0d2eeadf19e86bdb"
+    },
+    {
+      "path": "assets/fonts/TTNorms-BlackItalic.otf",
+      "sha1": "9a5158bfe7aae61571262dea6eed7419519b01a4"
+    },
+    {
+      "path": "assets/fonts/TTNorms-Bold.otf",
+      "sha1": "76b8602db119f30e805f96dbc2b39b8085ac2189"
+    },
+    {
+      "path": "assets/fonts/TTNorms-BoldItalic.otf",
+      "sha1": "212ae7c71810a985e8015805b2921de62aad9544"
+    },
+    {
+      "path": "assets/fonts/TTNorms-ExtraBold.otf",
+      "sha1": "81036d33e61fe17b2961c4cc74f285853a53fb4b"
+    },
+    {
+      "path": "assets/fonts/TTNorms-ExtraBoldItalic.otf",
+      "sha1": "f1e31dde264db18209e9bf55b57f63d69dbb7a87"
+    },
+    {
+      "path": "assets/fonts/TTNorms-ExtraLight.otf",
+      "sha1": "2705a4d6bed10c1c7693e511570ab59b405170e2"
+    },
+    {
+      "path": "assets/fonts/TTNorms-ExtraLightItalic.otf",
+      "sha1": "18d75d4cda69d08a09ddf6bd3f3b0297257e9041"
+    },
+    {
+      "path": "assets/fonts/TTNorms-Heavy.otf",
+      "sha1": "9291542e88f5ec21cc1dbfbb9edde25cc0a1ea80"
+    },
+    {
+      "path": "assets/fonts/TTNorms-HeavyItalic.otf",
+      "sha1": "6ba80f2a4e125d433183937064bf5871eee56391"
+    },
+    {
+      "path": "assets/fonts/TTNorms-Italic.otf",
+      "sha1": "0d08281580361fd7285501345fb56ef017ca69ee"
+    },
+    {
+      "path": "assets/fonts/TTNorms-Light.otf",
+      "sha1": "3a104fd416978bb9ba7b87dcb53e2397fcee8cfd"
+    },
+    {
+      "path": "assets/fonts/TTNorms-LightItalic.otf",
+      "sha1": "251032bdfdc45204dda937afdbe72e75fec15948"
+    },
+    {
+      "path": "assets/fonts/TTNorms-Medium.otf",
+      "sha1": "b8e9d52488f5dab183cf1f48fd8bfd486a05fb83"
+    },
+    {
+      "path": "assets/fonts/TTNorms-MediumItalic.otf",
+      "sha1": "9a50a054f9f7a8f83989f417f8c7236c8b018b4a"
+    },
+    {
+      "path": "assets/fonts/TTNorms-Regular.otf",
+      "sha1": "08b293bc73a2be7ef672902210ccc67d4990b901"
+    },
+    {
+      "path": "assets/fonts/TTNorms-Thin.otf",
+      "sha1": "e66b2250524c4d347e2e7b7f3237a0ea00eb99db"
+    },
+    {
+      "path": "assets/fonts/TTNorms-ThinItalic.otf",
+      "sha1": "974a0bdc5e18f009955cfabe0addc67e3f01b0bf"
+    }
+  ]
+}

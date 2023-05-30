@@ -6,8 +6,6 @@ import EmailScreen from './pages/EmailScreen';
 import TempPassScreen from './pages/TempPassScreen';
 import SignInScreen from './pages/SignInScreen';
 
-// import useAuth from './context/useAuth';
-
 const Stack = createNativeStackNavigator();
 
 const Navigation = () => {
@@ -17,7 +15,9 @@ const Navigation = () => {
         <Stack.Screen
           name="Welcome"
           component={WelcomeScreen}
-          options={{title: 'Login Form', headerBackTitleVisible: false}}
+          options={{headerShown: false}}
+
+          //   options={{title: 'Login Form', headerBackTitleVisible: false}}
         />
         <Stack.Screen
           name="EmailScreen"
@@ -27,7 +27,6 @@ const Navigation = () => {
             headerBackTitleVisible: false,
           }}
         />
-
         <Stack.Screen
           name="TempPassScreen"
           options={{title: 'Help'}}
