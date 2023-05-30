@@ -12,11 +12,12 @@ export default EmailScreen;
 
 const styles = StyleSheet.create({
   master: {
+    backgroundColor: '#ffffff',
     flex: 1,
     alignItems: 'center',
     justifyContent: 'center',
-    marginVertical: 30,
-    marginHorizontal: 30,
+    // marginVertical: 30,
+    // marginHorizontal: 30,
   },
   text: {
     fontSize: 26,

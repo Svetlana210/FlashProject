@@ -1,17 +1,27 @@
 import React from 'react';
 import {NavigationContainer} from '@react-navigation/native';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
+import {Image} from 'react-native';
 import WelcomeScreen from './pages/WelcomeScreen';
 import EmailScreen from './pages/EmailScreen';
 import TempPassScreen from './pages/TempPassScreen';
 import SignInScreen from './pages/SignInScreen';
+import GoBackBtn from './components/GoBackBtn';
+
+let logo = require('./images/logoS.jpg');
 
 const Stack = createNativeStackNavigator();
 
 const Navigation = () => {
   return (
     <NavigationContainer>
-      <Stack.Navigator>
+      <Stack.Navigator
+        screenOptions={{
+          // eslint-disable-next-line react/no-unstable-nested-components
+          headerLeft: () => <GoBackBtn />,
+          // eslint-disable-next-line react/no-unstable-nested-components
+          headerRight: () => <Image source={logo} />,
+        }}>
         <Stack.Screen
           name="Welcome"
           component={WelcomeScreen}
@@ -23,8 +33,7 @@ const Navigation = () => {
           name="EmailScreen"
           component={EmailScreen}
           options={{
-            title: 'Register Form',
-            headerBackTitleVisible: false,
+            title: '',
           }}
         />
         <Stack.Screen
