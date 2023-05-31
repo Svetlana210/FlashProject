@@ -1,22 +1,17 @@
 import React, {useState} from 'react';
 import axios from 'axios';
-import {
-  View,
-  Text,
-  StyleSheet,
-  TextInput,
-  TouchableOpacity,
-} from 'react-native';
-import Feather from 'react-native-vector-icons/Feather';
-import usePassword from '../components/showPassword';
-const TempPassScreen = ({route}) => {
+import {View, Text, StyleSheet, TouchableOpacity} from 'react-native';
+
+import TextInputPassword from '../components/TextInputPassword';
+
+const TempPassScreen = ({route, navigation}) => {
   const [password, setPassword] = useState('');
 
   const [token, setToken] = useState('');
   const [refreshToken, setRefreshToken] = useState('');
 
-  const {showPassword, setShowPassword} = usePassword();
-  console.log(password);
+  // const {showPassword, setShowPassword} = usePassword();
+  console.log(`temppass-${password}`);
   // const [isFocusedPassword, setIsFocusedPassword] = useState(false);
   // const [checkValidPassword, setCheckValidPassword] = useState(false);
 
@@ -40,10 +35,11 @@ const TempPassScreen = ({route}) => {
   const handleOnPasswordlBtn = e => {
     e.preventDefault();
     setTempPassword();
+    navigation.navigate('SetPassScreen');
   };
 
-  console.log(token);
-  console.log(refreshToken);
+  console.log(`token-${token}`);
+  console.log(`refresh -${refreshToken}`);
   const email = route.params.userEmail ? route.params.userEmail : 'your email';
   return (
     <View style={styles.master}>
@@ -53,31 +49,7 @@ const TempPassScreen = ({route}) => {
       </View>
       <View>
         <Text style={styles.textLabel}>Your temporary password</Text>
-        <TextInput
-          style={styles.input}
-          autoCorrect={false}
-          autoCapitalize="none"
-          placeholder="create password"
-          secureTextEntry={showPassword}
-          // keyboardType="email-address"
-          onChangeText={text => setPassword(text)}
-          value={password}
-          // onFocus={() => isFocusedPassword(true)}
-          // onBlur={() => isFocusedPassword(false)}
-        />
-        {password ? (
-          <TouchableOpacity
-            style={styles.eye}
-            onPress={() => setShowPassword(!showPassword)}>
-            {showPassword ? (
-              <Feather name="eye" size={23} color={'#49454F'} />
-            ) : (
-              <Feather name="eye-off" size={23} color={'#49454F'} />
-            )}
-          </TouchableOpacity>
-        ) : (
-          <></>
-        )}
+        <TextInputPassword password={password} setPassword={setPassword} />
       </View>
 
       {password ? (
@@ -103,8 +75,6 @@ const styles = StyleSheet.create({
     flex: 1,
     alignItems: 'center',
     justifyContent: 'flex-start',
-    // marginVertical: 30,
-    // marginHorizontal: 30,
   },
   text: {
     fontSize: 32,
@@ -143,21 +113,10 @@ const styles = StyleSheet.create({
     color: '#000000',
     fontFamily: 'TTNorms-Regular',
   },
-  input: {
+  container: {
     position: 'relative',
-    width: 328,
-    height: 44,
-    paddingVertical: 10,
-    paddingHorizontal: 12,
-    borderColor: '#DBDBDB',
-    borderWidth: 1,
-    borderRadius: 4,
-    color: '#1D252D',
-    fontSize: 16,
-    marginTop: 4,
-
-    fontFamily: 'TTNorms-Regular',
   },
+
   textFailed: {
     alignSelf: 'flex-start',
     color: 'red',
@@ -166,10 +125,5 @@ const styles = StyleSheet.create({
   },
   textOk: {
     marginTop: 0,
-  },
-  eye: {
-    position: 'absolute',
-    top: 35,
-    right: 20,
   },
 });

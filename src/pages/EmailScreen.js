@@ -59,7 +59,7 @@ const EmailScreen = ({navigation, route}) => {
         userEmail: email,
       });
     } else if (userStatus === 'Active') {
-      navigation.navigate('SetPassScreen');
+      navigation.navigate('SignInScreen');
     } else {
       Alert.alert('User is not exit');
     }

@@ -49,7 +49,7 @@ const Navigation = () => {
         />
         <Stack.Screen
           name="SignInScreen"
-          options={{title: 'Help'}}
+          options={{title: ''}}
           component={SignInScreen}
         />
       </Stack.Navigator>
