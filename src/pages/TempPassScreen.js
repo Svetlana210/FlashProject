@@ -6,9 +6,12 @@ import {
   TextInput,
   TouchableOpacity,
 } from 'react-native';
-
+import Feather from 'react-native-vector-icons/Feather';
+import usePassword from '../components/showPassword';
 const TempPassScreen = ({route}) => {
   const [password, setPassword] = useState('');
+
+  const {showPassword, setShowPassword} = usePassword();
   console.log(password);
   // const [isFocusedPassword, setIsFocusedPassword] = useState(false);
   // const [checkValidPassword, setCheckValidPassword] = useState(false);
@@ -30,12 +33,26 @@ const TempPassScreen = ({route}) => {
           autoCorrect={false}
           autoCapitalize="none"
           placeholder="create password"
+          secureTextEntry={showPassword}
           // keyboardType="email-address"
           onChangeText={text => setPassword(text)}
           value={password}
           // onFocus={() => isFocusedPassword(true)}
           // onBlur={() => isFocusedPassword(false)}
         />
+        {password ? (
+          <TouchableOpacity
+            style={styles.eye}
+            onPress={() => setShowPassword(!showPassword)}>
+            {showPassword ? (
+              <Feather name="eye" size={23} color={'#49454F'} />
+            ) : (
+              <Feather name="eye-off" size={23} color={'#49454F'} />
+            )}
+          </TouchableOpacity>
+        ) : (
+          <></>
+        )}
       </View>
 
       {password ? (
@@ -102,6 +119,7 @@ const styles = StyleSheet.create({
     fontFamily: 'TTNorms-Regular',
   },
   input: {
+    position: 'relative',
     width: 328,
     height: 44,
     paddingVertical: 10,
@@ -123,5 +141,10 @@ const styles = StyleSheet.create({
   },
   textOk: {
     marginTop: 0,
+  },
+  eye: {
+    position: 'absolute',
+    top: 35,
+    right: 20,
   },
 });

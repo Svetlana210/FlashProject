@@ -19,7 +19,7 @@ const EmailScreen = ({navigation, route}) => {
   const [email, setEmail] = useState('');
   const [isFocusedEmail, setIsFocusedEmail] = useState(false);
   const [checkValidEmail, setCheckValidEmail] = useState(false);
-  const [userStatus, setUserStatus] = useState(null);
+  const [userStatus, setUserStatus] = useState('Inactive');
 
   const handleCheckEmail = text => {
     let re = /\S+@\S+\.\S+/;
