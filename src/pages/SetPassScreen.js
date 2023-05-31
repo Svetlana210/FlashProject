@@ -1,6 +1,7 @@
 import React, {useState} from 'react';
 // import axios from 'axios';
 import {View, Text, StyleSheet, TouchableOpacity} from 'react-native';
+import Entypo from 'react-native-vector-icons/Entypo';
 
 import TextInputPassword from '../components/TextInputPassword';
 const SetPassScreen = ({route, navigation}) => {
@@ -51,12 +52,56 @@ const SetPassScreen = ({route, navigation}) => {
             password={password}
             setPassword={setPassword}
             style={styles.eye}
+            text="create password"
           />
-          <TextInputPassword
-            password={confirmPassword}
-            setPassword={setConfirmPassword}
-            style={styles.eyeConf}
-          />
+          <View>
+            <View style={styles.textWrap}>
+              <Entypo
+                name="dot-single"
+                size={28}
+                color={'#D9D9D9'}
+                style={styles.icon}
+              />
+              <Text style={styles.validText}>
+                must be 8 - 24 characters long
+              </Text>
+            </View>
+            <View style={styles.textWrap}>
+              <Entypo
+                name="dot-single"
+                size={28}
+                color={'#D9D9D9'}
+                style={styles.icon}
+              />
+              <Text style={styles.validText}>1 lower case</Text>
+            </View>
+            <View style={styles.textWrap}>
+              <Entypo
+                name="dot-single"
+                size={28}
+                color={'#D9D9D9'}
+                style={styles.icon}
+              />
+              <Text style={styles.validText}>1 upper case</Text>
+            </View>
+            <View style={styles.textWrap}>
+              <Entypo
+                name="dot-single"
+                size={28}
+                color={'#D9D9D9'}
+                style={styles.icon}
+              />
+              <Text style={styles.validText}>1 special symbol</Text>
+            </View>
+          </View>
+          <View style={styles.wrapperConfirm}>
+            <TextInputPassword
+              password={confirmPassword}
+              setPassword={setConfirmPassword}
+              style={styles.eyeConf}
+              text="confirm password"
+            />
+          </View>
         </View>
 
         {password ? (
@@ -102,6 +147,10 @@ const styles = StyleSheet.create({
     lineHeight: 18.88,
     marginBottom: 24,
   },
+  validText: {color: '#828B94', fontSize: 14, marginLeft: 28},
+  textWrap: {position: 'relative', marginTop: 8, marginBottom: 4},
+  icon: {position: 'absolute', bottom: -6},
+  wrapperConfirm: {marginTop: 16},
   btn: {
     backgroundColor: '#F0B528',
     paddingHorizontal: 133,
@@ -124,21 +173,6 @@ const styles = StyleSheet.create({
     color: '#000000',
     fontFamily: 'TTNorms-Regular',
   },
-  // input: {
-  //   position: 'relative',
-  //   width: 328,
-  //   height: 44,
-  //   paddingVertical: 10,
-  //   paddingHorizontal: 12,
-  //   borderColor: '#DBDBDB',
-  //   borderWidth: 1,
-  //   borderRadius: 4,
-  //   color: '#1D252D',
-  //   fontSize: 16,
-  //   marginTop: 4,
-
-  //   fontFamily: 'TTNorms-Regular',
-  // },
   container: {
     position: 'relative',
   },

@@ -2,7 +2,7 @@ import {StyleSheet, TextInput, TouchableOpacity} from 'react-native';
 import React from 'react';
 import usePassword from '../components/showPasswordHook';
 import Feather from 'react-native-vector-icons/Feather';
-const TextInputPassword = ({password, setPassword, style}) => {
+const TextInputPassword = ({password, setPassword, style, text}) => {
   const {showPassword, setShowPassword} = usePassword();
   return (
     <>
@@ -10,10 +10,10 @@ const TextInputPassword = ({password, setPassword, style}) => {
         style={styles.input}
         autoCorrect={false}
         autoCapitalize="none"
-        placeholder="create password"
+        placeholder={text}
         secureTextEntry={showPassword}
         // keyboardType="email-address"
-        onChangeText={text => setPassword(text)}
+        onChangeText={textPass => setPassword(textPass)}
         value={password}
         // onFocus={() => isFocusedPassword(true)}
         // onBlur={() => isFocusedPassword(false)}
