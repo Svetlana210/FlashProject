@@ -43,33 +43,35 @@ const SetPassScreen = ({route, navigation}) => {
 
   return (
     <View style={styles.master}>
-      <Text style={styles.text}>Set password</Text>
+      <View style={styles.wrap}>
+        <Text style={styles.text}>Set password</Text>
 
-      <View styles={styles.container}>
-        <TextInputPassword
-          password={password}
-          setPassword={setPassword}
-          style={styles.eye}
-        />
-        <TextInputPassword
-          password={confirmPassword}
-          setPassword={setConfirmPassword}
-          style={styles.eyeConf}
-        />
+        <View styles={styles.container}>
+          <TextInputPassword
+            password={password}
+            setPassword={setPassword}
+            style={styles.eye}
+          />
+          <TextInputPassword
+            password={confirmPassword}
+            setPassword={setConfirmPassword}
+            style={styles.eyeConf}
+          />
+        </View>
+
+        {password ? (
+          <TouchableOpacity style={styles.btn} onPress={handleOnPasswordlBtn}>
+            <Text style={styles.btnText}>SIGN UP</Text>
+          </TouchableOpacity>
+        ) : (
+          <TouchableOpacity
+            style={styles.btnDisable}
+            disabled
+            onPress={handleOnPasswordlBtn}>
+            <Text style={styles.btnTextDisable}>SIGN UP</Text>
+          </TouchableOpacity>
+        )}
       </View>
-
-      {password ? (
-        <TouchableOpacity style={styles.btn} onPress={handleOnPasswordlBtn}>
-          <Text style={styles.btnText}>SIGN UP</Text>
-        </TouchableOpacity>
-      ) : (
-        <TouchableOpacity
-          style={styles.btnDisable}
-          disabled
-          onPress={handleOnPasswordlBtn}>
-          <Text style={styles.btnTextDisable}>SIGN UP</Text>
-        </TouchableOpacity>
-      )}
     </View>
   );
 };
@@ -82,11 +84,16 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'flex-start',
   },
+  wrap: {
+    width: 328,
+    marginHorizontal: 40,
+  },
   text: {
     fontSize: 32,
     lineHeight: 38.4,
     marginBottom: 16,
     marginTop: 32,
+    // marginLeft: 25,
     color: '#1D252D',
     fontFamily: 'TTNorms-Medium',
   },
@@ -96,7 +103,6 @@ const styles = StyleSheet.create({
     marginBottom: 24,
   },
   btn: {
-    width: 328,
     backgroundColor: '#F0B528',
     paddingHorizontal: 133,
     paddingVertical: 13,
@@ -104,7 +110,6 @@ const styles = StyleSheet.create({
     marginTop: 24,
   },
   btnDisable: {
-    width: 328,
     backgroundColor: '#FFF2D3',
     paddingHorizontal: 133,
     paddingVertical: 13,
@@ -119,21 +124,21 @@ const styles = StyleSheet.create({
     color: '#000000',
     fontFamily: 'TTNorms-Regular',
   },
-  input: {
-    position: 'relative',
-    width: 328,
-    height: 44,
-    paddingVertical: 10,
-    paddingHorizontal: 12,
-    borderColor: '#DBDBDB',
-    borderWidth: 1,
-    borderRadius: 4,
-    color: '#1D252D',
-    fontSize: 16,
-    marginTop: 4,
+  // input: {
+  //   position: 'relative',
+  //   width: 328,
+  //   height: 44,
+  //   paddingVertical: 10,
+  //   paddingHorizontal: 12,
+  //   borderColor: '#DBDBDB',
+  //   borderWidth: 1,
+  //   borderRadius: 4,
+  //   color: '#1D252D',
+  //   fontSize: 16,
+  //   marginTop: 4,
 
-    fontFamily: 'TTNorms-Regular',
-  },
+  //   fontFamily: 'TTNorms-Regular',
+  // },
   container: {
     position: 'relative',
   },

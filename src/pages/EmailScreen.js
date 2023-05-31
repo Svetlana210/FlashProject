@@ -130,6 +130,7 @@ const styles = StyleSheet.create({
     fontFamily: 'TTNorms-Medium',
   },
   btn: {
+    width: 330,
     backgroundColor: '#F0B528',
     paddingHorizontal: 79.5,
     paddingVertical: 13,

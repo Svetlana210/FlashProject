@@ -43,27 +43,28 @@ const TempPassScreen = ({route, navigation}) => {
   const email = route.params.userEmail ? route.params.userEmail : 'your email';
   return (
     <View style={styles.master}>
-      <View>
+      <View style={styles.wrap}>
         <Text style={styles.text}>Enter your temporary password</Text>
         <Text style={styles.textSmall}>Using {email} to log in</Text>
-      </View>
-      <View>
-        <Text style={styles.textLabel}>Your temporary password</Text>
-        <TextInputPassword password={password} setPassword={setPassword} />
-      </View>
 
-      {password ? (
-        <TouchableOpacity style={styles.btn} onPress={handleOnPasswordlBtn}>
-          <Text style={styles.btnText}>CONTINUE</Text>
-        </TouchableOpacity>
-      ) : (
-        <TouchableOpacity
-          style={styles.btnDisable}
-          disabled
-          onPress={handleOnPasswordlBtn}>
-          <Text style={styles.btnTextDisable}>CONTINUE</Text>
-        </TouchableOpacity>
-      )}
+        <View>
+          <Text style={styles.textLabel}>Your temporary password</Text>
+          <TextInputPassword password={password} setPassword={setPassword} />
+        </View>
+
+        {password ? (
+          <TouchableOpacity style={styles.btn} onPress={handleOnPasswordlBtn}>
+            <Text style={styles.btnText}>CONTINUE</Text>
+          </TouchableOpacity>
+        ) : (
+          <TouchableOpacity
+            style={styles.btnDisable}
+            disabled
+            onPress={handleOnPasswordlBtn}>
+            <Text style={styles.btnTextDisable}>CONTINUE</Text>
+          </TouchableOpacity>
+        )}
+      </View>
     </View>
   );
 };
@@ -76,6 +77,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'flex-start',
   },
+  wrap: {width: 328, marginHorizontal: 40},
   text: {
     fontSize: 32,
     lineHeight: 38.4,
@@ -88,6 +90,7 @@ const styles = StyleSheet.create({
     fontSize: 16,
     lineHeight: 18.88,
     marginBottom: 24,
+    color: '#46596D',
   },
   btn: {
     width: 328,
