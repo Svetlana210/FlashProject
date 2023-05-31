@@ -201,7 +201,7 @@ const SetPassScreen = ({route, navigation}) => {
           </View>
         </View>
 
-        {password ? (
+        {password === confirmPassword ? (
           <TouchableOpacity style={styles.btn} onPress={handleOnPasswordlBtn}>
             <Text style={styles.btnText}>SIGN UP</Text>
           </TouchableOpacity>
@@ -288,6 +288,6 @@ const styles = StyleSheet.create({
     top: 15,
   },
   eyeConf: {
-    top: 65,
+    top: 15,
   },
 });
