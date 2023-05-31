@@ -42,9 +42,8 @@ const EmailScreen = ({navigation, route}) => {
         {email},
       );
       setUserStatus(response.data.status);
-      console.log(userStatus);
 
-      // console.log(response.data.status);
+      console.log(response.data.status);
       // return response.data.status;
     } catch (error) {
       Alert.alert('User is not exist');

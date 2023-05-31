@@ -1,4 +1,5 @@
 import React, {useState} from 'react';
+import axios from 'axios';
 import {
   View,
   Text,
@@ -11,14 +12,38 @@ import usePassword from '../components/showPassword';
 const TempPassScreen = ({route}) => {
   const [password, setPassword] = useState('');
 
+  const [token, setToken] = useState('');
+  const [refreshToken, setRefreshToken] = useState('');
+
   const {showPassword, setShowPassword} = usePassword();
   console.log(password);
   // const [isFocusedPassword, setIsFocusedPassword] = useState(false);
   // const [checkValidPassword, setCheckValidPassword] = useState(false);
 
+  const setTempPassword = async () => {
+    try {
+      const response = await axios.post(
+        'https://qa-api-flash.lasoft.org/api/v1/auth/sign_in',
+        {email, password},
+      );
+
+      // console.log(response.data);
+      setToken(response.data.access_token);
+      setRefreshToken(response.data.refresh_token);
+      // return response.data.status;
+    } catch (error) {
+      // Alert.alert('User is not exist');
+      console.log(`error - ${error.message}`);
+    }
+  };
+
   const handleOnPasswordlBtn = e => {
     e.preventDefault();
+    setTempPassword();
   };
+
+  console.log(token);
+  console.log(refreshToken);
   const email = route.params.userEmail ? route.params.userEmail : 'your email';
   return (
     <View style={styles.master}>
