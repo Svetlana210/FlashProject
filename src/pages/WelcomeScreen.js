@@ -1,5 +1,6 @@
 import React from 'react';
-import {View, Text, StyleSheet, TouchableOpacity, Image} from 'react-native';
+import {View, StyleSheet, TouchableOpacity, Image} from 'react-native';
+import AppText from '../components/AppText';
 
 let logo = require('../images/logoB.png');
 
@@ -7,12 +8,17 @@ const WelcomeScreen = ({navigation, route}) => {
   return (
     <View style={styles.master}>
       <Image source={logo} />
-      <Text style={styles.title}>Welcome! </Text>
-      <Text style={styles.text}>Quick solution to answer surveys</Text>
+      {/* <Text style={styles.title}>Welcome! </Text> */}
+      <AppText isMedium style={styles.title}>
+        Welcome!
+      </AppText>
+      <AppText style={styles.text}>Quick solution to answer surveys</AppText>
       <TouchableOpacity
         style={styles.btn}
         onPress={() => navigation.navigate('EmailScreen')}>
-        <Text style={styles.btnText}>CONTINUE WITH EMAIL</Text>
+        <AppText isBold style={styles.btnText}>
+          CONTINUE WITH EMAIL
+        </AppText>
       </TouchableOpacity>
     </View>
   );
@@ -43,5 +49,5 @@ const styles = StyleSheet.create({
     paddingVertical: 13,
     borderRadius: 4,
   },
-  btnText: {fontFamily: 'TTNorms-Bold', color: '#000000'},
+  btnText: {color: '#000000'},
 });

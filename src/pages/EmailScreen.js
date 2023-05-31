@@ -1,7 +1,7 @@
 /* eslint-disable no-useless-escape */
 /* eslint-disable react-native/no-inline-styles */
 import React, {useState} from 'react';
-// import axios from 'axios';
+import axios from 'axios';
 // import AsyncStorage from '@react-native-async-storage/async-storage';
 import {
   View,
@@ -9,6 +9,7 @@ import {
   StyleSheet,
   TouchableOpacity,
   TextInput,
+  Alert,
 } from 'react-native';
 
 const EmailScreen = ({navigation, route}) => {
@@ -18,6 +19,8 @@ const EmailScreen = ({navigation, route}) => {
   const [email, setEmail] = useState('');
   const [isFocusedEmail, setIsFocusedEmail] = useState(false);
   const [checkValidEmail, setCheckValidEmail] = useState(false);
+  const [userStatus, setUserStatus] = useState(null);
+
   const handleCheckEmail = text => {
     let re = /\S+@\S+\.\S+/;
     let regex = /^[\+]?[(]?[0-9]{3}[)]?[-\s\.]?[0-9]{3}[-\s\.]?[0-9]{4,6}$/im;
@@ -32,19 +35,35 @@ const EmailScreen = ({navigation, route}) => {
   // const [userStatus, setUserStatus] = useState(false);
   // const [isLoading, setIsLoading] = useState(false);
 
-  // const checkEmail = async () => {
-  //   try {
-  //     const response = await instance.post('/auth/user_status');
-  //     console.log(response);
-  //   } catch (error) {
-  //     console.log(error.message);
-  //   }
-  // };
+  const checkEmail = async () => {
+    try {
+      const response = await axios.post(
+        'https://qa-api-flash.lasoft.org/api/v1/auth/user_status',
+        {email},
+      );
+      setUserStatus(response.data.status);
+      console.log(userStatus);
+
+      // console.log(response.data.status);
+      // return response.data.status;
+    } catch (error) {
+      Alert.alert('User is not exist');
+      console.log(`error - ${error.message}`);
+    }
+  };
 
   const handleOnEmailBtn = e => {
     e.preventDefault();
-    navigation.navigate('TempPassScreen');
-    // checkEmail();
+    checkEmail();
+    if (userStatus === 'Inactive') {
+      navigation.navigate('TempPassScreen', {
+        userEmail: email,
+      });
+    } else if (userStatus === 'Active') {
+      navigation.navigate('SetPassScreen');
+    } else {
+      Alert.alert('User is not exit');
+    }
   };
   return (
     <View style={styles.master}>
@@ -82,7 +101,10 @@ const EmailScreen = ({navigation, route}) => {
           <Text style={styles.btnText}>CONTINUE WITH EMAIL</Text>
         </TouchableOpacity>
       ) : (
-        <TouchableOpacity style={styles.btnDisable} onPress={handleOnEmailBtn}>
+        <TouchableOpacity
+          style={styles.btnDisable}
+          disabled
+          onPress={handleOnEmailBtn}>
           <Text style={styles.btnTextDisable}>CONTINUE WITH EMAIL</Text>
         </TouchableOpacity>
       )}
@@ -105,7 +127,7 @@ const styles = StyleSheet.create({
     lineHeight: 38.4,
     marginBottom: 24,
     marginTop: 32,
-    // marginLeft: 16,
+    color: '#1D252D',
     fontFamily: 'TTNorms-Medium',
   },
   btn: {

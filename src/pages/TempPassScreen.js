@@ -1,10 +1,55 @@
-import React from 'react';
-import {View, Text, StyleSheet} from 'react-native';
+import React, {useState} from 'react';
+import {
+  View,
+  Text,
+  StyleSheet,
+  TextInput,
+  TouchableOpacity,
+} from 'react-native';
 
-const TempPassScreen = () => {
+const TempPassScreen = ({route}) => {
+  const [password, setPassword] = useState('');
+  console.log(password);
+  // const [isFocusedPassword, setIsFocusedPassword] = useState(false);
+  // const [checkValidPassword, setCheckValidPassword] = useState(false);
+
+  const handleOnPasswordlBtn = e => {
+    e.preventDefault();
+  };
+  const email = route.params.userEmail ? route.params.userEmail : 'your email';
   return (
     <View style={styles.master}>
-      <Text style={styles.text}>TempPassScreen</Text>
+      <View>
+        <Text style={styles.text}>Enter your temporary password</Text>
+        <Text style={styles.textSmall}>Using {email} to log in</Text>
+      </View>
+      <View>
+        <Text style={styles.textLabel}>Your temporary password</Text>
+        <TextInput
+          style={styles.input}
+          autoCorrect={false}
+          autoCapitalize="none"
+          placeholder="create password"
+          // keyboardType="email-address"
+          onChangeText={text => setPassword(text)}
+          value={password}
+          // onFocus={() => isFocusedPassword(true)}
+          // onBlur={() => isFocusedPassword(false)}
+        />
+      </View>
+
+      {password ? (
+        <TouchableOpacity style={styles.btn} onPress={handleOnPasswordlBtn}>
+          <Text style={styles.btnText}>CONTINUE</Text>
+        </TouchableOpacity>
+      ) : (
+        <TouchableOpacity
+          style={styles.btnDisable}
+          disabled
+          onPress={handleOnPasswordlBtn}>
+          <Text style={styles.btnTextDisable}>CONTINUE</Text>
+        </TouchableOpacity>
+      )}
     </View>
   );
 };
@@ -12,15 +57,71 @@ export default TempPassScreen;
 
 const styles = StyleSheet.create({
   master: {
+    backgroundColor: '#ffffff',
     flex: 1,
     alignItems: 'center',
-    justifyContent: 'center',
-    marginVertical: 30,
-    marginHorizontal: 30,
+    justifyContent: 'flex-start',
+    // marginVertical: 30,
+    // marginHorizontal: 30,
   },
   text: {
-    fontSize: 26,
+    fontSize: 32,
+    lineHeight: 38.4,
+    marginBottom: 16,
+    marginTop: 32,
+    color: '#1D252D',
+    fontFamily: 'TTNorms-Medium',
+  },
+  textSmall: {
+    fontSize: 16,
+    lineHeight: 18.88,
+    marginBottom: 24,
+  },
+  btn: {
+    width: 328,
+    backgroundColor: '#F0B528',
+    paddingHorizontal: 122,
+    paddingVertical: 13,
+    borderRadius: 4,
+    marginTop: 24,
+  },
+  btnDisable: {
+    width: 328,
+    backgroundColor: '#FFF2D3',
+    paddingHorizontal: 122,
+    paddingVertical: 13,
+    borderRadius: 4,
+    marginTop: 18,
+  },
+  btnText: {fontFamily: 'TTNorms-Bold', color: '#1D252D'},
+  btnTextDisable: {fontFamily: 'TTNorms-Bold', color: '#A1A1A1'},
+  textLabel: {
+    fontSize: 14,
+    lineHeight: 21,
+    color: '#000000',
+    fontFamily: 'TTNorms-Regular',
+  },
+  input: {
+    width: 328,
+    height: 44,
+    paddingVertical: 10,
+    paddingHorizontal: 12,
+    borderColor: '#DBDBDB',
+    borderWidth: 1,
+    borderRadius: 4,
+    color: '#1D252D',
+    fontSize: 16,
+    marginTop: 4,
 
-    marginBottom: 20,
+    fontFamily: 'TTNorms-Regular',
+  },
+  textFailed: {
+    alignSelf: 'flex-start',
+    color: 'red',
+    marginBottom: 10,
+    marginTop: 5,
+  },
+  textOk: {
+    marginTop: 0,
   },
 });

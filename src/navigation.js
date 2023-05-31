@@ -5,6 +5,7 @@ import {Image} from 'react-native';
 import WelcomeScreen from './pages/WelcomeScreen';
 import EmailScreen from './pages/EmailScreen';
 import TempPassScreen from './pages/TempPassScreen';
+import SetPassScreen from './pages/SetPassScreen';
 import SignInScreen from './pages/SignInScreen';
 import GoBackBtn from './components/GoBackBtn';
 
@@ -38,8 +39,13 @@ const Navigation = () => {
         />
         <Stack.Screen
           name="TempPassScreen"
-          options={{title: 'Help'}}
+          options={{title: ''}}
           component={TempPassScreen}
+        />
+        <Stack.Screen
+          name="SetPassScreen"
+          options={{title: ''}}
+          component={SetPassScreen}
         />
         <Stack.Screen
           name="SignInScreen"
