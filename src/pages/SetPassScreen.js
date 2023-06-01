@@ -1,10 +1,15 @@
-import React, {useState} from 'react';
+import React, {useState, useContext} from 'react';
 // import axios from 'axios';
 import {View, Text, StyleSheet, TouchableOpacity} from 'react-native';
 import Entypo from 'react-native-vector-icons/Entypo';
 import AntDesign from 'react-native-vector-icons/AntDesign';
 
 import TextInputPassword from '../components/TextInputPassword';
+
+import {AuthContext} from '../context/authContext';
+
+import {AxiosContext} from '../context/axiosContext';
+
 const SetPassScreen = ({route, navigation}) => {
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
@@ -13,6 +18,12 @@ const SetPassScreen = ({route, navigation}) => {
   const [upperValidate, setUpperValidate] = useState(false);
   const [symbolValidate, setSymbolValidate] = useState(false);
   const [lengthValidate, setLengthValidate] = useState(false);
+
+  const authContext = useContext(AuthContext);
+  const {authAxios} = useContext(AxiosContext);
+
+  const {access_token} = authContext.authState;
+  console.log(authContext.authState.access_token);
 
   const handleChange = value => {
     const lower = new RegExp('(?=.*[a-z])');
@@ -33,7 +44,7 @@ const SetPassScreen = ({route, navigation}) => {
     } else {
       setUpperValidate(false);
     }
-    if (number.test(value) || special.test(value)) {
+    if (number.test(value) && special.test(value)) {
       setSymbolValidate(true);
     } else {
       setSymbolValidate(false);
@@ -44,7 +55,21 @@ const SetPassScreen = ({route, navigation}) => {
       setLengthValidate(false);
     }
   };
+  console.log(password);
 
+  const onSignUp = async () => {
+    try {
+      const response = await authAxios.post('/auth/reset_password', {
+        access_token,
+        password,
+      });
+      authContext.setAuthState({access_token, authenticated: true});
+      console.log(response);
+    } catch (error) {
+      // Alert.alert('User is not exist');
+      console.log(`error - ${error.message}`);
+    }
+  };
   // const [token, setToken] = useState('');
   // const [refreshToken, setRefreshToken] = useState('');
 
@@ -72,8 +97,9 @@ const SetPassScreen = ({route, navigation}) => {
 
   const handleOnPasswordlBtn = e => {
     e.preventDefault();
+    onSignUp();
     // setTempPassword();
-    // navigation.navigate('SetPassScreen');
+    // navigation.navigate('HomeScreen');
   };
 
   // console.log(token);

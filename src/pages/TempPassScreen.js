@@ -1,30 +1,48 @@
-import React, {useState} from 'react';
-import axios from 'axios';
+import React, {useState, useContext} from 'react';
+// import axios from 'axios';
 import {View, Text, StyleSheet, TouchableOpacity} from 'react-native';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 import TextInputPassword from '../components/TextInputPassword';
+import * as Keychain from 'react-native-keychain';
+import {AuthContext} from '../context/authContext';
+
+import {AxiosContext} from '../context/axiosContext';
 
 const TempPassScreen = ({route, navigation}) => {
   const [password, setPassword] = useState('');
 
-  const [token, setToken] = useState('');
-  const [refreshToken, setRefreshToken] = useState('');
+  // const [token, setToken] = useState('');
+  // const [refreshToken, setRefreshToken] = useState('');
+
+  const authContext = useContext(AuthContext);
+  const {publicAxios} = useContext(AxiosContext);
 
   // const {showPassword, setShowPassword} = usePassword();
-  console.log(`temppass-${password}`);
+  // console.log(`temppass-${password}`);
   // const [isFocusedPassword, setIsFocusedPassword] = useState(false);
   // const [checkValidPassword, setCheckValidPassword] = useState(false);
 
   const setTempPassword = async () => {
     try {
-      const response = await axios.post(
-        'https://qa-api-flash.lasoft.org/api/v1/auth/sign_in',
-        {email, password},
-      );
-
+      const response = await publicAxios.post('/auth/sign_in', {
+        email,
+        password,
+      });
+      const {access_token} = response.data;
       // console.log(response.data);
-      setToken(response.data.access_token);
-      setRefreshToken(response.data.refresh_token);
+      authContext.setAuthState({
+        access_token,
+        authenticated: true,
+        // authenticated: false,
+      });
+      AsyncStorage.setItem('token', JSON.stringify(access_token));
+      // await Keychain.setGenericPassword(
+      //   'token',
+      //   JSON.stringify({
+      //     access_token,
+      //   }),
+      // );
       // return response.data.status;
     } catch (error) {
       // Alert.alert('User is not exist');
@@ -37,9 +55,6 @@ const TempPassScreen = ({route, navigation}) => {
     setTempPassword();
     navigation.navigate('SetPassScreen');
   };
-
-  console.log(`token-${token}`);
-  console.log(`refresh -${refreshToken}`);
   const email = route.params.userEmail ? route.params.userEmail : 'your email';
   return (
     <View style={styles.master}>
