@@ -1,4 +1,4 @@
-import React, {useState, useContext} from 'react';
+import React, {useState, useContext, useEffect} from 'react';
 // import axios from 'axios';
 import {View, Text, StyleSheet, TouchableOpacity} from 'react-native';
 import Entypo from 'react-native-vector-icons/Entypo';
@@ -59,16 +59,20 @@ const SetPassScreen = ({route, navigation}) => {
   };
   // console.log(password);
 
-  const findUserId = async () => {
-    try {
-      const response = await authAxios.get('/my_profile');
-      setUserId(response.data._id);
-      // console.log(response.data._id);
-    } catch (error) {
-      console.log(`error my-profile - ${error.message}`);
-    }
-  };
-  findUserId();
+  useEffect(() => {
+    const findUserId = async () => {
+      try {
+        const response = await authAxios.get('/my_profile');
+        setUserId(response.data._id);
+        // console.log(response.data._id);
+      } catch (error) {
+        console.log(`error my-profile - ${error.message}`);
+      }
+    };
+    findUserId();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
   // console.log(userId);
   const onSignUp = async () => {
     try {

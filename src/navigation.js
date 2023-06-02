@@ -13,6 +13,7 @@ import SetPassScreen from './pages/SetPassScreen';
 import SignInScreen from './pages/SignInScreen';
 import HomeScreen from './pages/HomeScreen';
 import PassRecoveryScreen from './pages/PassRecoveryScreen';
+import CheckEmailScreen from './pages/CheckEmailScreen';
 import GoBackBtn from './components/GoBackBtn';
 
 let logo = require('./images/logoS.jpg');
@@ -99,6 +100,11 @@ const Navigation = () => {
             name="PassRecoveryScreen"
             options={{title: ''}}
             component={PassRecoveryScreen}
+          />
+          <AuthStack.Screen
+            name="CheckEmailScreen"
+            options={{title: ''}}
+            component={CheckEmailScreen}
           />
         </AuthStack.Navigator>
       </NavigationContainer>

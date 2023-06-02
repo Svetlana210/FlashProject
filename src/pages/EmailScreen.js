@@ -1,7 +1,6 @@
 /* eslint-disable no-useless-escape */
 /* eslint-disable react-native/no-inline-styles */
-import React, {useState} from 'react';
-import axios from 'axios';
+import React, {useState, useContext} from 'react';
 // import AsyncStorage from '@react-native-async-storage/async-storage';
 import {
   View,
@@ -11,6 +10,7 @@ import {
   TextInput,
   Alert,
 } from 'react-native';
+import {AxiosContext} from '../context/axiosContext';
 
 const EmailScreen = ({navigation, route}) => {
   const [email, setEmail] = useState('');
@@ -18,6 +18,8 @@ const EmailScreen = ({navigation, route}) => {
   const [checkValidEmail, setCheckValidEmail] = useState(false);
   // eslint-disable-next-line no-unused-vars
   const [userStatus, setUserStatus] = useState(false);
+
+  const {publicAxios} = useContext(AxiosContext);
 
   const handleCheckEmail = text => {
     let re = /\S+@\S+\.\S+/;
@@ -33,10 +35,7 @@ const EmailScreen = ({navigation, route}) => {
 
   const checkEmail = async () => {
     try {
-      const response = await axios.post(
-        'https://qa-api-flash.lasoft.org/api/v1/auth/user_status',
-        {email},
-      );
+      const response = await publicAxios.post('/auth/user_status', {email});
       // setUserStatus(response.data.status);
       if (response.data.status === 'Inactive') {
         setUserStatus(false);

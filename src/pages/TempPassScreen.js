@@ -30,7 +30,7 @@ const TempPassScreen = ({route, navigation}) => {
         password,
       });
       const {access_token} = response.data;
-      // console.log(response.data);
+      console.log(response.data);
       authContext.setAuthState({
         access_token,
         // authenticated: true,
@@ -59,7 +59,9 @@ const TempPassScreen = ({route, navigation}) => {
   return (
     <View style={styles.master}>
       <View style={styles.wrap}>
-        <Text style={styles.text}>Enter your temporary password</Text>
+        <Text style={styles.text}>
+          Enter your <Text style={styles.textPass}>temporary password</Text>
+        </Text>
         <Text style={styles.textSmall}>Using {email} to log in</Text>
 
         <View>
@@ -99,6 +101,14 @@ const styles = StyleSheet.create({
     marginBottom: 16,
     marginTop: 32,
     color: '#1D252D',
+    fontFamily: 'TTNorms-Medium',
+  },
+  textPass: {
+    fontSize: 32,
+    lineHeight: 38.4,
+    marginBottom: 16,
+    marginTop: 32,
+    color: '#DCA114',
     fontFamily: 'TTNorms-Medium',
   },
   textSmall: {

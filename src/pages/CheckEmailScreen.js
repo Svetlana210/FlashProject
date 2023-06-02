@@ -1,31 +1,9 @@
-/* eslint-disable no-useless-escape */
-import React, {useState, useContext} from 'react';
-import {
-  View,
-  Text,
-  StyleSheet,
-  TouchableOpacity,
-  TextInput,
-} from 'react-native';
+import {StyleSheet, Text, View, TouchableOpacity, Image} from 'react-native';
+import React, {useContext} from 'react';
 import {AxiosContext} from '../context/axiosContext';
-const PassRecoveryScreen = ({navigation}) => {
-  const [email, setEmail] = useState('');
-  const [isFocusedEmail, setIsFocusedEmail] = useState(false);
-  const [checkValidEmail, setCheckValidEmail] = useState(false);
-
+let letter = require('../images/letter.png');
+const CheckEmailScreen = ({route}) => {
   const {publicAxios} = useContext(AxiosContext);
-
-  const handleCheckEmail = text => {
-    let re = /\S+@\S+\.\S+/;
-    let regex = /^[\+]?[(]?[0-9]{3}[)]?[-\s\.]?[0-9]{3}[-\s\.]?[0-9]{4,6}$/im;
-
-    setEmail(text);
-    if (re.test(text) || regex.test(text)) {
-      setCheckValidEmail(false);
-    } else {
-      setCheckValidEmail(true);
-    }
-  };
 
   const sendEmail = async () => {
     try {
@@ -43,62 +21,38 @@ const PassRecoveryScreen = ({navigation}) => {
   const handleOnEmailBtn = e => {
     e.preventDefault();
     sendEmail();
-    navigation.navigate('CheckEmailScreen', {
-      userEmail: email,
-    });
   };
+  const email = route.params.userEmail ? route.params.userEmail : 'your email';
   return (
     <View style={styles.master}>
       <View style={styles.wrap}>
-        <Text style={styles.text}>Password recovery</Text>
-        <View>
-          <Text style={styles.textSmall}>
-            Please enter your email, and we will send you further instructions.
-          </Text>
-          <TextInput
-            // eslint-disable-next-line react-native/no-inline-styles
-            style={{
-              ...styles.input,
-
-              borderColor: isFocusedEmail ? '#F0B528' : '#DBDBDB',
-            }}
-            autoCorrect={false}
-            autoCapitalize="none"
-            placeholder="Email"
-            keyboardType="email-address"
-            onChangeText={text => handleCheckEmail(text)}
-            value={email}
-            onFocus={() => setIsFocusedEmail(true)}
-            onBlur={() => {
-              setIsFocusedEmail(false);
-            }}
-          />
-          {checkValidEmail && email ? (
-            <Text style={styles.textFailed}>
-              Email does not appear to be valid
-            </Text>
-          ) : (
-            <Text style={styles.textOk}> </Text>
-          )}
+        <View style={styles.imgWrap}>
+          <Image source={letter} style={styles.img} />
         </View>
+        <Text style={styles.text}>Check your email</Text>
+        <Text style={styles.textSmall}>
+          We’ve sent an email to
+          <Text style={styles.textSmallEmail}> {email}</Text> with further
+          instructions. If the email doesn’t show up, check your spam folder
+        </Text>
 
         {email ? (
           <TouchableOpacity style={styles.btn} onPress={handleOnEmailBtn}>
-            <Text style={styles.btnText}>SEND</Text>
+            <Text style={styles.btnText}>RESEND</Text>
           </TouchableOpacity>
         ) : (
           <TouchableOpacity
             style={styles.btnDisable}
             disabled
             onPress={handleOnEmailBtn}>
-            <Text style={styles.btnTextDisable}>SEND</Text>
+            <Text style={styles.btnTextDisable}>RESEND</Text>
           </TouchableOpacity>
         )}
       </View>
     </View>
   );
 };
-export default PassRecoveryScreen;
+export default CheckEmailScreen;
 
 const styles = StyleSheet.create({
   master: {
@@ -111,35 +65,48 @@ const styles = StyleSheet.create({
     width: 328,
     marginHorizontal: 40,
   },
+  img: {width: 120, height: 105},
+  imgWrap: {
+    flex: 1,
+    alignItems: 'center',
+    justifyContent: 'center',
+    marginTop: 100,
+    marginBottom: 50,
+  },
   text: {
     fontSize: 32,
     lineHeight: 38.4,
-    marginBottom: 24,
+    marginBottom: 15,
     marginTop: 32,
     color: '#1D252D',
     fontFamily: 'TTNorms-Medium',
   },
   textSmall: {
     fontSize: 16,
-    lineHeight: 22,
-    marginBottom: 24,
+    lineHeight: 25,
     color: '#46596D',
     fontFamily: 'TTNorms-Regular',
+  },
+  textSmallEmail: {
+    fontSize: 16,
+    lineHeight: 25,
+    color: '#46596D',
+    fontFamily: 'TTNorms-Medium',
   },
   btn: {
     width: 330,
     backgroundColor: '#F0B528',
-    paddingHorizontal: 140,
+    paddingHorizontal: 130,
     paddingVertical: 13,
     borderRadius: 4,
-    marginTop: 8,
+    marginTop: 24,
   },
   btnDisable: {
     backgroundColor: '#FFF2D3',
-    paddingHorizontal: 140,
+    paddingHorizontal: 130,
     paddingVertical: 13,
     borderRadius: 4,
-    marginTop: 8,
+    marginTop: 18,
   },
   btnText: {fontFamily: 'TTNorms-Bold', color: '#1D252D'},
   btnTextDisable: {fontFamily: 'TTNorms-Bold', color: '#A1A1A1'},
