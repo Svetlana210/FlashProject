@@ -12,6 +12,7 @@ import TempPassScreen from './pages/TempPassScreen';
 import SetPassScreen from './pages/SetPassScreen';
 import SignInScreen from './pages/SignInScreen';
 import HomeScreen from './pages/HomeScreen';
+import PassRecoveryScreen from './pages/PassRecoveryScreen';
 import GoBackBtn from './components/GoBackBtn';
 
 let logo = require('./images/logoS.jpg');
@@ -93,6 +94,11 @@ const Navigation = () => {
             name="SignInScreen"
             options={{title: ''}}
             component={SignInScreen}
+          />
+          <AuthStack.Screen
+            name="PassRecoveryScreen"
+            options={{title: ''}}
+            component={PassRecoveryScreen}
           />
         </AuthStack.Navigator>
       </NavigationContainer>

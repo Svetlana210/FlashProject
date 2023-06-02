@@ -30,7 +30,7 @@ const TempPassScreen = ({route, navigation}) => {
         password,
       });
       const {access_token} = response.data;
-      console.log(response.data);
+      // console.log(response.data);
       authContext.setAuthState({
         access_token,
         // authenticated: true,
@@ -106,6 +106,7 @@ const styles = StyleSheet.create({
     lineHeight: 18.88,
     marginBottom: 24,
     color: '#46596D',
+    fontFamily: 'TTNorms-Regular',
   },
   btn: {
     width: 328,

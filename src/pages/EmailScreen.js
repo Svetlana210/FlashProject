@@ -16,7 +16,8 @@ const EmailScreen = ({navigation, route}) => {
   const [email, setEmail] = useState('');
   const [isFocusedEmail, setIsFocusedEmail] = useState(false);
   const [checkValidEmail, setCheckValidEmail] = useState(false);
-  const [userStatus, setUserStatus] = useState(null);
+  // eslint-disable-next-line no-unused-vars
+  const [userStatus, setUserStatus] = useState(false);
 
   const handleCheckEmail = text => {
     let re = /\S+@\S+\.\S+/;
@@ -36,8 +37,18 @@ const EmailScreen = ({navigation, route}) => {
         'https://qa-api-flash.lasoft.org/api/v1/auth/user_status',
         {email},
       );
-      setUserStatus(response.data.status);
-
+      // setUserStatus(response.data.status);
+      if (response.data.status === 'Inactive') {
+        setUserStatus(false);
+        navigation.navigate('TempPassScreen', {
+          userEmail: email,
+        });
+      } else if (response.data.status === 'Active') {
+        setUserStatus(true);
+        navigation.navigate('SignInScreen', {
+          userEmail: email,
+        });
+      }
       console.log(response.data.status);
       // return response.data.status;
     } catch (error) {
@@ -49,15 +60,6 @@ const EmailScreen = ({navigation, route}) => {
   const handleOnEmailBtn = e => {
     e.preventDefault();
     checkEmail();
-    if (userStatus === 'Inactive') {
-      navigation.navigate('TempPassScreen', {
-        userEmail: email,
-      });
-    } else if (userStatus === 'Active') {
-      navigation.navigate('SignInScreen');
-    } else {
-      Alert.alert('User is not exit');
-    }
   };
   return (
     <View style={styles.master}>

@@ -69,14 +69,15 @@ const SetPassScreen = ({route, navigation}) => {
     }
   };
   findUserId();
-  console.log(userId);
+  // console.log(userId);
   const onSignUp = async () => {
     try {
+      // eslint-disable-next-line no-unused-vars
       const response = await authAxios.post(`/users/${userId}/set_password`, {
         password,
       });
       authContext.setAuthState({access_token, authenticated: true});
-      console.log(response);
+      // console.log(response);
     } catch (error) {
       // Alert.alert('User is not exist');
       console.log(`error setPass - ${error.message}`);
