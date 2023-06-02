@@ -1,13 +1,18 @@
+/* eslint-disable react-native/no-inline-styles */
 import {StyleSheet, TextInput, TouchableOpacity} from 'react-native';
-import React from 'react';
+import React, {useState} from 'react';
 import usePassword from '../components/showPasswordHook';
 import Feather from 'react-native-vector-icons/Feather';
 const TextInputPassword = ({password, setPassword, style, text}) => {
+  const [isFocusedEmail, setIsFocusedEmail] = useState(false);
   const {showPassword, setShowPassword} = usePassword();
   return (
     <>
       <TextInput
-        style={styles.input}
+        style={{
+          ...styles.input,
+          borderColor: isFocusedEmail ? '#F0B528' : '#DBDBDB',
+        }}
         autoCorrect={false}
         autoCapitalize="none"
         placeholder={text}
@@ -15,8 +20,10 @@ const TextInputPassword = ({password, setPassword, style, text}) => {
         // keyboardType="email-address"
         onChangeText={textPass => setPassword(textPass)}
         value={password}
-        // onFocus={() => isFocusedPassword(true)}
-        // onBlur={() => isFocusedPassword(false)}
+        onFocus={() => setIsFocusedEmail(true)}
+        onBlur={() => {
+          setIsFocusedEmail(false);
+        }}
       />
       {password ? (
         <TouchableOpacity

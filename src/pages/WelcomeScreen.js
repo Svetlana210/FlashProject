@@ -49,5 +49,5 @@ const styles = StyleSheet.create({
     paddingVertical: 13,
     borderRadius: 4,
   },
-  btnText: {color: '#000000'},
+  btnText: {color: '#000000', fontSize: 14},
 });

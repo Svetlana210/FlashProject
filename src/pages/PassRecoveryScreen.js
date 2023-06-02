@@ -141,8 +141,8 @@ const styles = StyleSheet.create({
     borderRadius: 4,
     marginTop: 8,
   },
-  btnText: {fontFamily: 'TTNorms-Bold', color: '#1D252D'},
-  btnTextDisable: {fontFamily: 'TTNorms-Bold', color: '#A1A1A1'},
+  btnText: {fontFamily: 'TTNorms-Bold', color: '#1D252D', fontSize: 14},
+  btnTextDisable: {fontFamily: 'TTNorms-Bold', color: '#A1A1A1', fontSize: 14},
   textLabel: {
     fontSize: 14,
     lineHeight: 21,

@@ -1,8 +1,11 @@
 import {StyleSheet, Text, View, TouchableOpacity, Image} from 'react-native';
-import React, {useContext} from 'react';
+import React, {useContext, useRef, useEffect, useState} from 'react';
+// import CountDownTimer from '../components/Timer';
 import {AxiosContext} from '../context/axiosContext';
 let letter = require('../images/letter.png');
 const CheckEmailScreen = ({route}) => {
+  const [time, setTime] = useState(59);
+  const timerRef = useRef(time);
   const {publicAxios} = useContext(AxiosContext);
 
   const sendEmail = async () => {
@@ -22,6 +25,21 @@ const CheckEmailScreen = ({route}) => {
     e.preventDefault();
     sendEmail();
   };
+
+  useEffect(() => {
+    const timerId = setInterval(() => {
+      timerRef.current -= 1;
+      if (timerRef.current < 0) {
+        clearInterval(timerId);
+      } else {
+        setTime(timerRef.current);
+      }
+    }, 1000);
+    return () => {
+      clearInterval(timerId);
+    };
+  }, []);
+
   const email = route.params.userEmail ? route.params.userEmail : 'your email';
   return (
     <View style={styles.master}>
@@ -36,7 +54,7 @@ const CheckEmailScreen = ({route}) => {
           instructions. If the email doesn’t show up, check your spam folder
         </Text>
 
-        {email ? (
+        {time === 0 ? (
           <TouchableOpacity style={styles.btn} onPress={handleOnEmailBtn}>
             <Text style={styles.btnText}>RESEND</Text>
           </TouchableOpacity>
@@ -45,7 +63,7 @@ const CheckEmailScreen = ({route}) => {
             style={styles.btnDisable}
             disabled
             onPress={handleOnEmailBtn}>
-            <Text style={styles.btnTextDisable}>RESEND</Text>
+            <Text style={styles.btnTextDisable}>RESEND IN {time} SECONDS</Text>
           </TouchableOpacity>
         )}
       </View>
@@ -103,13 +121,13 @@ const styles = StyleSheet.create({
   },
   btnDisable: {
     backgroundColor: '#FFF2D3',
-    paddingHorizontal: 130,
+    paddingHorizontal: 75,
     paddingVertical: 13,
     borderRadius: 4,
     marginTop: 18,
   },
-  btnText: {fontFamily: 'TTNorms-Bold', color: '#1D252D'},
-  btnTextDisable: {fontFamily: 'TTNorms-Bold', color: '#A1A1A1'},
+  btnText: {fontFamily: 'TTNorms-Bold', color: '#1D252D', fontSize: 14},
+  btnTextDisable: {fontFamily: 'TTNorms-Bold', color: '#A1A1A1', fontSize: 14},
   textLabel: {
     fontSize: 14,
     lineHeight: 21,
