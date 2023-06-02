@@ -1,7 +1,7 @@
-import React, {useState, useCallback, useEffect, useContext} from 'react';
+import React, {useContext} from 'react';
 import {AuthContext} from './context/authContext';
-import Spinner from './components/Spinner';
-import * as Keychain from 'react-native-keychain';
+// import Spinner from './components/Spinner';
+// import * as Keychain from 'react-native-keychain';
 
 import {NavigationContainer} from '@react-navigation/native';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';

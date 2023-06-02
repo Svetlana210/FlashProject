@@ -16,7 +16,7 @@ const AuthProvider = ({children}) => {
     // await Keychain.resetGenericPassword();
     setAuthState({
       access_token: null,
-      refresh_token: null,
+      //   refresh_token: null,
       authenticated: false,
     });
     AsyncStorage.removeItem('token');

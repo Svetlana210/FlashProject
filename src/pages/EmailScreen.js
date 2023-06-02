@@ -13,13 +13,10 @@ import {
 } from 'react-native';
 
 const EmailScreen = ({navigation, route}) => {
-  // const instance = axios.create({
-  //   baseURL: 'https://qa-api-flash.lasoft.org/api/v1',
-  // });
   const [email, setEmail] = useState('');
   const [isFocusedEmail, setIsFocusedEmail] = useState(false);
   const [checkValidEmail, setCheckValidEmail] = useState(false);
-  const [userStatus, setUserStatus] = useState('Inactive');
+  const [userStatus, setUserStatus] = useState(null);
 
   const handleCheckEmail = text => {
     let re = /\S+@\S+\.\S+/;
@@ -32,8 +29,6 @@ const EmailScreen = ({navigation, route}) => {
       setCheckValidEmail(true);
     }
   };
-  // const [userStatus, setUserStatus] = useState(false);
-  // const [isLoading, setIsLoading] = useState(false);
 
   const checkEmail = async () => {
     try {

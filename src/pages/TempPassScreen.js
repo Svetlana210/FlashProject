@@ -4,7 +4,7 @@ import {View, Text, StyleSheet, TouchableOpacity} from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
 import TextInputPassword from '../components/TextInputPassword';
-import * as Keychain from 'react-native-keychain';
+// import * as Keychain from 'react-native-keychain';
 import {AuthContext} from '../context/authContext';
 
 import {AxiosContext} from '../context/axiosContext';
@@ -30,11 +30,11 @@ const TempPassScreen = ({route, navigation}) => {
         password,
       });
       const {access_token} = response.data;
-      // console.log(response.data);
+      console.log(response.data);
       authContext.setAuthState({
         access_token,
-        authenticated: true,
-        // authenticated: false,
+        // authenticated: true,
+        authenticated: false,
       });
       AsyncStorage.setItem('token', JSON.stringify(access_token));
       // await Keychain.setGenericPassword(
@@ -46,7 +46,7 @@ const TempPassScreen = ({route, navigation}) => {
       // return response.data.status;
     } catch (error) {
       // Alert.alert('User is not exist');
-      console.log(`error - ${error.message}`);
+      console.log(`error token - ${error.message}`);
     }
   };
 

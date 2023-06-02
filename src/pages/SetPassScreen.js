@@ -13,6 +13,7 @@ import {AxiosContext} from '../context/axiosContext';
 const SetPassScreen = ({route, navigation}) => {
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
+  const [userId, setUserId] = useState('');
 
   const [lowerValidate, setLowerValidate] = useState(false);
   const [upperValidate, setUpperValidate] = useState(false);
@@ -21,9 +22,10 @@ const SetPassScreen = ({route, navigation}) => {
 
   const authContext = useContext(AuthContext);
   const {authAxios} = useContext(AxiosContext);
+  // console.log(authAxios);
 
   const {access_token} = authContext.authState;
-  console.log(authContext.authState.access_token);
+  // console.log(authContext.authState.access_token);
 
   const handleChange = value => {
     const lower = new RegExp('(?=.*[a-z])');
@@ -55,45 +57,31 @@ const SetPassScreen = ({route, navigation}) => {
       setLengthValidate(false);
     }
   };
-  console.log(password);
+  // console.log(password);
 
+  const findUserId = async () => {
+    try {
+      const response = await authAxios.get('/my_profile');
+      setUserId(response.data._id);
+      // console.log(response.data._id);
+    } catch (error) {
+      console.log(`error my-profile - ${error.message}`);
+    }
+  };
+  findUserId();
+  console.log(userId);
   const onSignUp = async () => {
     try {
-      const response = await authAxios.post('/auth/reset_password', {
-        access_token,
+      const response = await authAxios.post(`/users/${userId}/set_password`, {
         password,
       });
       authContext.setAuthState({access_token, authenticated: true});
       console.log(response);
     } catch (error) {
       // Alert.alert('User is not exist');
-      console.log(`error - ${error.message}`);
+      console.log(`error setPass - ${error.message}`);
     }
   };
-  // const [token, setToken] = useState('');
-  // const [refreshToken, setRefreshToken] = useState('');
-
-  // const {showPassword, setShowPassword} = usePassword();
-  // console.log(password);
-  // const [isFocusedPassword, setIsFocusedPassword] = useState(false);
-  // const [checkValidPassword, setCheckValidPassword] = useState(false);
-
-  // const setTempPassword = async () => {
-  //   try {
-  //     const response = await axios.post(
-  //       'https://qa-api-flash.lasoft.org/api/v1/auth/sign_in',
-  //       {email, password},
-  //     );
-
-  // console.log(response.data);
-  //     setToken(response.data.access_token);
-  //     setRefreshToken(response.data.refresh_token);
-  //     // return response.data.status;
-  //   } catch (error) {
-  //     // Alert.alert('User is not exist');
-  //     console.log(`error - ${error.message}`);
-  //   }
-  // };
 
   const handleOnPasswordlBtn = e => {
     e.preventDefault();
