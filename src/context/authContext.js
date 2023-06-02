@@ -9,17 +9,23 @@ const AuthProvider = ({children}) => {
   const [authState, setAuthState] = useState({
     access_token: null,
     // refreshToken: null,
-    authenticated: null,
+    authenticated: false,
   });
-
+  //   console.log(authState);
   const logout = async () => {
     // await Keychain.resetGenericPassword();
-    setAuthState({
-      access_token: null,
-      //   refresh_token: null,
-      authenticated: false,
-    });
-    AsyncStorage.removeItem('token');
+
+    try {
+      await AsyncStorage.removeItem('token');
+      console.log('Data removed');
+      setAuthState({
+        access_token: null,
+        //   refresh_token: null,
+        authenticated: false,
+      });
+    } catch (exception) {
+      console.log(exception);
+    }
   };
 
   const getAccessToken = () => {

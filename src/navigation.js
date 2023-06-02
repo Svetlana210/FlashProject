@@ -1,4 +1,4 @@
-import React, {useContext} from 'react';
+import React, {useContext, useEffect, useCallback, useState} from 'react';
 import {AuthContext} from './context/authContext';
 // import Spinner from './components/Spinner';
 // import * as Keychain from 'react-native-keychain';
@@ -6,6 +6,7 @@ import {AuthContext} from './context/authContext';
 import {NavigationContainer} from '@react-navigation/native';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import {Image} from 'react-native';
+import SplashScreen from './pages/SplashScreen';
 import WelcomeScreen from './pages/WelcomeScreen';
 import EmailScreen from './pages/EmailScreen';
 import TempPassScreen from './pages/TempPassScreen';
@@ -15,6 +16,7 @@ import HomeScreen from './pages/HomeScreen';
 import PassRecoveryScreen from './pages/PassRecoveryScreen';
 import CheckEmailScreen from './pages/CheckEmailScreen';
 import GoBackBtn from './components/GoBackBtn';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 let logo = require('./images/logoS.jpg');
 
@@ -23,38 +25,41 @@ const MainStack = createNativeStackNavigator();
 
 const Navigation = () => {
   const authContext = useContext(AuthContext);
-  // const [status, setStatus] = useState('loading');
+  const [status, setStatus] = useState('loading');
 
-  // const loadJWT = useCallback(async () => {
-  //   try {
-  //     const value = await Keychain.getGenericPassword();
-  //     const jwt = JSON.parse(value.password);
+  const loadJWT = useCallback(async () => {
+    try {
+      const value = await AsyncStorage.getItem('token');
+      const jwt = JSON.parse(value);
+      console.log(jwt);
+      authContext.setAuthState({
+        access_token: jwt || null,
+        authenticated: jwt ? true : false,
+      });
 
-  //     authContext.setAuthState({
-  //       accessToken: jwt.accessToken || null,
-  //       refreshToken: jwt.refreshToken || null,
-  //       authenticated: jwt.accessToken !== null,
-  //     });
-  //     setStatus('success');
-  //   } catch (error) {
-  //     setStatus('error');
-  //     console.log(`Keychain Error: ${error.message}`);
-  //     authContext.setAuthState({
-  //       accessToken: null,
-  //       refreshToken: null,
-  //       authenticated: false,
-  //     });
-  //   }
-  //   // eslint-disable-next-line react-hooks/exhaustive-deps
-  // }, []);
+      setStatus('success');
+    } catch (error) {
+      setStatus('error');
+      console.log(`AsyncSt Error: ${error.message}`);
+      authContext.setAuthState({
+        access_token: null,
+        authenticated: false,
+      });
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
-  // useEffect(() => {
-  //   loadJWT();
-  // }, [loadJWT]);
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      loadJWT();
+    }, 2000);
+    return () => clearTimeout(timer);
+  }, [loadJWT]);
 
-  // if (status === 'loading') {
-  //   return <Spinner />;
-  // }
+  console.log(authContext.authState.authenticated);
+  if (status === 'loading') {
+    return <SplashScreen />;
+  }
 
   if (authContext?.authState?.authenticated === false) {
     return (
@@ -109,20 +114,21 @@ const Navigation = () => {
         </AuthStack.Navigator>
       </NavigationContainer>
     );
-  }
-  return (
-    <NavigationContainer>
-      <MainStack.Navigator>
-        <MainStack.Screen
-          name="HomeScreen"
-          component={HomeScreen}
-          // options={{headerShown: false}}
+  } else {
+    return (
+      <NavigationContainer>
+        <MainStack.Navigator>
+          <MainStack.Screen
+            name="HomeScreen"
+            component={HomeScreen}
+            // options={{headerShown: false}}
 
-          //   options={{title: 'Login Form', headerBackTitleVisible: false}}
-        />
-      </MainStack.Navigator>
-    </NavigationContainer>
-  );
+            //   options={{title: 'Login Form', headerBackTitleVisible: false}}
+          />
+        </MainStack.Navigator>
+      </NavigationContainer>
+    );
+  }
 };
 //   return (
 //     <NavigationContainer>

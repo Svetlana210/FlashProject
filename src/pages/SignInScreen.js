@@ -24,7 +24,9 @@ const SignInScreen = ({route, navigation}) => {
         authenticated: true,
         // authenticated: false,
       });
-      AsyncStorage.setItem('token', JSON.stringify(access_token));
+      await AsyncStorage.setItem('token', JSON.stringify(access_token));
+      // console.log(await AsyncStorage.getItem('token'));
+
       // await Keychain.setGenericPassword(
       //   'token',
       //   JSON.stringify({
