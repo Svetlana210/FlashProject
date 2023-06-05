@@ -1,26 +1,29 @@
 /* eslint-disable react/no-unstable-nested-components */
 import React, {useContext, useEffect, useCallback, useState} from 'react';
 import {AuthContext} from './context/authContext';
-import {StyleSheet, View, Image, TouchableOpacity} from 'react-native';
+import {StyleSheet, Image, TouchableOpacity} from 'react-native';
 // import Spinner from './components/Spinner';
 // import * as Keychain from 'react-native-keychain';
 
 import {NavigationContainer} from '@react-navigation/native';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
 // import {Image} from 'react-native';
-import SplashScreen from './pages/SplashScreen';
-import WelcomeScreen from './pages/WelcomeScreen';
-import EmailScreen from './pages/EmailScreen';
-import TempPassScreen from './pages/TempPassScreen';
-import SetPassScreen from './pages/SetPassScreen';
-import SignInScreen from './pages/SignInScreen';
-import HomeScreen from './pages/HomeScreen';
-import PassRecoveryScreen from './pages/PassRecoveryScreen';
-import CheckEmailScreen from './pages/CheckEmailScreen';
-import ProfileScreen from './pages/ProfileScreen';
-import GoBackBtn from './components/GoBackBtn';
-import HeaderAuth from './components/HeaderAuth';
-import HeaderMain from './components/HeaderMain';
+import SplashScreen from './pages/AuthScreens/SplashScreen';
+import WelcomeScreen from './pages/AuthScreens/WelcomeScreen';
+import EmailScreen from './pages/AuthScreens/EmailScreen';
+import TempPassScreen from './pages/AuthScreens/TempPassScreen';
+import SetPassScreen from './pages/AuthScreens/SetPassScreen';
+import SignInScreen from './pages/AuthScreens/SignInScreen';
+import HomeScreen from './pages/MainScreens/HomeScreen';
+import PassRecoveryScreen from './pages/AuthScreens/PassRecoveryScreen';
+import CheckEmailScreen from './pages/AuthScreens/CheckEmailScreen';
+import ProfileScreen from './pages/MainScreens/ProfileScreen';
+import HistoryScreen from './pages/MainScreens/HistoryScreen';
+import SurveyScreen from './pages/MainScreens/SurveyScreen';
+
+import GoBackBtn from './components/shared/GoBackBtn';
+import HeaderAuth from './components/headers/HeaderAuth';
+import HeaderMain from './components/headers/HeaderMain';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
 // let logo = require('./images/logoS.jpg');
@@ -141,6 +144,28 @@ const Navigation = () => {
             options={() => ({
               header: () => (
                 <HeaderMain text="My profile" style={styles.profile}>
+                  <GoBackBtn style={styles.backBtn} />
+                </HeaderMain>
+              ),
+            })}
+          />
+          <MainStack.Screen
+            name="History"
+            component={HistoryScreen}
+            options={() => ({
+              header: () => (
+                <HeaderMain text="History" style={styles.profile}>
+                  <GoBackBtn style={styles.backBtn} />
+                </HeaderMain>
+              ),
+            })}
+          />
+          <MainStack.Screen
+            name="Survey"
+            component={SurveyScreen}
+            options={() => ({
+              header: () => (
+                <HeaderMain text="Survey 1" style={styles.profile}>
                   <GoBackBtn style={styles.backBtn} />
                 </HeaderMain>
               ),

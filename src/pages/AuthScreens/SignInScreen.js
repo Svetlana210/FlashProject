@@ -11,10 +11,10 @@ import {
   Keyboard,
   Platform,
 } from 'react-native';
-import TextInputPassword from '../components/TextInputPassword';
-import {AuthContext} from '../context/authContext';
+import TextInputPassword from '../../components/shared/TextInputPassword';
+import {AuthContext} from '../../context/authContext';
 
-import {AxiosContext} from '../context/axiosContext';
+import {AxiosContext} from '../../context/axiosContext';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 // import {Alert} from 'react-native';
 

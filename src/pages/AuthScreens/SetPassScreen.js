@@ -16,11 +16,11 @@ import Entypo from 'react-native-vector-icons/Entypo';
 import AntDesign from 'react-native-vector-icons/AntDesign';
 // import AsyncStorage from '@react-native-async-storage/async-storage';
 
-import TextInputPassword from '../components/TextInputPassword';
+import TextInputPassword from '../../components/shared/TextInputPassword';
 
-import {AuthContext} from '../context/authContext';
+import {AuthContext} from '../../context/authContext';
 
-import {AxiosContext} from '../context/axiosContext';
+import {AxiosContext} from '../../context/axiosContext';
 
 const SetPassScreen = ({route, navigation}) => {
   const [password, setPassword] = useState(null);

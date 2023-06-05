@@ -1,8 +1,8 @@
 import React from 'react';
 import {View, StyleSheet, TouchableOpacity, Image} from 'react-native';
-import AppText from '../components/AppText';
+import AppText from '../../components/shared/AppText';
 
-let logo = require('../images/logoB.png');
+let logo = require('../../images/logoB.png');
 
 const WelcomeScreen = ({navigation, route}) => {
   return (

@@ -1,14 +1,14 @@
 import {StyleSheet, Text, View} from 'react-native';
 import React from 'react';
 
-const ProfileScreen = () => {
+const SurveyScreen = () => {
   return (
     <View>
-      <Text>ProfileScreen</Text>
+      <Text>SurveyScreen</Text>
     </View>
   );
 };
 
-export default ProfileScreen;
+export default SurveyScreen;
 
 const styles = StyleSheet.create({});

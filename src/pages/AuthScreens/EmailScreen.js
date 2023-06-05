@@ -14,7 +14,7 @@ import {
   Keyboard,
   Platform,
 } from 'react-native';
-import {AxiosContext} from '../context/axiosContext';
+import {AxiosContext} from '../../context/axiosContext';
 
 const EmailScreen = ({navigation, route}) => {
   const [email, setEmail] = useState('');

@@ -1,12 +1,12 @@
 import {StyleSheet, Text, View, TouchableOpacity} from 'react-native';
 import React, {useContext} from 'react';
-import {AuthContext} from '../context/authContext';
+import {AuthContext} from '../../context/authContext';
 
-const HomeScreen = () => {
+const ProfileScreen = () => {
   const authContext = useContext(AuthContext);
   return (
     <View>
-      <Text>HomeScreen</Text>
+      {/* <Text style={styles.text}>Active</Text> */}
       <TouchableOpacity style={styles.btn} onPress={() => authContext.logout()}>
         <Text style={styles.btnText}>Log out</Text>
       </TouchableOpacity>
@@ -14,6 +14,12 @@ const HomeScreen = () => {
   );
 };
 
-export default HomeScreen;
+export default ProfileScreen;
 
-const styles = StyleSheet.create({});
+const styles = StyleSheet.create({
+  text: {
+    fontFamily: 'TTNorms-Bold',
+    fontSize: 22,
+    lineHeight: 27,
+  },
+});

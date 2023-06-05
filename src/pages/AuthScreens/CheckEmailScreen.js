@@ -1,8 +1,8 @@
 import {StyleSheet, Text, View, TouchableOpacity, Image} from 'react-native';
 import React, {useContext, useRef, useEffect, useState} from 'react';
 // import CountDownTimer from '../components/Timer';
-import {AxiosContext} from '../context/axiosContext';
-let letter = require('../images/letter.png');
+import {AxiosContext} from '../../context/axiosContext';
+let letter = require('../../images/letter.png');
 const CheckEmailScreen = ({route}) => {
   const [time, setTime] = useState(59);
   const timerRef = useRef(time);

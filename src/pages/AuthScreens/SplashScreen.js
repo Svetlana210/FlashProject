@@ -1,10 +1,10 @@
 import React, {Component} from 'react';
 import {View, StyleSheet, Image} from 'react-native';
-import AppText from '../components/AppText';
+import AppText from '../../components/shared/AppText';
 import * as Progress from 'react-native-progress';
 // import {withTiming} from 'react-native-reanimated';
 
-let logo = require('../images/logoB.png');
+let logo = require('../../images/logoB.png');
 
 export default class SplashScreen extends Component {
   constructor(props) {

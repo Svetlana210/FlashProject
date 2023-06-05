@@ -12,7 +12,7 @@ import {
   Keyboard,
   Platform,
 } from 'react-native';
-import {AxiosContext} from '../context/axiosContext';
+import {AxiosContext} from '../../context/axiosContext';
 const PassRecoveryScreen = ({navigation}) => {
   const [email, setEmail] = useState('');
   const [isFocusedEmail, setIsFocusedEmail] = useState(false);
