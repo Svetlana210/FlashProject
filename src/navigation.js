@@ -1,11 +1,13 @@
+/* eslint-disable react/no-unstable-nested-components */
 import React, {useContext, useEffect, useCallback, useState} from 'react';
 import {AuthContext} from './context/authContext';
+import {StyleSheet, View, Image, TouchableOpacity} from 'react-native';
 // import Spinner from './components/Spinner';
 // import * as Keychain from 'react-native-keychain';
 
 import {NavigationContainer} from '@react-navigation/native';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
-import {Image} from 'react-native';
+// import {Image} from 'react-native';
 import SplashScreen from './pages/SplashScreen';
 import WelcomeScreen from './pages/WelcomeScreen';
 import EmailScreen from './pages/EmailScreen';
@@ -15,11 +17,14 @@ import SignInScreen from './pages/SignInScreen';
 import HomeScreen from './pages/HomeScreen';
 import PassRecoveryScreen from './pages/PassRecoveryScreen';
 import CheckEmailScreen from './pages/CheckEmailScreen';
+import ProfileScreen from './pages/ProfileScreen';
 import GoBackBtn from './components/GoBackBtn';
+import HeaderAuth from './components/HeaderAuth';
+import HeaderMain from './components/HeaderMain';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
-let logo = require('./images/logoS.jpg');
-
+// let logo = require('./images/logoS.jpg');
+let union = require('./images/union.png');
 const AuthStack = createNativeStackNavigator();
 const MainStack = createNativeStackNavigator();
 
@@ -66,10 +71,7 @@ const Navigation = () => {
       <NavigationContainer>
         <AuthStack.Navigator
           screenOptions={{
-            // eslint-disable-next-line react/no-unstable-nested-components
-            headerLeft: () => <GoBackBtn />,
-            // eslint-disable-next-line react/no-unstable-nested-components
-            headerRight: () => <Image source={logo} />,
+            header: () => <HeaderAuth />,
           }}>
           <AuthStack.Screen
             name="Welcome"
@@ -119,11 +121,30 @@ const Navigation = () => {
       <NavigationContainer>
         <MainStack.Navigator>
           <MainStack.Screen
+            options={({navigation}) => ({
+              header: () => (
+                <HeaderMain text="Surveys">
+                  <TouchableOpacity
+                    style={styles.btn}
+                    onPress={() => navigation.navigate('Profile')}>
+                    <Image source={union} style={styles.logo} />
+                  </TouchableOpacity>
+                </HeaderMain>
+              ),
+            })}
             name="HomeScreen"
             component={HomeScreen}
-            // options={{headerShown: false}}
-
-            //   options={{title: 'Login Form', headerBackTitleVisible: false}}
+          />
+          <MainStack.Screen
+            name="Profile"
+            component={ProfileScreen}
+            options={() => ({
+              header: () => (
+                <HeaderMain text="My profile" style={styles.profile}>
+                  <GoBackBtn style={styles.backBtn} />
+                </HeaderMain>
+              ),
+            })}
           />
         </MainStack.Navigator>
       </NavigationContainer>
@@ -178,3 +199,24 @@ const Navigation = () => {
 //   );
 // };
 export default Navigation;
+const styles = StyleSheet.create({
+  container: {
+    position: 'relative',
+    height: 85,
+    backgroundColor: '#ffffff',
+    borderBottomWidth: 1,
+    borderBottomColor: '#d5d2d6',
+  },
+  logo: {position: 'absolute', top: 43, right: 20, width: 25, height: 25},
+
+  profile: {
+    position: 'absolute',
+    top: 43,
+    left: 48,
+  },
+  backBtn: {
+    position: 'absolute',
+    top: 45,
+    left: 18,
+  },
+});
