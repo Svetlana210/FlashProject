@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 /* eslint-disable no-useless-escape */
 import React, {useState, useContext} from 'react';
 import {
@@ -6,12 +7,22 @@ import {
   StyleSheet,
   TouchableOpacity,
   TextInput,
+  KeyboardAvoidingView,
+  TouchableWithoutFeedback,
+  Keyboard,
+  Platform,
 } from 'react-native';
 import {AxiosContext} from '../context/axiosContext';
 const PassRecoveryScreen = ({navigation}) => {
   const [email, setEmail] = useState('');
   const [isFocusedEmail, setIsFocusedEmail] = useState(false);
   const [checkValidEmail, setCheckValidEmail] = useState(false);
+  const [showKeyboard, setShowKeyboard] = useState(false);
+
+  const hideKeyboard = () => {
+    setShowKeyboard(false);
+    Keyboard.dismiss();
+  };
 
   const {publicAxios} = useContext(AxiosContext);
 
@@ -48,54 +59,61 @@ const PassRecoveryScreen = ({navigation}) => {
     });
   };
   return (
-    <View style={styles.master}>
-      <View style={styles.wrap}>
-        <Text style={styles.text}>Password recovery</Text>
-        <View>
-          <Text style={styles.textSmall}>
-            Please enter your email, and we will send you further instructions.
-          </Text>
-          <TextInput
-            // eslint-disable-next-line react-native/no-inline-styles
-            style={{
-              ...styles.input,
+    <KeyboardAvoidingView
+      behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
+      style={styles.containerWrap}>
+      <TouchableWithoutFeedback onPress={hideKeyboard}>
+        <View style={styles.master}>
+          <View style={styles.wrap}>
+            <Text style={styles.text}>Password recovery</Text>
+            <View>
+              <Text style={styles.textSmall}>
+                Please enter your email, and we will send you further
+                instructions.
+              </Text>
+              <TextInput
+                // eslint-disable-next-line react-native/no-inline-styles
+                style={{
+                  ...styles.input,
 
-              borderColor: isFocusedEmail ? '#F0B528' : '#DBDBDB',
-            }}
-            autoCorrect={false}
-            autoCapitalize="none"
-            placeholder="Email"
-            keyboardType="email-address"
-            onChangeText={text => handleCheckEmail(text)}
-            value={email}
-            onFocus={() => setIsFocusedEmail(true)}
-            onBlur={() => {
-              setIsFocusedEmail(false);
-            }}
-          />
-          {checkValidEmail && email ? (
-            <Text style={styles.textFailed}>
-              Email does not appear to be valid
-            </Text>
-          ) : (
-            <Text style={styles.textOk}> </Text>
-          )}
+                  borderColor: isFocusedEmail ? '#F0B528' : '#DBDBDB',
+                }}
+                autoCorrect={false}
+                autoCapitalize="none"
+                placeholder="Email"
+                keyboardType="email-address"
+                onChangeText={text => handleCheckEmail(text)}
+                value={email}
+                onFocus={() => setIsFocusedEmail(true)}
+                onBlur={() => {
+                  setIsFocusedEmail(false);
+                }}
+              />
+              {checkValidEmail && email ? (
+                <Text style={styles.textFailed}>
+                  Email does not appear to be valid
+                </Text>
+              ) : (
+                <Text style={styles.textOk}> </Text>
+              )}
+            </View>
+
+            {email ? (
+              <TouchableOpacity style={styles.btn} onPress={handleOnEmailBtn}>
+                <Text style={styles.btnText}>SEND</Text>
+              </TouchableOpacity>
+            ) : (
+              <TouchableOpacity
+                style={styles.btnDisable}
+                disabled
+                onPress={handleOnEmailBtn}>
+                <Text style={styles.btnTextDisable}>SEND</Text>
+              </TouchableOpacity>
+            )}
+          </View>
         </View>
-
-        {email ? (
-          <TouchableOpacity style={styles.btn} onPress={handleOnEmailBtn}>
-            <Text style={styles.btnText}>SEND</Text>
-          </TouchableOpacity>
-        ) : (
-          <TouchableOpacity
-            style={styles.btnDisable}
-            disabled
-            onPress={handleOnEmailBtn}>
-            <Text style={styles.btnTextDisable}>SEND</Text>
-          </TouchableOpacity>
-        )}
-      </View>
-    </View>
+      </TouchableWithoutFeedback>
+    </KeyboardAvoidingView>
   );
 };
 export default PassRecoveryScreen;
@@ -106,6 +124,10 @@ const styles = StyleSheet.create({
     flex: 1,
     alignItems: 'center',
     justifyContent: 'flex-start',
+  },
+  containerWrap: {
+    flex: 1,
+    backgroundColor: '#ffffff',
   },
   wrap: {
     width: 328,

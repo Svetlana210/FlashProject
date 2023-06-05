@@ -9,6 +9,10 @@ import {
   TouchableOpacity,
   TextInput,
   Alert,
+  KeyboardAvoidingView,
+  TouchableWithoutFeedback,
+  Keyboard,
+  Platform,
 } from 'react-native';
 import {AxiosContext} from '../context/axiosContext';
 
@@ -18,6 +22,13 @@ const EmailScreen = ({navigation, route}) => {
   const [checkValidEmail, setCheckValidEmail] = useState(false);
   // eslint-disable-next-line no-unused-vars
   const [userStatus, setUserStatus] = useState(false);
+  // eslint-disable-next-line no-unused-vars
+  const [showKeyboard, setShowKeyboard] = useState(false);
+
+  const hideKeyboard = () => {
+    setShowKeyboard(false);
+    Keyboard.dismiss();
+  };
 
   const {publicAxios} = useContext(AxiosContext);
 
@@ -61,49 +72,55 @@ const EmailScreen = ({navigation, route}) => {
     checkEmail();
   };
   return (
-    <View style={styles.master}>
-      <Text style={styles.text}>Enter your work email address</Text>
-      <View>
-        <Text style={styles.textLabel}>Your email</Text>
-        <TextInput
-          style={{
-            ...styles.input,
+    <KeyboardAvoidingView
+      behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
+      style={styles.containerWrap}>
+      <TouchableWithoutFeedback onPress={hideKeyboard}>
+        <View style={styles.master}>
+          <Text style={styles.text}>Enter your work email address</Text>
+          <View>
+            <Text style={styles.textLabel}>Your email</Text>
+            <TextInput
+              style={{
+                ...styles.input,
 
-            borderColor: isFocusedEmail ? '#F0B528' : '#DBDBDB',
-          }}
-          autoCorrect={false}
-          autoCapitalize="none"
-          placeholder="name@gmail.com"
-          keyboardType="email-address"
-          onChangeText={text => handleCheckEmail(text)}
-          value={email}
-          onFocus={() => setIsFocusedEmail(true)}
-          onBlur={() => {
-            setIsFocusedEmail(false);
-          }}
-        />
-        {checkValidEmail && email ? (
-          <Text style={styles.textFailed}>
-            Email does not appear to be valid
-          </Text>
-        ) : (
-          <Text style={styles.textOk}> </Text>
-        )}
-      </View>
+                borderColor: isFocusedEmail ? '#F0B528' : '#DBDBDB',
+              }}
+              autoCorrect={false}
+              autoCapitalize="none"
+              placeholder="name@gmail.com"
+              keyboardType="email-address"
+              onChangeText={text => handleCheckEmail(text)}
+              value={email}
+              onFocus={() => setIsFocusedEmail(true)}
+              onBlur={() => {
+                setIsFocusedEmail(false);
+              }}
+            />
+            {checkValidEmail && email ? (
+              <Text style={styles.textFailed}>
+                Email does not appear to be valid
+              </Text>
+            ) : (
+              <Text style={styles.textOk}> </Text>
+            )}
+          </View>
 
-      {email ? (
-        <TouchableOpacity style={styles.btn} onPress={handleOnEmailBtn}>
-          <Text style={styles.btnText}>CONTINUE WITH EMAIL</Text>
-        </TouchableOpacity>
-      ) : (
-        <TouchableOpacity
-          style={styles.btnDisable}
-          disabled
-          onPress={handleOnEmailBtn}>
-          <Text style={styles.btnTextDisable}>CONTINUE WITH EMAIL</Text>
-        </TouchableOpacity>
-      )}
-    </View>
+          {email ? (
+            <TouchableOpacity style={styles.btn} onPress={handleOnEmailBtn}>
+              <Text style={styles.btnText}>CONTINUE WITH EMAIL</Text>
+            </TouchableOpacity>
+          ) : (
+            <TouchableOpacity
+              style={styles.btnDisable}
+              disabled
+              onPress={handleOnEmailBtn}>
+              <Text style={styles.btnTextDisable}>CONTINUE WITH EMAIL</Text>
+            </TouchableOpacity>
+          )}
+        </View>
+      </TouchableWithoutFeedback>
+    </KeyboardAvoidingView>
   );
 };
 export default EmailScreen;
@@ -116,6 +133,10 @@ const styles = StyleSheet.create({
     justifyContent: 'flex-start',
     // marginVertical: 30,
     // marginHorizontal: 30,
+  },
+  containerWrap: {
+    flex: 1,
+    backgroundColor: '#ffffff',
   },
   text: {
     fontSize: 32,

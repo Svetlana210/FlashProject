@@ -1,6 +1,15 @@
 import React, {useState, useContext} from 'react';
 // import axios from 'axios';
-import {View, Text, StyleSheet, TouchableOpacity} from 'react-native';
+import {
+  View,
+  Text,
+  StyleSheet,
+  TouchableOpacity,
+  KeyboardAvoidingView,
+  TouchableWithoutFeedback,
+  Keyboard,
+  Platform,
+} from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
 import TextInputPassword from '../components/TextInputPassword';
@@ -15,6 +24,13 @@ const TempPassScreen = ({route, navigation}) => {
   // const [token, setToken] = useState('');
   // const [refreshToken, setRefreshToken] = useState('');
 
+  // eslint-disable-next-line no-unused-vars
+  const [showKeyboard, setShowKeyboard] = useState(false);
+
+  const hideKeyboard = () => {
+    setShowKeyboard(false);
+    Keyboard.dismiss();
+  };
   const authContext = useContext(AuthContext);
   const {publicAxios} = useContext(AxiosContext);
 
@@ -59,32 +75,44 @@ const TempPassScreen = ({route, navigation}) => {
   };
   const email = route.params.userEmail ? route.params.userEmail : 'your email';
   return (
-    <View style={styles.master}>
-      <View style={styles.wrap}>
-        <Text style={styles.text}>
-          Enter your <Text style={styles.textPass}>temporary password</Text>
-        </Text>
-        <Text style={styles.textSmall}>Using {email} to log in</Text>
+    <KeyboardAvoidingView
+      behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
+      style={styles.containerWrap}>
+      <TouchableWithoutFeedback onPress={hideKeyboard}>
+        <View style={styles.master}>
+          <View style={styles.wrap}>
+            <Text style={styles.text}>
+              Enter your <Text style={styles.textPass}>temporary password</Text>
+            </Text>
+            <Text style={styles.textSmall}>Using {email} to log in</Text>
 
-        <View>
-          <Text style={styles.textLabel}>Your temporary password</Text>
-          <TextInputPassword password={password} setPassword={setPassword} />
+            <View>
+              <Text style={styles.textLabel}>Your temporary password</Text>
+              <TextInputPassword
+                password={password}
+                setPassword={setPassword}
+                setShowKeyboard={setShowKeyboard}
+              />
+            </View>
+
+            {password ? (
+              <TouchableOpacity
+                style={styles.btn}
+                onPress={handleOnPasswordlBtn}>
+                <Text style={styles.btnText}>CONTINUE</Text>
+              </TouchableOpacity>
+            ) : (
+              <TouchableOpacity
+                style={styles.btnDisable}
+                disabled
+                onPress={handleOnPasswordlBtn}>
+                <Text style={styles.btnTextDisable}>CONTINUE</Text>
+              </TouchableOpacity>
+            )}
+          </View>
         </View>
-
-        {password ? (
-          <TouchableOpacity style={styles.btn} onPress={handleOnPasswordlBtn}>
-            <Text style={styles.btnText}>CONTINUE</Text>
-          </TouchableOpacity>
-        ) : (
-          <TouchableOpacity
-            style={styles.btnDisable}
-            disabled
-            onPress={handleOnPasswordlBtn}>
-            <Text style={styles.btnTextDisable}>CONTINUE</Text>
-          </TouchableOpacity>
-        )}
-      </View>
-    </View>
+      </TouchableWithoutFeedback>
+    </KeyboardAvoidingView>
   );
 };
 export default TempPassScreen;
@@ -95,6 +123,10 @@ const styles = StyleSheet.create({
     flex: 1,
     alignItems: 'center',
     justifyContent: 'flex-start',
+  },
+  containerWrap: {
+    flex: 1,
+    backgroundColor: '#ffffff',
   },
   wrap: {width: 328, marginHorizontal: 40},
   text: {

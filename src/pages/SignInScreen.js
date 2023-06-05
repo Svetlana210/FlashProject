@@ -1,15 +1,33 @@
+/* eslint-disable react-native/no-inline-styles */
 import React, {useState, useContext} from 'react';
-import {View, Text, StyleSheet, TouchableOpacity} from 'react-native';
+import {
+  View,
+  Text,
+  StyleSheet,
+  TouchableOpacity,
+  Alert,
+  KeyboardAvoidingView,
+  TouchableWithoutFeedback,
+  Keyboard,
+  Platform,
+} from 'react-native';
 import TextInputPassword from '../components/TextInputPassword';
 import {AuthContext} from '../context/authContext';
 
 import {AxiosContext} from '../context/axiosContext';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+// import {Alert} from 'react-native';
 
 const SignInScreen = ({route, navigation}) => {
   const authContext = useContext(AuthContext);
   const {publicAxios} = useContext(AxiosContext);
   const [password, setPassword] = useState('');
+  const [showKeyboard, setShowKeyboard] = useState(false);
+
+  const hideKeyboard = () => {
+    setShowKeyboard(false);
+    Keyboard.dismiss();
+  };
 
   const signInPass = async () => {
     try {
@@ -35,7 +53,7 @@ const SignInScreen = ({route, navigation}) => {
       // );
       // return response.data.status;
     } catch (error) {
-      // Alert.alert('User is not exist');
+      Alert.alert('Incorrect password');
       console.log(`error token - ${error.message}`);
     }
   };
@@ -51,37 +69,53 @@ const SignInScreen = ({route, navigation}) => {
   };
   const email = route.params.userEmail ? route.params.userEmail : 'your email';
   return (
-    <View style={styles.master}>
-      <View style={styles.wrap}>
-        <Text style={styles.text}>Welcome back</Text>
-        <Text style={styles.textSmall}>
-          Use the password for {email} to sign in
-        </Text>
+    <KeyboardAvoidingView
+      behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
+      style={styles.containerWrap}>
+      <TouchableWithoutFeedback onPress={hideKeyboard}>
+        <View style={styles.master}>
+          <View style={styles.wrap}>
+            <Text style={styles.text}>Welcome back</Text>
+            <Text style={styles.textSmall}>
+              Use the password for {email} to sign in
+            </Text>
 
-        <View>
-          <Text style={styles.textLabel}>Your password</Text>
-          <TextInputPassword password={password} setPassword={setPassword} />
-          <TouchableOpacity
-            style={styles.btnForgot}
-            onPress={handleOnForgotPass}>
-            <Text style={styles.textForgot}>Forgot password?</Text>
-          </TouchableOpacity>
+            <View>
+              <Text style={styles.textLabel}>Your password</Text>
+              <TextInputPassword
+                password={password}
+                setPassword={setPassword}
+                showKeyboard={showKeyboard}
+                setShowKeyboard={setShowKeyboard}
+              />
+              <TouchableOpacity
+                style={styles.btnForgot}
+                onPress={handleOnForgotPass}>
+                <Text style={styles.textForgot}>Forgot password?</Text>
+              </TouchableOpacity>
+            </View>
+
+            {password ? (
+              <TouchableOpacity
+                style={{...styles.btn, marginTop: showKeyboard ? 20 : 37}}
+                onPress={handleOnPasswordlBtn}>
+                <Text style={styles.btnText}>SIGN IN</Text>
+              </TouchableOpacity>
+            ) : (
+              <TouchableOpacity
+                style={{
+                  ...styles.btnDisable,
+                  marginTop: showKeyboard ? 20 : 37,
+                }}
+                disabled
+                onPress={handleOnPasswordlBtn}>
+                <Text style={styles.btnTextDisable}>SIGN IN</Text>
+              </TouchableOpacity>
+            )}
+          </View>
         </View>
-
-        {password ? (
-          <TouchableOpacity style={styles.btn} onPress={handleOnPasswordlBtn}>
-            <Text style={styles.btnText}>SIGN IN</Text>
-          </TouchableOpacity>
-        ) : (
-          <TouchableOpacity
-            style={styles.btnDisable}
-            disabled
-            onPress={handleOnPasswordlBtn}>
-            <Text style={styles.btnTextDisable}>SIGN IN</Text>
-          </TouchableOpacity>
-        )}
-      </View>
-    </View>
+      </TouchableWithoutFeedback>
+    </KeyboardAvoidingView>
   );
 };
 export default SignInScreen;
@@ -93,7 +127,12 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'flex-start',
   },
-  wrap: {width: 328, marginHorizontal: 40},
+  containerWrap: {
+    flex: 1,
+    backgroundColor: '#ffffff',
+  },
+  touch: {backgroundColor: '#ffffff'},
+  wrap: {width: 328, marginHorizontal: 40, backgroundColor: '#ffffff'},
   text: {
     fontSize: 32,
     lineHeight: 38.4,
@@ -124,7 +163,7 @@ const styles = StyleSheet.create({
     paddingHorizontal: 130,
     paddingVertical: 13,
     borderRadius: 4,
-    marginTop: 37,
+    // marginTop: 37,
   },
   btnDisable: {
     width: 328,
@@ -132,7 +171,7 @@ const styles = StyleSheet.create({
     paddingHorizontal: 130,
     paddingVertical: 13,
     borderRadius: 4,
-    marginTop: 37,
+    // marginTop: 37,
   },
   btnText: {fontFamily: 'TTNorms-Bold', color: '#1D252D', fontSize: 14},
   btnTextDisable: {fontFamily: 'TTNorms-Bold', color: '#A1A1A1', fontSize: 14},

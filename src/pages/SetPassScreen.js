@@ -1,6 +1,17 @@
+/* eslint-disable react-native/no-inline-styles */
 import React, {useState, useContext, useEffect} from 'react';
 // import axios from 'axios';
-import {View, Text, StyleSheet, TouchableOpacity} from 'react-native';
+import {
+  View,
+  Text,
+  StyleSheet,
+  TouchableOpacity,
+  KeyboardAvoidingView,
+  TouchableWithoutFeedback,
+  Keyboard,
+  Platform,
+  Alert,
+} from 'react-native';
 import Entypo from 'react-native-vector-icons/Entypo';
 import AntDesign from 'react-native-vector-icons/AntDesign';
 // import AsyncStorage from '@react-native-async-storage/async-storage';
@@ -12,14 +23,21 @@ import {AuthContext} from '../context/authContext';
 import {AxiosContext} from '../context/axiosContext';
 
 const SetPassScreen = ({route, navigation}) => {
-  const [password, setPassword] = useState('');
-  const [confirmPassword, setConfirmPassword] = useState('');
+  const [password, setPassword] = useState(null);
+  const [confirmPassword, setConfirmPassword] = useState(null);
   const [userId, setUserId] = useState('');
 
   const [lowerValidate, setLowerValidate] = useState(false);
   const [upperValidate, setUpperValidate] = useState(false);
   const [symbolValidate, setSymbolValidate] = useState(false);
   const [lengthValidate, setLengthValidate] = useState(false);
+
+  const [showKeyboard, setShowKeyboard] = useState(false);
+
+  const hideKeyboard = () => {
+    setShowKeyboard(false);
+    Keyboard.dismiss();
+  };
 
   const authContext = useContext(AuthContext);
   const {authAxios} = useContext(AxiosContext);
@@ -84,7 +102,7 @@ const SetPassScreen = ({route, navigation}) => {
       authContext.setAuthState({access_token, authenticated: true});
       // console.log(response);
     } catch (error) {
-      // Alert.alert('User is not exist');
+      Alert.alert('Invalid password');
       console.log(`error setPass - ${error.message}`);
     }
   };
@@ -100,141 +118,157 @@ const SetPassScreen = ({route, navigation}) => {
   // console.log(refreshToken);
 
   return (
-    <View style={styles.master}>
-      <View style={styles.wrap}>
-        <Text style={styles.text}>Set password</Text>
-
-        <View styles={styles.container}>
-          <TextInputPassword
-            password={password}
-            setPassword={handleChange}
-            style={styles.eye}
-            text="create password"
-          />
-          <View>
-            {lengthValidate ? (
-              <>
-                <View style={styles.textWrap}>
-                  <AntDesign
-                    name="checkcircle"
-                    size={18}
-                    color={'#29988B'}
-                    style={styles.iconGreen}
-                  />
-                  <Text style={styles.validTextSuccess}>
-                    must be 8 - 24 characters long
-                  </Text>
-                </View>
-              </>
+    <KeyboardAvoidingView
+      behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
+      style={styles.containerWrap}>
+      <TouchableWithoutFeedback onPress={hideKeyboard}>
+        <View style={styles.master}>
+          <View style={{...styles.wrap, marginTop: showKeyboard ? 15 : 0}}>
+            {showKeyboard ? (
+              <></>
             ) : (
-              <>
-                <View style={styles.textWrap}>
-                  <Entypo
-                    name="dot-single"
-                    size={28}
-                    color={'#D9D9D9'}
-                    style={styles.icon}
-                  />
-                  <Text style={styles.validText}>
-                    must be 8 - 24 characters long
-                  </Text>
-                </View>
-              </>
-            )}
-            {lowerValidate ? (
-              <View style={styles.textWrap}>
-                <AntDesign
-                  name="checkcircle"
-                  size={18}
-                  color={'#29988B'}
-                  style={styles.iconGreen}
-                />
-                <Text style={styles.validTextSuccess}>1 lower case</Text>
-              </View>
-            ) : (
-              <View style={styles.textWrap}>
-                <Entypo
-                  name="dot-single"
-                  size={28}
-                  color={'#D9D9D9'}
-                  style={styles.icon}
-                />
-                <Text style={styles.validText}>1 lower case</Text>
-              </View>
+              <Text style={styles.text}>Set password</Text>
             )}
 
-            {upperValidate ? (
-              <View style={styles.textWrap}>
-                <AntDesign
-                  name="checkcircle"
-                  size={18}
-                  color={'#29988B'}
-                  style={styles.iconGreen}
-                />
-                <Text style={styles.validTextSuccess}>1 upper case</Text>
-              </View>
-            ) : (
-              <View style={styles.textWrap}>
-                <Entypo
-                  name="dot-single"
-                  size={28}
-                  color={'#D9D9D9'}
-                  style={styles.icon}
-                />
-                <Text style={styles.validText}>1 upper case</Text>
-              </View>
-            )}
+            <View styles={styles.container}>
+              <TextInputPassword
+                password={password}
+                setPassword={handleChange}
+                setShowKeyboard={setShowKeyboard}
+                style={styles.eye}
+                text="create password"
+              />
+              <View>
+                {lengthValidate ? (
+                  <>
+                    <View style={styles.textWrap}>
+                      <AntDesign
+                        name="checkcircle"
+                        size={18}
+                        color={'#29988B'}
+                        style={styles.iconGreen}
+                      />
+                      <Text style={styles.validTextSuccess}>
+                        must be 8 - 24 characters long
+                      </Text>
+                    </View>
+                  </>
+                ) : (
+                  <>
+                    <View style={styles.textWrap}>
+                      <Entypo
+                        name="dot-single"
+                        size={28}
+                        color={'#D9D9D9'}
+                        style={styles.icon}
+                      />
+                      <Text style={styles.validText}>
+                        must be 8 - 24 characters long
+                      </Text>
+                    </View>
+                  </>
+                )}
+                {lowerValidate ? (
+                  <View style={styles.textWrap}>
+                    <AntDesign
+                      name="checkcircle"
+                      size={18}
+                      color={'#29988B'}
+                      style={styles.iconGreen}
+                    />
+                    <Text style={styles.validTextSuccess}>1 lower case</Text>
+                  </View>
+                ) : (
+                  <View style={styles.textWrap}>
+                    <Entypo
+                      name="dot-single"
+                      size={28}
+                      color={'#D9D9D9'}
+                      style={styles.icon}
+                    />
+                    <Text style={styles.validText}>1 lower case</Text>
+                  </View>
+                )}
 
-            {symbolValidate ? (
-              <>
-                <View style={styles.textWrap}>
-                  <AntDesign
-                    name="checkcircle"
-                    size={18}
-                    color={'#29988B'}
-                    style={styles.iconGreen}
-                  />
-                  <Text style={styles.validTextSuccess}>1 special symbol</Text>
-                </View>
-              </>
+                {upperValidate ? (
+                  <View style={styles.textWrap}>
+                    <AntDesign
+                      name="checkcircle"
+                      size={18}
+                      color={'#29988B'}
+                      style={styles.iconGreen}
+                    />
+                    <Text style={styles.validTextSuccess}>1 upper case</Text>
+                  </View>
+                ) : (
+                  <View style={styles.textWrap}>
+                    <Entypo
+                      name="dot-single"
+                      size={28}
+                      color={'#D9D9D9'}
+                      style={styles.icon}
+                    />
+                    <Text style={styles.validText}>1 upper case</Text>
+                  </View>
+                )}
+
+                {symbolValidate ? (
+                  <>
+                    <View style={styles.textWrap}>
+                      <AntDesign
+                        name="checkcircle"
+                        size={18}
+                        color={'#29988B'}
+                        style={styles.iconGreen}
+                      />
+                      <Text style={styles.validTextSuccess}>
+                        1 special symbol
+                      </Text>
+                    </View>
+                  </>
+                ) : (
+                  <>
+                    <View style={styles.textWrap}>
+                      <Entypo
+                        name="dot-single"
+                        size={28}
+                        color={'#D9D9D9'}
+                        style={styles.icon}
+                      />
+                      <Text style={styles.validText}>1 special symbol</Text>
+                    </View>
+                  </>
+                )}
+              </View>
+              <View style={styles.wrapperConfirm}>
+                <TextInputPassword
+                  password={confirmPassword}
+                  setPassword={setConfirmPassword}
+                  setShowKeyboard={setShowKeyboard}
+                  style={styles.eyeConf}
+                  text="confirm password"
+                />
+              </View>
+            </View>
+
+            {password === confirmPassword && password ? (
+              <TouchableOpacity
+                style={styles.btn}
+                onPress={handleOnPasswordlBtn}>
+                <Text style={styles.btnText}>SIGN UP</Text>
+              </TouchableOpacity>
             ) : (
-              <>
-                <View style={styles.textWrap}>
-                  <Entypo
-                    name="dot-single"
-                    size={28}
-                    color={'#D9D9D9'}
-                    style={styles.icon}
-                  />
-                  <Text style={styles.validText}>1 special symbol</Text>
-                </View>
-              </>
+              <TouchableOpacity
+                style={styles.btnDisable}
+                disabled
+                onPress={handleOnPasswordlBtn}>
+                <Text style={styles.btnTextDisable}>SIGN UP</Text>
+              </TouchableOpacity>
             )}
-          </View>
-          <View style={styles.wrapperConfirm}>
-            <TextInputPassword
-              password={confirmPassword}
-              setPassword={setConfirmPassword}
-              style={styles.eyeConf}
-              text="confirm password"
-            />
           </View>
         </View>
-
-        {password === confirmPassword ? (
-          <TouchableOpacity style={styles.btn} onPress={handleOnPasswordlBtn}>
-            <Text style={styles.btnText}>SIGN UP</Text>
-          </TouchableOpacity>
-        ) : (
-          <TouchableOpacity
-            style={styles.btnDisable}
-            disabled
-            onPress={handleOnPasswordlBtn}>
-            <Text style={styles.btnTextDisable}>SIGN UP</Text>
-          </TouchableOpacity>
-        )}
-      </View>
-    </View>
+      </TouchableWithoutFeedback>
+    </KeyboardAvoidingView>
   );
 };
 export default SetPassScreen;
@@ -249,6 +283,10 @@ const styles = StyleSheet.create({
   wrap: {
     width: 328,
     marginHorizontal: 40,
+  },
+  containerWrap: {
+    flex: 1,
+    backgroundColor: '#ffffff',
   },
   text: {
     fontSize: 32,
