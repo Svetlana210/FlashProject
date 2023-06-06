@@ -11,6 +11,7 @@ import {
 import React, {useState} from 'react';
 
 const CITIES = [
+  {id: 0, city: 'Ukraine'},
   {id: 1, city: 'Kiyv'},
   {id: 2, city: 'Lviv'},
   {id: 3, city: 'Odesa'},

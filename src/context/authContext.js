@@ -1,5 +1,5 @@
 import React, {createContext, useState} from 'react';
-import AsyncStorage from '@react-native-async-storage/async-storage';
+
 // import * as Keychain from 'react-native-keychain';
 
 const AuthContext = createContext(null);
@@ -11,22 +11,23 @@ const AuthProvider = ({children}) => {
     // refreshToken: null,
     authenticated: false,
   });
+  // const [loading, setLoading] = useState(false);
   //   console.log(authState);
-  const logout = async () => {
-    // await Keychain.resetGenericPassword();
+  // const logout = async () => {
+  //   // await Keychain.resetGenericPassword();
 
-    try {
-      await AsyncStorage.removeItem('token');
-      console.log('Data removed');
-      setAuthState({
-        access_token: null,
-        //   refresh_token: null,
-        authenticated: false,
-      });
-    } catch (exception) {
-      console.log(exception);
-    }
-  };
+  //   await AsyncStorage.removeItem('token');
+  //   try {
+  //     console.log('Data removed');
+  //     setAuthState({
+  //       access_token: null,
+  //       //   refresh_token: null,
+  //       authenticated: false,
+  //     });
+  //   } catch (exception) {
+  //     console.log(exception);
+  //   }
+  // };
 
   const getAccessToken = () => {
     return authState.access_token;
@@ -39,7 +40,8 @@ const AuthProvider = ({children}) => {
         authState,
         getAccessToken,
         setAuthState,
-        logout,
+        // logout,
+        // loading,
       }}>
       {children}
     </Provider>

@@ -1,9 +1,42 @@
 import {StyleSheet, Text, View, Modal, TouchableOpacity} from 'react-native';
-import React, {useContext} from 'react';
+import React, {useContext, useState, useEffect} from 'react';
 import {AuthContext} from '../../context/authContext';
+import {AxiosContext} from '../../context/axiosContext';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import Loading from './Loading';
 
 const LogOutModal = ({modalVisible, setModalVisible}) => {
   const authContext = useContext(AuthContext);
+  const {authAxios} = useContext(AxiosContext);
+  const [status, setStatus] = useState(null);
+  const id = Math.random();
+
+  const logOut = async () => {
+    setStatus('loading');
+
+    try {
+      const response = await authAxios.post('/logout/access', {id});
+      console.log(response);
+      authContext.setAuthState({
+        access_token: null,
+        // authenticated: true,
+        authenticated: false,
+      });
+
+      await AsyncStorage.removeItem('token');
+      setStatus('success');
+    } catch (error) {
+      setStatus('error');
+      console.log(`error token - ${error.message}`);
+    }
+  };
+  if (status === 'loading') {
+    // return <Loading status={status} />;
+    return <Text>Loading</Text>;
+  }
+  //   if (status === 'success') {
+  //     return <></>;
+  //   }
   return (
     <View style={styles.centeredView}>
       <Modal
@@ -27,7 +60,7 @@ const LogOutModal = ({modalVisible, setModalVisible}) => {
               </TouchableOpacity>
               <TouchableOpacity
                 style={[styles.button, styles.buttonClose]}
-                onPress={() => authContext.logout()}>
+                onPress={() => logOut()}>
                 <Text style={styles.textStyle}>LOG OUT</Text>
               </TouchableOpacity>
             </View>

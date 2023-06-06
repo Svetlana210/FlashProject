@@ -1,7 +1,11 @@
 import {StyleSheet, Text, View, TouchableOpacity, Image} from 'react-native';
-import React, {useState} from 'react';
+import React, {useState, useContext} from 'react';
 import ChangeLocationModal from '../../components/modals/ChangeLocation';
 import LogOutModal from '../../components/modals/LogOutModal';
+
+// import {AuthContext} from '../../context/authContext';/
+
+import {AxiosContext} from '../../context/axiosContext';
 // import {AuthContext} from '../../context/authContext';
 let profile = require('../../images/profile.png');
 let briefcase = require('../../images/briefcase.png');
@@ -11,24 +15,52 @@ let location = require('../../images/location.png');
 let vectorAr = require('../../images/VectorAr.png');
 
 const ProfileScreen = () => {
+  const [name, setName] = useState('');
+  const [city, setCity] = useState('');
+  const [tel, setTel] = useState('');
+  const [role, setRole] = useState('');
+  const [email, setEmail] = useState('');
   const [modalLocationVisible, setModalLocationVisible] = useState(false);
   const [modalLogoutVisible, setModalLogoutVisible] = useState(false);
+
+  // const authContext = useContext(AuthContext);
+  const {authAxios} = useContext(AxiosContext);
+  // console.log(authAxios)
+  // console.log(authAxios);
+
+  // const {access_token} = authContext.authState;
+
+  const findUserId = async () => {
+    try {
+      const response = await authAxios.get('/my_profile');
+      console.log(response.data);
+      setName(response.data.full_name);
+      setCity(response.data.location);
+      setEmail(response.data.email);
+      setTel(response.data.phone_number);
+      setRole(response.data.role);
+      // console.log(response.data._id);
+    } catch (error) {
+      console.log(`error my-profile - ${error.message}`);
+    }
+  };
+  findUserId();
 
   return (
     <View style={styles.wrap}>
       <Text style={styles.text}>My account</Text>
       <Image source={profile} style={styles.iconProfile} />
-      <Text style={styles.textSmall}>Olena Shtokalko</Text>
+      <Text style={styles.textSmall}>{name}</Text>
       <Image source={briefcase} style={styles.iconCase} />
-      <Text style={styles.textSmall}>Product designer</Text>
+      <Text style={styles.textSmall}>{role}</Text>
       <Image source={vector} style={styles.iconVector} />
-      <Text style={styles.textSmall}>+38 (067) 111-45-55</Text>
+      <Text style={styles.textSmall}>{tel}</Text>
       <Image source={sms} style={styles.iconSms} />
-      <Text style={styles.textSmall}>olenashtokalko@lasoft.org</Text>
+      <Text style={styles.textSmall}>{email}</Text>
       <Text style={styles.textLocation}>My location</Text>
       <Image source={location} style={styles.iconLocation} />
       <View style={styles.container}>
-        <Text style={styles.textSmall}>Lviv</Text>
+        <Text style={styles.textSmall}>{city}</Text>
         <ChangeLocationModal
           modalVisible={modalLocationVisible}
           setModalVisible={setModalLocationVisible}
