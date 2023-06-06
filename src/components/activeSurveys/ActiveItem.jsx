@@ -1,7 +1,7 @@
 import {StyleSheet, Text, View, TouchableOpacity} from 'react-native';
 import React from 'react';
 
-const ActiveItem = ({title, id, amount, date, text, status, navigation}) => {
+const ActiveItem = ({title, amount, date, text, status, navigation}) => {
   return (
     <View style={styles.wrap}>
       <Text style={styles.title}>{title}</Text>
@@ -25,12 +25,13 @@ export default ActiveItem;
 
 const styles = StyleSheet.create({
   wrap: {
-    width: 323,
+    width: 281,
     height: 200,
     padding: 16,
     borderWidth: 1,
     borderColor: '#E0E5EB',
     backgroundColor: '#ffffff',
+    marginRight: 10,
   },
   title: {
     fontFamily: 'TTNorms-Medium',
@@ -68,9 +69,9 @@ const styles = StyleSheet.create({
     borderColor: '#F08828',
   },
   btn: {
-    width: 292,
+    width: 249,
     backgroundColor: '#F0B528',
-    paddingHorizontal: 122,
+    paddingHorizontal: 100,
     paddingVertical: 13,
     borderRadius: 4,
     marginTop: 24,
