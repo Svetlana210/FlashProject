@@ -1,6 +1,5 @@
 import {StyleSheet, Text, View, TouchableOpacity, Image} from 'react-native';
 import React, {useContext, useRef, useEffect, useState} from 'react';
-// import CountDownTimer from '../components/Timer';
 import {AxiosContext} from '../../context/axiosContext';
 let letter = require('../../images/letter.png');
 const CheckEmailScreen = ({route}) => {
@@ -14,9 +13,7 @@ const CheckEmailScreen = ({route}) => {
         email,
       });
       console.log(response);
-      // return response.data.status;
     } catch (error) {
-      // Alert.alert('User is not exist');
       console.log(`error - ${error.message}`);
     }
   };
@@ -139,7 +136,6 @@ const styles = StyleSheet.create({
     height: 44,
     paddingVertical: 10,
     paddingHorizontal: 12,
-    // borderColor: '#DBDBDB',
     borderWidth: 1,
     borderRadius: 4,
     color: '#1D252D',

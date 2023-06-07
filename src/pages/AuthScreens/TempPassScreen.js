@@ -1,5 +1,5 @@
+/* eslint-disable no-unused-vars */
 import React, {useState, useContext} from 'react';
-// import axios from 'axios';
 import {
   View,
   Text,
@@ -13,18 +13,12 @@ import {
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
 import TextInputPassword from '../../components/shared/TextInputPassword';
-// import * as Keychain from 'react-native-keychain';
 import {AuthContext} from '../../context/authContext';
 
 import {AxiosContext} from '../../context/axiosContext';
 
 const TempPassScreen = ({route, navigation}) => {
   const [password, setPassword] = useState('');
-
-  // const [token, setToken] = useState('');
-  // const [refreshToken, setRefreshToken] = useState('');
-
-  // eslint-disable-next-line no-unused-vars
   const [showKeyboard, setShowKeyboard] = useState(false);
 
   const hideKeyboard = () => {
@@ -33,11 +27,6 @@ const TempPassScreen = ({route, navigation}) => {
   };
   const authContext = useContext(AuthContext);
   const {publicAxios} = useContext(AxiosContext);
-
-  // const {showPassword, setShowPassword} = usePassword();
-  // console.log(`temppass-${password}`);
-  // const [isFocusedPassword, setIsFocusedPassword] = useState(false);
-  // const [checkValidPassword, setCheckValidPassword] = useState(false);
 
   const setTempPassword = async () => {
     try {
@@ -49,21 +38,10 @@ const TempPassScreen = ({route, navigation}) => {
       console.log(response.data);
       authContext.setAuthState({
         access_token,
-        // authenticated: true,
         authenticated: false,
       });
       await AsyncStorage.setItem('token', JSON.stringify(access_token));
-      // console.log(await AsyncStorage.getItem('token'));
-
-      // await Keychain.setGenericPassword(
-      //   'token',
-      //   JSON.stringify({
-      //     access_token,
-      //   }),
-      // );
-      // return response.data.status;
     } catch (error) {
-      // Alert.alert('User is not exist');
       console.log(`error token - ${error.message}`);
     }
   };

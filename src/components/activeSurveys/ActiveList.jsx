@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 import {StyleSheet, View, FlatList} from 'react-native';
 import React, {useState} from 'react';
 import ActiveItem from './ActiveItem';
@@ -26,11 +27,6 @@ const initialState = [
     id: 3,
     status: 'New',
   },
-  //   {title: 'Survey 2', date: '10 Feb,11:00', status: 'Missed', id: 2},
-  //   {title: 'Survey 3', date: '09 Feb,11:00', status: 'Missed', id: 3},
-  //   {title: 'Survey 4', date: '07 Feb,12:00', status: 'Completed', id: 4},
-  //   {title: 'Survey 5', date: '05 Feb,10:30', status: 'Completed', id: 5},
-  //   {title: 'Survey 6', date: '05 Feb,09:30', status: 'Completed', id: 6},
 ];
 const ActiveList = ({navigation}) => {
   const [list, setList] = useState(initialState);

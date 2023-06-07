@@ -16,7 +16,6 @@ import {AuthContext} from '../../context/authContext';
 
 import {AxiosContext} from '../../context/axiosContext';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-// import {Alert} from 'react-native';
 
 const SignInScreen = ({route, navigation}) => {
   const authContext = useContext(AuthContext);
@@ -40,18 +39,8 @@ const SignInScreen = ({route, navigation}) => {
       authContext.setAuthState({
         access_token,
         authenticated: true,
-        // authenticated: false,
       });
       await AsyncStorage.setItem('token', JSON.stringify(access_token));
-      // console.log(await AsyncStorage.getItem('token'));
-
-      // await Keychain.setGenericPassword(
-      //   'token',
-      //   JSON.stringify({
-      //     access_token,
-      //   }),
-      // );
-      // return response.data.status;
     } catch (error) {
       Alert.alert('Incorrect password');
       console.log(`error token - ${error.message}`);
@@ -61,7 +50,6 @@ const SignInScreen = ({route, navigation}) => {
   const handleOnPasswordlBtn = e => {
     e.preventDefault();
     signInPass();
-    // navigation.navigate('SetPassScreen');
   };
   const handleOnForgotPass = e => {
     e.preventDefault();
@@ -163,7 +151,6 @@ const styles = StyleSheet.create({
     paddingHorizontal: 130,
     paddingVertical: 13,
     borderRadius: 4,
-    // marginTop: 37,
   },
   btnDisable: {
     width: 328,
@@ -171,7 +158,6 @@ const styles = StyleSheet.create({
     paddingHorizontal: 130,
     paddingVertical: 13,
     borderRadius: 4,
-    // marginTop: 37,
   },
   btnText: {fontFamily: 'TTNorms-Bold', color: '#1D252D', fontSize: 14},
   btnTextDisable: {fontFamily: 'TTNorms-Bold', color: '#A1A1A1', fontSize: 14},

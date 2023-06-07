@@ -1,6 +1,5 @@
 /* eslint-disable react-native/no-inline-styles */
 import React, {useState, useContext, useEffect} from 'react';
-// import axios from 'axios';
 import {
   View,
   Text,
@@ -14,12 +13,8 @@ import {
 } from 'react-native';
 import Entypo from 'react-native-vector-icons/Entypo';
 import AntDesign from 'react-native-vector-icons/AntDesign';
-// import AsyncStorage from '@react-native-async-storage/async-storage';
-
 import TextInputPassword from '../../components/shared/TextInputPassword';
-
 import {AuthContext} from '../../context/authContext';
-
 import {AxiosContext} from '../../context/axiosContext';
 
 const SetPassScreen = ({route, navigation}) => {
@@ -41,10 +36,7 @@ const SetPassScreen = ({route, navigation}) => {
 
   const authContext = useContext(AuthContext);
   const {authAxios} = useContext(AxiosContext);
-  // console.log(authAxios);
-
   const {access_token} = authContext.authState;
-  // console.log(authContext.authState.access_token);
 
   const handleChange = value => {
     const lower = new RegExp('(?=.*[a-z])');
@@ -76,14 +68,12 @@ const SetPassScreen = ({route, navigation}) => {
       setLengthValidate(false);
     }
   };
-  // console.log(password);
 
   useEffect(() => {
     const findUserId = async () => {
       try {
         const response = await authAxios.get('/my_profile');
         setUserId(response.data._id);
-        // console.log(response.data._id);
       } catch (error) {
         console.log(`error my-profile - ${error.message}`);
       }
@@ -92,7 +82,6 @@ const SetPassScreen = ({route, navigation}) => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  // console.log(userId);
   const onSignUp = async () => {
     try {
       // eslint-disable-next-line no-unused-vars
@@ -100,7 +89,6 @@ const SetPassScreen = ({route, navigation}) => {
         password,
       });
       authContext.setAuthState({access_token, authenticated: true});
-      // console.log(response);
     } catch (error) {
       Alert.alert('Invalid password');
       console.log(`error setPass - ${error.message}`);
@@ -110,12 +98,7 @@ const SetPassScreen = ({route, navigation}) => {
   const handleOnPasswordlBtn = e => {
     e.preventDefault();
     onSignUp();
-    // setTempPassword();
-    // navigation.navigate('HomeScreen');
   };
-
-  // console.log(token);
-  // console.log(refreshToken);
 
   return (
     <KeyboardAvoidingView

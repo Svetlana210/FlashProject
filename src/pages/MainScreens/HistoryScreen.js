@@ -7,7 +7,6 @@ const HistoryScreen = () => {
     <View style={styles.wrap}>
       <View style={styles.container}>
         <View style={styles.historyWrapper}>
-          {/* <Text style={styles.title}>History</Text> */}
           <HistoryList />
         </View>
       </View>

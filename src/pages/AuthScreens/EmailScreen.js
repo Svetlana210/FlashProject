@@ -1,7 +1,6 @@
 /* eslint-disable no-useless-escape */
 /* eslint-disable react-native/no-inline-styles */
 import React, {useState, useContext} from 'react';
-// import AsyncStorage from '@react-native-async-storage/async-storage';
 import {
   View,
   Text,
@@ -47,7 +46,6 @@ const EmailScreen = ({navigation, route}) => {
   const checkEmail = async () => {
     try {
       const response = await publicAxios.post('/auth/user_status', {email});
-      // setUserStatus(response.data.status);
       if (response.data.status === 'Inactive') {
         setUserStatus(false);
         navigation.navigate('TempPassScreen', {
@@ -60,7 +58,6 @@ const EmailScreen = ({navigation, route}) => {
         });
       }
       console.log(response.data.status);
-      // return response.data.status;
     } catch (error) {
       Alert.alert('User is not exist');
       console.log(`error - ${error.message}`);
@@ -131,8 +128,6 @@ const styles = StyleSheet.create({
     flex: 1,
     alignItems: 'center',
     justifyContent: 'flex-start',
-    // marginVertical: 30,
-    // marginHorizontal: 30,
   },
   containerWrap: {
     flex: 1,
@@ -174,7 +169,6 @@ const styles = StyleSheet.create({
     height: 44,
     paddingVertical: 10,
     paddingHorizontal: 12,
-    // borderColor: '#DBDBDB',
     borderWidth: 1,
     borderRadius: 4,
     color: '#1D252D',

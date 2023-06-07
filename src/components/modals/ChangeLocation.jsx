@@ -79,19 +79,14 @@ const styles = StyleSheet.create({
   centeredView: {
     flex: 1,
     justifyContent: 'flex-end',
-    // alignItems: 'center',
-    // marginTop: 22,
   },
   modalView: {
-    // margin: 20,
     height: 417,
     backgroundColor: 'white',
     borderTopLeftRadius: 20,
     borderTopRightRadius: 20,
-    // borderRadius: 20,
     paddingVertical: 24,
     paddingHorizontal: 16,
-    // alignItems: 'center',
     shadowColor: '#000',
     shadowOffset: {
       width: 0,

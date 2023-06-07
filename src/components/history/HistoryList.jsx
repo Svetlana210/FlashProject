@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 import {StyleSheet, View, FlatList} from 'react-native';
 import React, {useState} from 'react';
 import HistoryItem from './HistoryItem';

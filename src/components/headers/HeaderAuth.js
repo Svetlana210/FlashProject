@@ -8,7 +8,6 @@ const HeaderAuth = () => {
     <View style={styles.container}>
       <GoBackBtn />
       <Image source={logo} style={styles.logo} />
-      {/* <Text>{props.name}</Text> */}
     </View>
   );
 };

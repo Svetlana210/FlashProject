@@ -44,9 +44,7 @@ const PassRecoveryScreen = ({navigation}) => {
         email,
       });
       console.log(response);
-      // return response.data.status;
     } catch (error) {
-      // Alert.alert('User is not exist');
       console.log(`error - ${error.message}`);
     }
   };

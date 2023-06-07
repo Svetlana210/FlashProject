@@ -1,5 +1,5 @@
-import {StyleSheet, Text, View, Modal, TouchableOpacity} from 'react-native';
-import React, {useContext, useState, useEffect} from 'react';
+import {StyleSheet, Text, View, Modal} from 'react-native';
+import React from 'react';
 // import {AuthContext} from '../../context/authContext';
 // import {AxiosContext} from '../../context/axiosContext';
 // import AsyncStorage from '@react-native-async-storage/async-storage';

@@ -8,7 +8,6 @@ const WelcomeScreen = ({navigation, route}) => {
   return (
     <View style={styles.master}>
       <Image source={logo} />
-      {/* <Text style={styles.title}>Welcome! </Text> */}
       <AppText isMedium style={styles.title}>
         Welcome!
       </AppText>
@@ -31,7 +30,6 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
     paddingVertical: 210,
-    // marginHorizontal: 30,
   },
   title: {
     fontSize: 32,

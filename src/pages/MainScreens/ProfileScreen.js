@@ -2,11 +2,8 @@ import {StyleSheet, Text, View, TouchableOpacity, Image} from 'react-native';
 import React, {useState, useContext} from 'react';
 import ChangeLocationModal from '../../components/modals/ChangeLocation';
 import LogOutModal from '../../components/modals/LogOutModal';
-
-// import {AuthContext} from '../../context/authContext';/
-
 import {AxiosContext} from '../../context/axiosContext';
-// import {AuthContext} from '../../context/authContext';
+
 let profile = require('../../images/profile.png');
 let briefcase = require('../../images/briefcase.png');
 let vector = require('../../images/Vector.png');
@@ -23,12 +20,7 @@ const ProfileScreen = () => {
   const [modalLocationVisible, setModalLocationVisible] = useState(false);
   const [modalLogoutVisible, setModalLogoutVisible] = useState(false);
 
-  // const authContext = useContext(AuthContext);
   const {authAxios} = useContext(AxiosContext);
-  // console.log(authAxios)
-  // console.log(authAxios);
-
-  // const {access_token} = authContext.authState;
 
   const findUserId = async () => {
     try {
@@ -39,7 +31,6 @@ const ProfileScreen = () => {
       setEmail(response.data.email);
       setTel(response.data.phone_number);
       setRole(response.data.role);
-      // console.log(response.data._id);
     } catch (error) {
       console.log(`error my-profile - ${error.message}`);
     }
@@ -88,6 +79,7 @@ const ProfileScreen = () => {
 export default ProfileScreen;
 
 const styles = StyleSheet.create({
+  wrap: {backgroundColor: '#ffffff', paddingBottom: 37},
   text: {
     fontFamily: 'TTNorms-Bold',
     fontSize: 22,
@@ -127,7 +119,7 @@ const styles = StyleSheet.create({
     width: 20,
     height: 20,
     position: 'absolute',
-    bottom: 180,
+    bottom: 217,
     left: 16,
   },
   iconArray: {position: 'absolute', bottom: 3, right: 20},
@@ -147,7 +139,7 @@ const styles = StyleSheet.create({
     fontFamily: 'TTNorms-Bold',
     fontSize: 14,
     lineHeight: 17,
-    marginTop: 33,
+    marginTop: 31,
     marginRight: 35,
   },
 });

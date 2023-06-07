@@ -1,9 +1,8 @@
+/* eslint-disable no-unused-vars */
 import {StyleSheet, Text, View, Image, TouchableOpacity} from 'react-native';
 import React, {useState} from 'react';
 import HistoryList from '../../components/history/HistoryList';
 import ActiveList from '../../components/activeSurveys/ActiveList.jsx';
-// import Navigation from '../../navigation';
-// import {AuthContext} from '../context/authContext';
 let env = require('../../images/Env.png');
 
 const HomeScreen = ({navigation}) => {
@@ -54,23 +53,16 @@ const styles = StyleSheet.create({
     marginBottom: 16,
   },
   imageWrapper: {
-    // backgroundColor: 'violet',
     height: 200,
     textAlign: 'center',
     alignItems: 'center',
   },
   img: {
-    // position: 'absolute',
-    // top: 0,
-    // right: 0,
     width: 128,
     height: 128,
   },
   historyWrapper: {
-    // marginTop: 11,
     flexDirection: 'row',
-    // flex: 1,
-    // alignItems: 'center',
     justifyContent: 'space-between',
   },
   text: {

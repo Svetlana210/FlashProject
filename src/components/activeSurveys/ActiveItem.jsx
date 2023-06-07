@@ -37,7 +37,6 @@ const styles = StyleSheet.create({
     fontFamily: 'TTNorms-Medium',
     fontSize: 16,
     lineHeight: 24,
-    // marginLeft: 47,
   },
   date: {
     marginTop: 2,
@@ -45,7 +44,6 @@ const styles = StyleSheet.create({
     fontSize: 12,
     lineHeight: 14,
     color: '#828B94',
-    // marginLeft: 47,
   },
   text: {
     fontFamily: 'TTNorms-Regular',
