@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import {View, StyleSheet, Image} from 'react-native';
-import AppText from '../../components/shared/AppText';
+import AppText from '../../components/reusableComponents/AppText';
 import * as Progress from 'react-native-progress';
 
 let logo = require('../../images/logoB.png');

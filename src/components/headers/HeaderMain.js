@@ -1,12 +1,13 @@
 import {StyleSheet, View} from 'react-native';
 import React from 'react';
-
-import {Text} from 'react-native-elements';
+import AppText from '../reusableComponents/AppText';
 
 const HeaderMain = ({children, text, style}) => {
   return (
     <View style={styles.container}>
-      <Text style={[styles.text, style]}>{text}</Text>
+      <AppText isMedium style={[styles.text, style]}>
+        {text}
+      </AppText>
       {children}
     </View>
   );
@@ -26,7 +27,6 @@ const styles = StyleSheet.create({
     position: 'absolute',
     top: 43,
     left: 18,
-    fontFamily: 'TTNorms-Medium',
     fontSize: 20,
   },
 });

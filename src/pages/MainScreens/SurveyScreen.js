@@ -1,5 +1,7 @@
-import {StyleSheet, Text, View, Image} from 'react-native';
 import React from 'react';
+import {StyleSheet, View, Image} from 'react-native';
+import AppText from '../../components/reusableComponents/AppText';
+
 // import {Image} from 'react-native-elements';
 
 let rect = require('../../images/Rect.png');
@@ -7,14 +9,16 @@ let rect = require('../../images/Rect.png');
 const SurveyScreen = () => {
   return (
     <View style={styles.container}>
-      <Text style={styles.text}>Questions</Text>
+      <AppText style={styles.text}>Questions</AppText>
       <View style={styles.wrap}>
         <Image source={rect} style={styles.icon} />
         <Image source={rect} />
         <Image source={rect} />
         <Image source={rect} />
       </View>
-      <Text style={styles.title}>Are you okay physically?</Text>
+      <AppText isBold style={styles.title}>
+        Are you okay physically?
+      </AppText>
     </View>
   );
 };
@@ -27,7 +31,6 @@ const styles = StyleSheet.create({
     marginHorizontal: 16,
   },
   text: {
-    fontFamily: 'TTNorms-Regular',
     fontSize: 14,
     lineHeight: 17,
     color: '#828B94',
@@ -41,7 +44,6 @@ const styles = StyleSheet.create({
     tintColor: '#FDF7E7',
   },
   title: {
-    fontFamily: 'TTNorms-Bold',
     fontSize: 22,
     lineHeight: 26,
     marginVertical: 32,

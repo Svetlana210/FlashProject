@@ -1,7 +1,8 @@
-import {StyleSheet, Text, View, TouchableOpacity, Image} from 'react-native';
 import React, {useState, useContext} from 'react';
+import {StyleSheet, View, TouchableOpacity, Image} from 'react-native';
 import ChangeLocationModal from '../../components/modals/ChangeLocation';
 import LogOutModal from '../../components/modals/LogOutModal';
+import AppText from '../../components/reusableComponents/AppText';
 import {AxiosContext} from '../../context/axiosContext';
 
 let profile = require('../../images/profile.png');
@@ -39,19 +40,23 @@ const ProfileScreen = () => {
 
   return (
     <View style={styles.wrap}>
-      <Text style={styles.text}>My account</Text>
+      <AppText isBold style={styles.text}>
+        My account
+      </AppText>
       <Image source={profile} style={styles.iconProfile} />
-      <Text style={styles.textSmall}>{name}</Text>
+      <AppText style={styles.textSmall}>{name}</AppText>
       <Image source={briefcase} style={styles.iconCase} />
-      <Text style={styles.textSmall}>{role}</Text>
+      <AppText style={styles.textSmall}>{role}</AppText>
       <Image source={vector} style={styles.iconVector} />
-      <Text style={styles.textSmall}>{tel}</Text>
+      <AppText style={styles.textSmall}>{tel}</AppText>
       <Image source={sms} style={styles.iconSms} />
-      <Text style={styles.textSmall}>{email}</Text>
-      <Text style={styles.textLocation}>My location</Text>
+      <AppText style={styles.textSmall}>{email}</AppText>
+      <AppText isBold style={styles.textLocation}>
+        My location
+      </AppText>
       <Image source={location} style={styles.iconLocation} />
       <View style={styles.container}>
-        <Text style={styles.textSmall}>{city}</Text>
+        <AppText style={styles.textSmall}>{city}</AppText>
         <ChangeLocationModal
           modalVisible={modalLocationVisible}
           setModalVisible={setModalLocationVisible}
@@ -59,7 +64,9 @@ const ProfileScreen = () => {
         <TouchableOpacity
           style={styles.btnChange}
           onPress={() => setModalLocationVisible(true)}>
-          <Text style={styles.btnChangeText}>CHANGE</Text>
+          <AppText isBold style={styles.btnChangeText}>
+            CHANGE
+          </AppText>
         </TouchableOpacity>
         <Image source={vectorAr} style={styles.iconArray} />
       </View>
@@ -70,7 +77,9 @@ const ProfileScreen = () => {
       <TouchableOpacity
         style={styles.btn}
         onPress={() => setModalLogoutVisible(true)}>
-        <Text style={styles.btnText}>LOG OUT</Text>
+        <AppText isBold style={styles.btnText}>
+          LOG OUT
+        </AppText>
       </TouchableOpacity>
     </View>
   );
@@ -81,21 +90,18 @@ export default ProfileScreen;
 const styles = StyleSheet.create({
   wrap: {backgroundColor: '#ffffff', paddingBottom: 37},
   text: {
-    fontFamily: 'TTNorms-Bold',
     fontSize: 22,
     lineHeight: 33,
     marginTop: 24,
     marginLeft: 16,
   },
   textSmall: {
-    fontFamily: 'TTNorms-Regular',
     fontSize: 16,
     lineHeight: 24,
     marginTop: 26,
     marginLeft: 52,
   },
   textLocation: {
-    fontFamily: 'TTNorms-Bold',
     fontSize: 22,
     lineHeight: 33,
     marginTop: 40,
@@ -132,11 +138,10 @@ const styles = StyleSheet.create({
     marginTop: 110,
     marginHorizontal: 25,
   },
-  btnText: {fontFamily: 'TTNorms-Bold', fontSize: 14, lineHeight: 18},
+  btnText: {fontSize: 14, lineHeight: 18},
 
   btnChangeText: {
     color: '#f0b528',
-    fontFamily: 'TTNorms-Bold',
     fontSize: 14,
     lineHeight: 17,
     marginTop: 31,

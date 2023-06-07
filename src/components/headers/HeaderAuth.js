@@ -1,6 +1,6 @@
 import {StyleSheet, View, Image} from 'react-native';
 import React from 'react';
-import GoBackBtn from '../shared/GoBackBtn';
+import GoBackBtn from '../reusableComponents/GoBackBtn';
 let logo = require('../../images/logoS.jpg');
 
 const HeaderAuth = () => {

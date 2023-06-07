@@ -1,6 +1,6 @@
 import React from 'react';
 import {View, StyleSheet, TouchableOpacity, Image} from 'react-native';
-import AppText from '../../components/shared/AppText';
+import AppText from '../../components/reusableComponents/AppText';
 
 let logo = require('../../images/logoB.png');
 

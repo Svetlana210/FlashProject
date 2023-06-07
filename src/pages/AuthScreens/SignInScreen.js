@@ -2,7 +2,6 @@
 import React, {useState, useContext} from 'react';
 import {
   View,
-  Text,
   StyleSheet,
   TouchableOpacity,
   Alert,
@@ -11,9 +10,9 @@ import {
   Keyboard,
   Platform,
 } from 'react-native';
-import TextInputPassword from '../../components/shared/TextInputPassword';
+import TextInputPassword from '../../components/reusableComponents/TextInputPassword';
+import AppText from '../../components/reusableComponents/AppText';
 import {AuthContext} from '../../context/authContext';
-
 import {AxiosContext} from '../../context/axiosContext';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
@@ -63,13 +62,15 @@ const SignInScreen = ({route, navigation}) => {
       <TouchableWithoutFeedback onPress={hideKeyboard}>
         <View style={styles.master}>
           <View style={styles.wrap}>
-            <Text style={styles.text}>Welcome back</Text>
-            <Text style={styles.textSmall}>
+            <AppText isMedium style={styles.text}>
+              Welcome back
+            </AppText>
+            <AppText style={styles.textSmall}>
               Use the password for {email} to sign in
-            </Text>
+            </AppText>
 
             <View>
-              <Text style={styles.textLabel}>Your password</Text>
+              <AppText style={styles.textLabel}>Your password</AppText>
               <TextInputPassword
                 password={password}
                 setPassword={setPassword}
@@ -79,7 +80,7 @@ const SignInScreen = ({route, navigation}) => {
               <TouchableOpacity
                 style={styles.btnForgot}
                 onPress={handleOnForgotPass}>
-                <Text style={styles.textForgot}>Forgot password?</Text>
+                <AppText style={styles.textForgot}>Forgot password?</AppText>
               </TouchableOpacity>
             </View>
 
@@ -87,7 +88,9 @@ const SignInScreen = ({route, navigation}) => {
               <TouchableOpacity
                 style={{...styles.btn, marginTop: showKeyboard ? 20 : 37}}
                 onPress={handleOnPasswordlBtn}>
-                <Text style={styles.btnText}>SIGN IN</Text>
+                <AppText isBold style={styles.btnText}>
+                  SIGN IN
+                </AppText>
               </TouchableOpacity>
             ) : (
               <TouchableOpacity
@@ -97,7 +100,9 @@ const SignInScreen = ({route, navigation}) => {
                 }}
                 disabled
                 onPress={handleOnPasswordlBtn}>
-                <Text style={styles.btnTextDisable}>SIGN IN</Text>
+                <AppText isBold style={styles.btnTextDisable}>
+                  SIGN IN
+                </AppText>
               </TouchableOpacity>
             )}
           </View>
@@ -127,11 +132,9 @@ const styles = StyleSheet.create({
     marginBottom: 16,
     marginTop: 32,
     color: '#1D252D',
-    fontFamily: 'TTNorms-Medium',
   },
   textSmall: {
     width: 280,
-    fontFamily: 'TTNorms-Regular',
     fontSize: 16,
     lineHeight: 20,
     marginBottom: 24,
@@ -142,8 +145,6 @@ const styles = StyleSheet.create({
     color: '#F0B528',
     fontSize: 14,
     lineHeight: 16,
-
-    fontFamily: 'TTNorms-Regular',
   },
   btn: {
     width: 328,
@@ -159,13 +160,12 @@ const styles = StyleSheet.create({
     paddingVertical: 13,
     borderRadius: 4,
   },
-  btnText: {fontFamily: 'TTNorms-Bold', color: '#1D252D', fontSize: 14},
-  btnTextDisable: {fontFamily: 'TTNorms-Bold', color: '#A1A1A1', fontSize: 14},
+  btnText: {color: '#1D252D', fontSize: 14},
+  btnTextDisable: {color: '#A1A1A1', fontSize: 14},
   textLabel: {
     fontSize: 14,
     lineHeight: 21,
     color: '#000000',
-    fontFamily: 'TTNorms-Regular',
   },
   container: {
     position: 'relative',

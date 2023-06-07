@@ -1,7 +1,6 @@
 /* eslint-disable react/no-unstable-nested-components */
 import {
   StyleSheet,
-  Text,
   View,
   Modal,
   FlatList,
@@ -9,6 +8,7 @@ import {
   Image,
 } from 'react-native';
 import React, {useState} from 'react';
+import AppText from '../reusableComponents/AppText';
 
 const CITIES = [
   {id: 0, city: 'Ukraine'},
@@ -38,7 +38,7 @@ const ChangeLocationModal = ({modalVisible, setModalVisible}) => {
         onPress={() => {
           setActive(!active);
         }}>
-        <Text>{city}</Text>
+        <AppText>{city}</AppText>
       </TouchableOpacity>
     </View>
   );
@@ -54,7 +54,9 @@ const ChangeLocationModal = ({modalVisible, setModalVisible}) => {
         }}>
         <View style={styles.centeredView}>
           <View style={styles.modalView}>
-            <Text style={styles.modalText}>Change location </Text>
+            <AppText isBold style={styles.modalText}>
+              Change location{' '}
+            </AppText>
 
             <FlatList
               data={CITIES}
@@ -64,7 +66,9 @@ const ChangeLocationModal = ({modalVisible, setModalVisible}) => {
             <TouchableOpacity
               style={[styles.button, styles.buttonClose]}
               onPress={() => setModalVisible(!modalVisible)}>
-              <Text style={styles.textStyle}>SAVE</Text>
+              <AppText isBold style={styles.textStyle}>
+                SAVE
+              </AppText>
             </TouchableOpacity>
           </View>
         </View>
@@ -107,12 +111,10 @@ const styles = StyleSheet.create({
   },
   textStyle: {
     color: '#A1A1A1',
-    fontFamily: 'TTNorms-Bold',
     textAlign: 'center',
   },
   modalText: {
     marginBottom: 18,
-    fontFamily: 'TTNorms-Bold',
     fontSize: 22,
     lineHeight: 33,
   },
@@ -126,7 +128,6 @@ const styles = StyleSheet.create({
   title: {
     marginBottom: 28,
     marginLeft: 38,
-    fontFamily: 'TTNorms-Regular',
     fontSize: 16,
     lineHeight: 24,
   },

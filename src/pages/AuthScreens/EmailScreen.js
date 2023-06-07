@@ -3,7 +3,6 @@
 import React, {useState, useContext} from 'react';
 import {
   View,
-  Text,
   StyleSheet,
   TouchableOpacity,
   TextInput,
@@ -13,6 +12,7 @@ import {
   Keyboard,
   Platform,
 } from 'react-native';
+import AppText from '../../components/reusableComponents/AppText';
 import {AxiosContext} from '../../context/axiosContext';
 
 const EmailScreen = ({navigation, route}) => {
@@ -46,6 +46,7 @@ const EmailScreen = ({navigation, route}) => {
   const checkEmail = async () => {
     try {
       const response = await publicAxios.post('/auth/user_status', {email});
+      console.log(response.data.status);
       if (response.data.status === 'Inactive') {
         setUserStatus(false);
         navigation.navigate('TempPassScreen', {
@@ -74,9 +75,11 @@ const EmailScreen = ({navigation, route}) => {
       style={styles.containerWrap}>
       <TouchableWithoutFeedback onPress={hideKeyboard}>
         <View style={styles.master}>
-          <Text style={styles.text}>Enter your work email address</Text>
+          <AppText isMedium style={styles.text}>
+            Enter your work email address
+          </AppText>
           <View>
-            <Text style={styles.textLabel}>Your email</Text>
+            <AppText style={styles.textLabel}>Your email</AppText>
             <TextInput
               style={{
                 ...styles.input,
@@ -95,24 +98,28 @@ const EmailScreen = ({navigation, route}) => {
               }}
             />
             {checkValidEmail && email ? (
-              <Text style={styles.textFailed}>
+              <AppText style={styles.textFailed}>
                 Email does not appear to be valid
-              </Text>
+              </AppText>
             ) : (
-              <Text style={styles.textOk}> </Text>
+              <AppText style={styles.textOk}> </AppText>
             )}
           </View>
 
           {email ? (
             <TouchableOpacity style={styles.btn} onPress={handleOnEmailBtn}>
-              <Text style={styles.btnText}>CONTINUE WITH EMAIL</Text>
+              <AppText isBold style={styles.btnText}>
+                CONTINUE WITH EMAIL
+              </AppText>
             </TouchableOpacity>
           ) : (
             <TouchableOpacity
               style={styles.btnDisable}
               disabled
               onPress={handleOnEmailBtn}>
-              <Text style={styles.btnTextDisable}>CONTINUE WITH EMAIL</Text>
+              <AppText isBold style={styles.btnTextDisable}>
+                CONTINUE WITH EMAIL
+              </AppText>
             </TouchableOpacity>
           )}
         </View>
@@ -139,7 +146,6 @@ const styles = StyleSheet.create({
     marginBottom: 24,
     marginTop: 32,
     color: '#1D252D',
-    fontFamily: 'TTNorms-Medium',
   },
   btn: {
     width: 330,
@@ -156,13 +162,12 @@ const styles = StyleSheet.create({
     borderRadius: 4,
     marginTop: 18,
   },
-  btnText: {fontFamily: 'TTNorms-Bold', color: '#1D252D', fontSize: 14},
-  btnTextDisable: {fontFamily: 'TTNorms-Bold', color: '#A1A1A1', fontSize: 14},
+  btnText: {color: '#1D252D', fontSize: 14},
+  btnTextDisable: {color: '#A1A1A1', fontSize: 14},
   textLabel: {
     fontSize: 14,
     lineHeight: 21,
     color: '#000000',
-    fontFamily: 'TTNorms-Regular',
   },
   input: {
     width: 328,
@@ -174,8 +179,6 @@ const styles = StyleSheet.create({
     color: '#1D252D',
     fontSize: 16,
     marginTop: 4,
-
-    fontFamily: 'TTNorms-Regular',
   },
   textFailed: {
     alignSelf: 'flex-start',

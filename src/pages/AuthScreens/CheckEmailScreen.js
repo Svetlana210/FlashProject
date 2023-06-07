@@ -1,7 +1,10 @@
-import {StyleSheet, Text, View, TouchableOpacity, Image} from 'react-native';
+import {StyleSheet, View, TouchableOpacity, Image} from 'react-native';
 import React, {useContext, useRef, useEffect, useState} from 'react';
+import AppText from '../../components/reusableComponents/AppText';
 import {AxiosContext} from '../../context/axiosContext';
+
 let letter = require('../../images/letter.png');
+
 const CheckEmailScreen = ({route}) => {
   const [time, setTime] = useState(59);
   const timerRef = useRef(time);
@@ -44,23 +47,33 @@ const CheckEmailScreen = ({route}) => {
         <View style={styles.imgWrap}>
           <Image source={letter} style={styles.img} />
         </View>
-        <Text style={styles.text}>Check your email</Text>
-        <Text style={styles.textSmall}>
+        <AppText isMedium style={styles.text}>
+          Check your email
+        </AppText>
+        <AppText style={styles.textSmall}>
           We’ve sent an email to
-          <Text style={styles.textSmallEmail}> {email}</Text> with further
-          instructions. If the email doesn’t show up, check your spam folder
-        </Text>
+          <AppText isMedium style={styles.textSmallEmail}>
+            {' '}
+            {email}
+          </AppText>{' '}
+          with further instructions. If the email doesn’t show up, check your
+          spam folder
+        </AppText>
 
         {time === 0 ? (
           <TouchableOpacity style={styles.btn} onPress={handleOnEmailBtn}>
-            <Text style={styles.btnText}>RESEND</Text>
+            <AppText isBold style={styles.btnText}>
+              RESEND
+            </AppText>
           </TouchableOpacity>
         ) : (
           <TouchableOpacity
             style={styles.btnDisable}
             disabled
             onPress={handleOnEmailBtn}>
-            <Text style={styles.btnTextDisable}>RESEND IN {time} SECONDS</Text>
+            <AppText isBols style={styles.btnTextDisable}>
+              RESEND IN {time} SECONDS
+            </AppText>
           </TouchableOpacity>
         )}
       </View>
@@ -94,19 +107,16 @@ const styles = StyleSheet.create({
     marginBottom: 15,
     marginTop: 32,
     color: '#1D252D',
-    fontFamily: 'TTNorms-Medium',
   },
   textSmall: {
     fontSize: 16,
     lineHeight: 25,
     color: '#46596D',
-    fontFamily: 'TTNorms-Regular',
   },
   textSmallEmail: {
     fontSize: 16,
     lineHeight: 25,
     color: '#46596D',
-    fontFamily: 'TTNorms-Medium',
   },
   btn: {
     width: 330,
@@ -123,13 +133,12 @@ const styles = StyleSheet.create({
     borderRadius: 4,
     marginTop: 18,
   },
-  btnText: {fontFamily: 'TTNorms-Bold', color: '#1D252D', fontSize: 14},
-  btnTextDisable: {fontFamily: 'TTNorms-Bold', color: '#A1A1A1', fontSize: 14},
+  btnText: {color: '#1D252D', fontSize: 14},
+  btnTextDisable: {color: '#A1A1A1', fontSize: 14},
   textLabel: {
     fontSize: 14,
     lineHeight: 21,
     color: '#000000',
-    fontFamily: 'TTNorms-Regular',
   },
   input: {
     width: 328,
@@ -141,8 +150,6 @@ const styles = StyleSheet.create({
     color: '#1D252D',
     fontSize: 16,
     marginTop: 4,
-
-    fontFamily: 'TTNorms-Regular',
   },
   textFailed: {
     alignSelf: 'flex-start',

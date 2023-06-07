@@ -3,6 +3,7 @@ import {StyleSheet, Text, View, Image, TouchableOpacity} from 'react-native';
 import React, {useState} from 'react';
 import HistoryList from '../../components/history/HistoryList';
 import ActiveList from '../../components/activeSurveys/ActiveList.jsx';
+import AppText from '../../components/reusableComponents/AppText';
 let env = require('../../images/Env.png');
 
 const HomeScreen = ({navigation}) => {
@@ -12,7 +13,9 @@ const HomeScreen = ({navigation}) => {
   return (
     <View style={styles.wrap}>
       <View style={styles.container}>
-        <Text style={styles.title}>Active</Text>
+        <AppText isBold style={styles.title}>
+          Active
+        </AppText>
         {active ? (
           <View style={styles.imageWrapper}>
             <ActiveList navigation={navigation} />
@@ -20,17 +23,25 @@ const HomeScreen = ({navigation}) => {
         ) : (
           <View style={styles.imageWrapper}>
             <Image source={env} style={styles.img} />
-            <Text style={styles.text}>No Active Surveys</Text>
-            <Text style={styles.textSmall}>New survey will appear here</Text>
+            <AppText isMedium style={styles.text}>
+              No Active Surveys
+            </AppText>
+            <AppText style={styles.textSmall}>
+              New survey will appear here
+            </AppText>
           </View>
         )}
 
         <View style={styles.historyWrapper}>
-          <Text style={styles.title}>History</Text>
+          <AppText isBold style={styles.title}>
+            History
+          </AppText>
           <TouchableOpacity
             style={styles.btn}
             onPress={() => navigation.navigate('History')}>
-            <Text style={styles.btnAll}>SEE ALL</Text>
+            <AppText isBold style={styles.btnAll}>
+              SEE ALL
+            </AppText>
           </TouchableOpacity>
         </View>
         <HistoryList />
@@ -45,7 +56,6 @@ const styles = StyleSheet.create({
   wrap: {flex: 1, backgroundColor: '#FAFAFA'},
   container: {marginHorizontal: 20},
   title: {
-    fontFamily: 'TTNorms-Bold',
     fontSize: 22,
     lineHeight: 27,
     color: '#000000',
@@ -66,20 +76,17 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
   },
   text: {
-    fontFamily: 'TTNorms-Medium',
     fontSize: 16,
     lineHeight: 24,
     marginTop: 16,
   },
   textSmall: {
     color: '#828B94',
-    fontFamily: 'TTNorms-Regular',
     fontSize: 14,
     lineHeight: 21,
   },
   btnAll: {
     color: '#f0b528',
-    fontFamily: 'TTNorms-Bold',
     fontSize: 14,
     lineHeight: 17,
     marginTop: 35,

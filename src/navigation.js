@@ -21,7 +21,7 @@ import ProfileScreen from './pages/MainScreens/ProfileScreen';
 import HistoryScreen from './pages/MainScreens/HistoryScreen';
 import SurveyScreen from './pages/MainScreens/SurveyScreen';
 
-import GoBackBtn from './components/shared/GoBackBtn';
+import GoBackBtn from './components/reusableComponents/GoBackBtn';
 import HeaderAuth from './components/headers/HeaderAuth';
 import HeaderMain from './components/headers/HeaderMain';
 import AsyncStorage from '@react-native-async-storage/async-storage';

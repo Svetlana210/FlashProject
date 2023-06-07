@@ -2,7 +2,6 @@
 import React, {useState, useContext, useEffect} from 'react';
 import {
   View,
-  Text,
   StyleSheet,
   TouchableOpacity,
   KeyboardAvoidingView,
@@ -11,11 +10,12 @@ import {
   Platform,
   Alert,
 } from 'react-native';
-import Entypo from 'react-native-vector-icons/Entypo';
-import AntDesign from 'react-native-vector-icons/AntDesign';
-import TextInputPassword from '../../components/shared/TextInputPassword';
+import TextInputPassword from '../../components/reusableComponents/TextInputPassword';
+import AppText from '../../components/reusableComponents/AppText';
 import {AuthContext} from '../../context/authContext';
 import {AxiosContext} from '../../context/axiosContext';
+import Entypo from 'react-native-vector-icons/Entypo';
+import AntDesign from 'react-native-vector-icons/AntDesign';
 
 const SetPassScreen = ({route, navigation}) => {
   const [password, setPassword] = useState(null);
@@ -110,7 +110,9 @@ const SetPassScreen = ({route, navigation}) => {
             {showKeyboard ? (
               <></>
             ) : (
-              <Text style={styles.text}>Set password</Text>
+              <AppText isBold style={styles.text}>
+                Set password
+              </AppText>
             )}
 
             <View styles={styles.container}>
@@ -131,9 +133,9 @@ const SetPassScreen = ({route, navigation}) => {
                         color={'#29988B'}
                         style={styles.iconGreen}
                       />
-                      <Text style={styles.validTextSuccess}>
+                      <AppText style={styles.validTextSuccess}>
                         must be 8 - 24 characters long
-                      </Text>
+                      </AppText>
                     </View>
                   </>
                 ) : (
@@ -145,9 +147,9 @@ const SetPassScreen = ({route, navigation}) => {
                         color={'#D9D9D9'}
                         style={styles.icon}
                       />
-                      <Text style={styles.validText}>
+                      <AppText style={styles.validText}>
                         must be 8 - 24 characters long
-                      </Text>
+                      </AppText>
                     </View>
                   </>
                 )}
@@ -159,7 +161,9 @@ const SetPassScreen = ({route, navigation}) => {
                       color={'#29988B'}
                       style={styles.iconGreen}
                     />
-                    <Text style={styles.validTextSuccess}>1 lower case</Text>
+                    <AppText style={styles.validTextSuccess}>
+                      1 lower case
+                    </AppText>
                   </View>
                 ) : (
                   <View style={styles.textWrap}>
@@ -169,7 +173,7 @@ const SetPassScreen = ({route, navigation}) => {
                       color={'#D9D9D9'}
                       style={styles.icon}
                     />
-                    <Text style={styles.validText}>1 lower case</Text>
+                    <AppText style={styles.validText}>1 lower case</AppText>
                   </View>
                 )}
 
@@ -181,7 +185,9 @@ const SetPassScreen = ({route, navigation}) => {
                       color={'#29988B'}
                       style={styles.iconGreen}
                     />
-                    <Text style={styles.validTextSuccess}>1 upper case</Text>
+                    <AppText style={styles.validTextSuccess}>
+                      1 upper case
+                    </AppText>
                   </View>
                 ) : (
                   <View style={styles.textWrap}>
@@ -191,7 +197,7 @@ const SetPassScreen = ({route, navigation}) => {
                       color={'#D9D9D9'}
                       style={styles.icon}
                     />
-                    <Text style={styles.validText}>1 upper case</Text>
+                    <AppText style={styles.validText}>1 upper case</AppText>
                   </View>
                 )}
 
@@ -204,9 +210,9 @@ const SetPassScreen = ({route, navigation}) => {
                         color={'#29988B'}
                         style={styles.iconGreen}
                       />
-                      <Text style={styles.validTextSuccess}>
+                      <AppText style={styles.validTextSuccess}>
                         1 special symbol
-                      </Text>
+                      </AppText>
                     </View>
                   </>
                 ) : (
@@ -218,7 +224,9 @@ const SetPassScreen = ({route, navigation}) => {
                         color={'#D9D9D9'}
                         style={styles.icon}
                       />
-                      <Text style={styles.validText}>1 special symbol</Text>
+                      <AppText style={styles.validText}>
+                        1 special symbol
+                      </AppText>
                     </View>
                   </>
                 )}
@@ -238,14 +246,18 @@ const SetPassScreen = ({route, navigation}) => {
               <TouchableOpacity
                 style={styles.btn}
                 onPress={handleOnPasswordlBtn}>
-                <Text style={styles.btnText}>SIGN UP</Text>
+                <AppText isBold style={styles.btnText}>
+                  SIGN UP
+                </AppText>
               </TouchableOpacity>
             ) : (
               <TouchableOpacity
                 style={styles.btnDisable}
                 disabled
                 onPress={handleOnPasswordlBtn}>
-                <Text style={styles.btnTextDisable}>SIGN UP</Text>
+                <AppText isBold style={styles.btnTextDisable}>
+                  SIGN UP
+                </AppText>
               </TouchableOpacity>
             )}
           </View>
@@ -276,9 +288,7 @@ const styles = StyleSheet.create({
     lineHeight: 38.4,
     marginBottom: 16,
     marginTop: 32,
-    // marginLeft: 25,
     color: '#1D252D',
-    fontFamily: 'TTNorms-Medium',
   },
   textSmall: {
     fontSize: 16,
@@ -305,13 +315,12 @@ const styles = StyleSheet.create({
     borderRadius: 4,
     marginTop: 18,
   },
-  btnText: {fontFamily: 'TTNorms-Bold', color: '#1D252D', fontSize: 14},
-  btnTextDisable: {fontFamily: 'TTNorms-Bold', color: '#A1A1A1', fontSize: 14},
+  btnText: {color: '#1D252D', fontSize: 14},
+  btnTextDisable: {color: '#A1A1A1', fontSize: 14},
   textLabel: {
     fontSize: 14,
     lineHeight: 21,
     color: '#000000',
-    fontFamily: 'TTNorms-Regular',
   },
   container: {
     position: 'relative',

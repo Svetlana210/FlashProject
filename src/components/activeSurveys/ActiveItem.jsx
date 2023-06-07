@@ -1,21 +1,28 @@
-import {StyleSheet, Text, View, TouchableOpacity} from 'react-native';
 import React from 'react';
+import {StyleSheet, View, TouchableOpacity} from 'react-native';
+import AppText from '../reusableComponents/AppText';
 
 const ActiveItem = ({title, amount, date, text, status, navigation}) => {
   return (
     <View style={styles.wrap}>
-      <Text style={styles.title}>{title}</Text>
-      <Text style={styles.text}>{text}</Text>
-      <Text style={styles.date}>
+      <AppText isMedium style={styles.title}>
+        {title}
+      </AppText>
+      <AppText style={styles.text}>{text}</AppText>
+      <AppText style={styles.date}>
         {amount} | {date}
-      </Text>
-      <Text style={styles.status}>{status}</Text>
+      </AppText>
+      <AppText isMedium style={styles.status}>
+        {status}
+      </AppText>
       <TouchableOpacity
         style={styles.btn}
         onPress={() => {
           navigation.navigate('Survey');
         }}>
-        <Text style={styles.btnText}>START</Text>
+        <AppText isBold style={styles.btnText}>
+          START
+        </AppText>
       </TouchableOpacity>
     </View>
   );
@@ -34,19 +41,16 @@ const styles = StyleSheet.create({
     marginRight: 10,
   },
   title: {
-    fontFamily: 'TTNorms-Medium',
     fontSize: 16,
     lineHeight: 24,
   },
   date: {
     marginTop: 2,
-    fontFamily: 'TTNorms-Regular',
     fontSize: 12,
     lineHeight: 14,
     color: '#828B94',
   },
   text: {
-    fontFamily: 'TTNorms-Regular',
     fontSize: 14,
     lineHeight: 21,
     marginTop: 10,
@@ -56,7 +60,6 @@ const styles = StyleSheet.create({
     position: 'absolute',
     top: 18,
     right: 10,
-    fontFamily: 'TTNorms-Medium',
     fontSize: 12,
     lineHeight: 14,
     borderWidth: 1,
@@ -74,5 +77,5 @@ const styles = StyleSheet.create({
     borderRadius: 4,
     marginTop: 24,
   },
-  btnText: {fontFamily: 'TTNorms-Bold', color: '#1D252D', fontSize: 14},
+  btnText: {color: '#1D252D', fontSize: 14},
 });

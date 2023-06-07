@@ -10,12 +10,11 @@ import {
   Keyboard,
   Platform,
 } from 'react-native';
-import AsyncStorage from '@react-native-async-storage/async-storage';
-
-import TextInputPassword from '../../components/shared/TextInputPassword';
+import AppText from '../../components/reusableComponents/AppText';
+import TextInputPassword from '../../components/reusableComponents/TextInputPassword';
 import {AuthContext} from '../../context/authContext';
-
 import {AxiosContext} from '../../context/axiosContext';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 const TempPassScreen = ({route, navigation}) => {
   const [password, setPassword] = useState('');
@@ -59,13 +58,18 @@ const TempPassScreen = ({route, navigation}) => {
       <TouchableWithoutFeedback onPress={hideKeyboard}>
         <View style={styles.master}>
           <View style={styles.wrap}>
-            <Text style={styles.text}>
-              Enter your <Text style={styles.textPass}>temporary password</Text>
-            </Text>
-            <Text style={styles.textSmall}>Using {email} to log in</Text>
+            <AppText isMedium style={styles.text}>
+              Enter your{' '}
+              <AppText isMedium style={styles.textPass}>
+                temporary password
+              </AppText>
+            </AppText>
+            <AppText style={styles.textSmall}>Using {email} to log in</AppText>
 
             <View>
-              <Text style={styles.textLabel}>Your temporary password</Text>
+              <AppText style={styles.textLabel}>
+                Your temporary password
+              </AppText>
               <TextInputPassword
                 password={password}
                 setPassword={setPassword}
@@ -77,14 +81,18 @@ const TempPassScreen = ({route, navigation}) => {
               <TouchableOpacity
                 style={styles.btn}
                 onPress={handleOnPasswordlBtn}>
-                <Text style={styles.btnText}>CONTINUE</Text>
+                <AppText isBold style={styles.btnText}>
+                  CONTINUE
+                </AppText>
               </TouchableOpacity>
             ) : (
               <TouchableOpacity
                 style={styles.btnDisable}
                 disabled
                 onPress={handleOnPasswordlBtn}>
-                <Text style={styles.btnTextDisable}>CONTINUE</Text>
+                <AppText isBold style={styles.btnTextDisable}>
+                  CONTINUE
+                </AppText>
               </TouchableOpacity>
             )}
           </View>
@@ -113,7 +121,6 @@ const styles = StyleSheet.create({
     marginBottom: 16,
     marginTop: 32,
     color: '#1D252D',
-    fontFamily: 'TTNorms-Medium',
   },
   textPass: {
     fontSize: 32,
@@ -121,14 +128,12 @@ const styles = StyleSheet.create({
     marginBottom: 16,
     marginTop: 32,
     color: '#DCA114',
-    fontFamily: 'TTNorms-Medium',
   },
   textSmall: {
     fontSize: 16,
     lineHeight: 18.88,
     marginBottom: 24,
     color: '#46596D',
-    fontFamily: 'TTNorms-Regular',
   },
   btn: {
     width: 328,
@@ -136,7 +141,7 @@ const styles = StyleSheet.create({
     paddingHorizontal: 122,
     paddingVertical: 13,
     borderRadius: 4,
-    marginTop: 24,
+    marginTop: 18,
   },
   btnDisable: {
     width: 328,
@@ -146,13 +151,12 @@ const styles = StyleSheet.create({
     borderRadius: 4,
     marginTop: 18,
   },
-  btnText: {fontFamily: 'TTNorms-Bold', color: '#1D252D', fontSize: 14},
-  btnTextDisable: {fontFamily: 'TTNorms-Bold', color: '#A1A1A1', fontSize: 14},
+  btnText: {color: '#1D252D', fontSize: 14},
+  btnTextDisable: {color: '#A1A1A1', fontSize: 14},
   textLabel: {
     fontSize: 14,
     lineHeight: 21,
     color: '#000000',
-    fontFamily: 'TTNorms-Regular',
   },
   container: {
     position: 'relative',

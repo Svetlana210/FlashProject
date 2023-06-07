@@ -1,7 +1,7 @@
 /* eslint-disable react-native/no-inline-styles */
 import {StyleSheet, TextInput, TouchableOpacity} from 'react-native';
 import React, {useState} from 'react';
-import usePassword from './showPasswordHook';
+import usePassword from '../showPasswordHook';
 import Feather from 'react-native-vector-icons/Feather';
 const TextInputPassword = ({
   password,

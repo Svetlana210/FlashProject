@@ -3,7 +3,6 @@
 import React, {useState, useContext} from 'react';
 import {
   View,
-  Text,
   StyleSheet,
   TouchableOpacity,
   TextInput,
@@ -12,7 +11,9 @@ import {
   Keyboard,
   Platform,
 } from 'react-native';
+import AppText from '../../components/reusableComponents/AppText';
 import {AxiosContext} from '../../context/axiosContext';
+
 const PassRecoveryScreen = ({navigation}) => {
   const [email, setEmail] = useState('');
   const [isFocusedEmail, setIsFocusedEmail] = useState(false);
@@ -63,12 +64,14 @@ const PassRecoveryScreen = ({navigation}) => {
       <TouchableWithoutFeedback onPress={hideKeyboard}>
         <View style={styles.master}>
           <View style={styles.wrap}>
-            <Text style={styles.text}>Password recovery</Text>
+            <AppText isMedium style={styles.text}>
+              Password recovery
+            </AppText>
             <View>
-              <Text style={styles.textSmall}>
+              <AppText style={styles.textSmall}>
                 Please enter your email, and we will send you further
                 instructions.
-              </Text>
+              </AppText>
               <TextInput
                 // eslint-disable-next-line react-native/no-inline-styles
                 style={{
@@ -88,24 +91,28 @@ const PassRecoveryScreen = ({navigation}) => {
                 }}
               />
               {checkValidEmail && email ? (
-                <Text style={styles.textFailed}>
+                <AppText style={styles.textFailed}>
                   Email does not appear to be valid
-                </Text>
+                </AppText>
               ) : (
-                <Text style={styles.textOk}> </Text>
+                <AppText style={styles.textOk}> </AppText>
               )}
             </View>
 
             {email ? (
               <TouchableOpacity style={styles.btn} onPress={handleOnEmailBtn}>
-                <Text style={styles.btnText}>SEND</Text>
+                <AppText isBold style={styles.btnText}>
+                  SEND
+                </AppText>
               </TouchableOpacity>
             ) : (
               <TouchableOpacity
                 style={styles.btnDisable}
                 disabled
                 onPress={handleOnEmailBtn}>
-                <Text style={styles.btnTextDisable}>SEND</Text>
+                <AppText isBold style={styles.btnTextDisable}>
+                  SEND
+                </AppText>
               </TouchableOpacity>
             )}
           </View>
