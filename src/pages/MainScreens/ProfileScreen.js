@@ -4,6 +4,7 @@ import ChangeLocationModal from '../../components/modals/ChangeLocation';
 import LogOutModal from '../../components/modals/LogOutModal';
 import AppText from '../../components/reusableComponents/AppText';
 import Button from '../../components/reusableComponents/Button';
+import ApproveLocationModal from '../../components/modals/ApproveLocation';
 import {AxiosContext} from '../../context/axiosContext';
 
 let profile = require('../../images/profile.png');
@@ -21,6 +22,7 @@ const ProfileScreen = () => {
   const [email, setEmail] = useState('');
   const [modalLocationVisible, setModalLocationVisible] = useState(false);
   const [modalLogoutVisible, setModalLogoutVisible] = useState(false);
+  const [changeModalVisible, setChangeModalVisible] = useState(false);
 
   const {authAxios} = useContext(AxiosContext);
 
@@ -61,6 +63,8 @@ const ProfileScreen = () => {
         <ChangeLocationModal
           modalVisible={modalLocationVisible}
           setModalVisible={setModalLocationVisible}
+          changeModalVisible={changeModalVisible}
+          setChangeModalVisible={setChangeModalVisible}
         />
         <TouchableOpacity
           style={styles.btnChange}
@@ -74,6 +78,10 @@ const ProfileScreen = () => {
       <LogOutModal
         modalVisible={modalLogoutVisible}
         setModalVisible={setModalLogoutVisible}
+      />
+      <ApproveLocationModal
+        changeModalVisible={changeModalVisible}
+        setChangeModalVisible={setChangeModalVisible}
       />
       <Button
         text="LOG OUT"
@@ -127,7 +135,7 @@ const styles = StyleSheet.create({
     width: 20,
     height: 20,
     position: 'absolute',
-    bottom: 217,
+    bottom: 214,
     left: 16,
   },
   iconArray: {position: 'absolute', bottom: 3, right: 20},
@@ -136,7 +144,7 @@ const styles = StyleSheet.create({
     borderColor: '#DBDBDB',
     backgroundColor: '#ffffff',
     paddingHorizontal: 128,
-    marginTop: 110,
+    marginTop: 85,
     marginHorizontal: 25,
   },
 

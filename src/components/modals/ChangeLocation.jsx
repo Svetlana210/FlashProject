@@ -24,10 +24,14 @@ const CITIES = [
   {id: 10, city: 'Lutsk'},
   {id: 11, city: 'Mykolaiv'},
 ];
-
 let location = require('../../images/location.png');
 
-const ChangeLocationModal = ({modalVisible, setModalVisible}) => {
+const ChangeLocationModal = ({
+  modalVisible,
+  setModalVisible,
+  setChangeModalVisible,
+  changeModalVisible,
+}) => {
   const [active, setActive] = useState(false);
 
   const Item = ({city}) => (
@@ -42,6 +46,11 @@ const ChangeLocationModal = ({modalVisible, setModalVisible}) => {
       </TouchableOpacity>
     </View>
   );
+
+  const onChangeClick = () => {
+    setModalVisible(!modalVisible);
+    setChangeModalVisible(!changeModalVisible);
+  };
 
   return (
     <View style={styles.centeredView}>
@@ -65,7 +74,7 @@ const ChangeLocationModal = ({modalVisible, setModalVisible}) => {
             />
             <TouchableOpacity
               style={[styles.button, styles.buttonClose]}
-              onPress={() => setModalVisible(!modalVisible)}>
+              onPress={onChangeClick}>
               <AppText isBold style={styles.textStyle}>
                 SAVE
               </AppText>
