@@ -4,19 +4,17 @@ import React, {useContext, useState, useEffect} from 'react';
 // import {AxiosContext} from '../../context/axiosContext';
 // import AsyncStorage from '@react-native-async-storage/async-storage';
 
-const Loading = ({status}) => {
-  const [modalVisible, setModalVisible] = useState(false);
+const Loading = ({status, modalLoadVisible, setModalLoadVisible}) => {
+  console.log(`modal3 ${modalLoadVisible}`);
   return (
     <View style={styles.centeredView}>
       <Modal
         animationType="slide"
-        transparent={true}
-        visible={modalVisible}
+        // transparent={true}
+        visible={modalLoadVisible}
         // onRequestClose={() => {
-        //   if (status === 'success') {
-        //     setModalVisible(!modalVisible);
-        //   }
-        // }}
+        //   setModalLoadVisible(!modalLoadVisible);
+        //       }}
       >
         <View style={styles.centeredView}>
           <View style={styles.modalView}>
