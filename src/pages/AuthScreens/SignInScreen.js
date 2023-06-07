@@ -12,6 +12,7 @@ import {
 } from 'react-native';
 import TextInputPassword from '../../components/reusableComponents/TextInputPassword';
 import AppText from '../../components/reusableComponents/AppText';
+import Button from '../../components/reusableComponents/Button';
 import {AuthContext} from '../../context/authContext';
 import {AxiosContext} from '../../context/axiosContext';
 import AsyncStorage from '@react-native-async-storage/async-storage';
@@ -85,25 +86,22 @@ const SignInScreen = ({route, navigation}) => {
             </View>
 
             {password ? (
-              <TouchableOpacity
+              <Button
+                text="SIGN IN"
                 style={{...styles.btn, marginTop: showKeyboard ? 20 : 37}}
-                onPress={handleOnPasswordlBtn}>
-                <AppText isBold style={styles.btnText}>
-                  SIGN IN
-                </AppText>
-              </TouchableOpacity>
+                onPress={handleOnPasswordlBtn}
+                styleText={styles.btnText}
+              />
             ) : (
-              <TouchableOpacity
+              <Button
+                text="SIGN IN"
                 style={{
                   ...styles.btnDisable,
                   marginTop: showKeyboard ? 20 : 37,
                 }}
-                disabled
-                onPress={handleOnPasswordlBtn}>
-                <AppText isBold style={styles.btnTextDisable}>
-                  SIGN IN
-                </AppText>
-              </TouchableOpacity>
+                onPress={handleOnPasswordlBtn}
+                styleText={styles.btnTextDisable}
+              />
             )}
           </View>
         </View>
@@ -147,21 +145,13 @@ const styles = StyleSheet.create({
     lineHeight: 16,
   },
   btn: {
-    width: 328,
-    backgroundColor: '#F0B528',
     paddingHorizontal: 130,
-    paddingVertical: 13,
-    borderRadius: 4,
   },
   btnDisable: {
-    width: 328,
     backgroundColor: '#FFF2D3',
     paddingHorizontal: 130,
-    paddingVertical: 13,
-    borderRadius: 4,
   },
-  btnText: {color: '#1D252D', fontSize: 14},
-  btnTextDisable: {color: '#A1A1A1', fontSize: 14},
+  btnTextDisable: {color: '#A1A1A1'},
   textLabel: {
     fontSize: 14,
     lineHeight: 21,

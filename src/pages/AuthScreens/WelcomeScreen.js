@@ -1,6 +1,7 @@
 import React from 'react';
-import {View, StyleSheet, TouchableOpacity, Image} from 'react-native';
+import {View, StyleSheet, Image} from 'react-native';
 import AppText from '../../components/reusableComponents/AppText';
+import Button from '../../components/reusableComponents/Button';
 
 let logo = require('../../images/logoB.png');
 
@@ -12,13 +13,11 @@ const WelcomeScreen = ({navigation, route}) => {
         Welcome!
       </AppText>
       <AppText style={styles.text}>Quick solution to answer surveys</AppText>
-      <TouchableOpacity
+      <Button
+        text="CONTINUE WITH EMAIL"
         style={styles.btn}
-        onPress={() => navigation.navigate('EmailScreen')}>
-        <AppText isBold style={styles.btnText}>
-          CONTINUE WITH EMAIL
-        </AppText>
-      </TouchableOpacity>
+        onPress={() => navigation.navigate('EmailScreen')}
+      />
     </View>
   );
 };
@@ -40,12 +39,4 @@ const styles = StyleSheet.create({
     color: '#000000',
   },
   text: {fontSize: 16, lineHeight: 24, color: '#46596D'},
-  btn: {
-    backgroundColor: '#F0B528',
-    marginTop: 32,
-    paddingHorizontal: 79.5,
-    paddingVertical: 13,
-    borderRadius: 4,
-  },
-  btnText: {color: '#000000', fontSize: 14},
 });

@@ -4,7 +4,6 @@ import React, {useState, useContext} from 'react';
 import {
   View,
   StyleSheet,
-  TouchableOpacity,
   TextInput,
   Alert,
   KeyboardAvoidingView,
@@ -13,6 +12,7 @@ import {
   Platform,
 } from 'react-native';
 import AppText from '../../components/reusableComponents/AppText';
+import Button from '../../components/reusableComponents/Button';
 import {AxiosContext} from '../../context/axiosContext';
 
 const EmailScreen = ({navigation, route}) => {
@@ -102,25 +102,24 @@ const EmailScreen = ({navigation, route}) => {
                 Email does not appear to be valid
               </AppText>
             ) : (
-              <AppText style={styles.textOk}> </AppText>
+              <></>
             )}
           </View>
 
           {email ? (
-            <TouchableOpacity style={styles.btn} onPress={handleOnEmailBtn}>
-              <AppText isBold style={styles.btnText}>
-                CONTINUE WITH EMAIL
-              </AppText>
-            </TouchableOpacity>
+            <Button
+              text="CONTINUE WITH EMAIL"
+              style={styles.btn}
+              onPress={handleOnEmailBtn}
+              styleText={styles.btnText}
+            />
           ) : (
-            <TouchableOpacity
+            <Button
+              text="CONTINUE WITH EMAIL"
               style={styles.btnDisable}
-              disabled
-              onPress={handleOnEmailBtn}>
-              <AppText isBold style={styles.btnTextDisable}>
-                CONTINUE WITH EMAIL
-              </AppText>
-            </TouchableOpacity>
+              onPres={handleOnEmailBtn}
+              styleText={styles.btnTextDisable}
+            />
           )}
         </View>
       </TouchableWithoutFeedback>
@@ -149,21 +148,13 @@ const styles = StyleSheet.create({
   },
   btn: {
     width: 330,
-    backgroundColor: '#F0B528',
-    paddingHorizontal: 79.5,
-    paddingVertical: 13,
-    borderRadius: 4,
-    marginTop: 24,
+    marginTop: 18,
   },
   btnDisable: {
     backgroundColor: '#FFF2D3',
-    paddingHorizontal: 79.5,
-    paddingVertical: 13,
-    borderRadius: 4,
     marginTop: 18,
   },
-  btnText: {color: '#1D252D', fontSize: 14},
-  btnTextDisable: {color: '#A1A1A1', fontSize: 14},
+  btnTextDisable: {color: '#A1A1A1'},
   textLabel: {
     fontSize: 14,
     lineHeight: 21,

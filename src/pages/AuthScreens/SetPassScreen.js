@@ -3,7 +3,6 @@ import React, {useState, useContext, useEffect} from 'react';
 import {
   View,
   StyleSheet,
-  TouchableOpacity,
   KeyboardAvoidingView,
   TouchableWithoutFeedback,
   Keyboard,
@@ -12,6 +11,7 @@ import {
 } from 'react-native';
 import TextInputPassword from '../../components/reusableComponents/TextInputPassword';
 import AppText from '../../components/reusableComponents/AppText';
+import Button from '../../components/reusableComponents/Button';
 import {AuthContext} from '../../context/authContext';
 import {AxiosContext} from '../../context/axiosContext';
 import Entypo from 'react-native-vector-icons/Entypo';
@@ -243,22 +243,19 @@ const SetPassScreen = ({route, navigation}) => {
             </View>
 
             {password === confirmPassword && password ? (
-              <TouchableOpacity
+              <Button
+                text="SIGN IN"
                 style={styles.btn}
-                onPress={handleOnPasswordlBtn}>
-                <AppText isBold style={styles.btnText}>
-                  SIGN UP
-                </AppText>
-              </TouchableOpacity>
+                onPress={handleOnPasswordlBtn}
+                styleText={styles.btnText}
+              />
             ) : (
-              <TouchableOpacity
+              <Button
+                text="SIGN IN"
                 style={styles.btnDisable}
-                disabled
-                onPress={handleOnPasswordlBtn}>
-                <AppText isBold style={styles.btnTextDisable}>
-                  SIGN UP
-                </AppText>
-              </TouchableOpacity>
+                onPress={handleOnPasswordlBtn}
+                styleText={styles.btnTextDisable}
+              />
             )}
           </View>
         </View>
@@ -302,21 +299,15 @@ const styles = StyleSheet.create({
   iconGreen: {position: 'absolute', bottom: -1},
   wrapperConfirm: {marginTop: 16},
   btn: {
-    backgroundColor: '#F0B528',
     paddingHorizontal: 133,
-    paddingVertical: 13,
-    borderRadius: 4,
     marginTop: 18,
   },
   btnDisable: {
     backgroundColor: '#FFF2D3',
     paddingHorizontal: 133,
-    paddingVertical: 13,
-    borderRadius: 4,
     marginTop: 18,
   },
-  btnText: {color: '#1D252D', fontSize: 14},
-  btnTextDisable: {color: '#A1A1A1', fontSize: 14},
+  btnTextDisable: {color: '#A1A1A1'},
   textLabel: {
     fontSize: 14,
     lineHeight: 21,

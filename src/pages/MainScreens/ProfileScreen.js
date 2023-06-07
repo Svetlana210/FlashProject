@@ -3,6 +3,7 @@ import {StyleSheet, View, TouchableOpacity, Image} from 'react-native';
 import ChangeLocationModal from '../../components/modals/ChangeLocation';
 import LogOutModal from '../../components/modals/LogOutModal';
 import AppText from '../../components/reusableComponents/AppText';
+import Button from '../../components/reusableComponents/Button';
 import {AxiosContext} from '../../context/axiosContext';
 
 let profile = require('../../images/profile.png');
@@ -74,13 +75,14 @@ const ProfileScreen = () => {
         modalVisible={modalLogoutVisible}
         setModalVisible={setModalLogoutVisible}
       />
-      <TouchableOpacity
+      <Button
+        text="LOG OUT"
         style={styles.btn}
-        onPress={() => setModalLogoutVisible(true)}>
-        <AppText isBold style={styles.btnText}>
-          LOG OUT
-        </AppText>
-      </TouchableOpacity>
+        styleText={styles.btnText}
+        onPress={() => {
+          setModalLogoutVisible(true);
+        }}
+      />
     </View>
   );
 };
@@ -130,15 +132,13 @@ const styles = StyleSheet.create({
   },
   iconArray: {position: 'absolute', bottom: 3, right: 20},
   btn: {
-    width: 328,
     borderWidth: 1,
     borderColor: '#DBDBDB',
-    paddingVertical: 13,
-    paddingHorizontal: 125,
+    backgroundColor: '#ffffff',
+    paddingHorizontal: 128,
     marginTop: 110,
     marginHorizontal: 25,
   },
-  btnText: {fontSize: 14, lineHeight: 18},
 
   btnChangeText: {
     color: '#f0b528',

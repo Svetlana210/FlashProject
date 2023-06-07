@@ -64,14 +64,14 @@ const LogOutModal = ({modalVisible, setModalVisible}) => {
               <TouchableOpacity
                 style={[styles.button, styles.buttonClose]}
                 onPress={() => setModalVisible(!modalVisible)}>
-                <AppText isMedium style={styles.textStyle}>
+                <AppText isBold style={styles.textStyle}>
                   CANCEL
                 </AppText>
               </TouchableOpacity>
               <TouchableOpacity
                 style={[styles.button, styles.buttonClose]}
                 onPress={() => logOut()}>
-                <AppText isMedim style={styles.textStyle}>
+                <AppText isBold style={styles.textStyle}>
                   LOG OUT
                 </AppText>
               </TouchableOpacity>
@@ -113,7 +113,7 @@ const styles = StyleSheet.create({
   button: {
     width: 98,
     borderRadius: 4,
-    padding: 13,
+    padding: 11,
     elevation: 2,
   },
   buttonClose: {

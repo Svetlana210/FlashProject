@@ -1,6 +1,7 @@
-import {StyleSheet, View, TouchableOpacity, Image} from 'react-native';
+import {StyleSheet, View, Image} from 'react-native';
 import React, {useContext, useRef, useEffect, useState} from 'react';
 import AppText from '../../components/reusableComponents/AppText';
+import Button from '../../components/reusableComponents/Button';
 import {AxiosContext} from '../../context/axiosContext';
 
 let letter = require('../../images/letter.png');
@@ -61,20 +62,18 @@ const CheckEmailScreen = ({route}) => {
         </AppText>
 
         {time === 0 ? (
-          <TouchableOpacity style={styles.btn} onPress={handleOnEmailBtn}>
-            <AppText isBold style={styles.btnText}>
-              RESEND
-            </AppText>
-          </TouchableOpacity>
+          <Button
+            text="RESEND"
+            style={styles.btn}
+            onPress={handleOnEmailBtn}
+            styleText={styles.btnText}
+          />
         ) : (
-          <TouchableOpacity
-            style={styles.btnDisable}
-            disabled
-            onPress={handleOnEmailBtn}>
-            <AppText isBols style={styles.btnTextDisable}>
+          <Button style={styles.btnDisable} onPress={handleOnEmailBtn}>
+            <AppText isBold style={styles.btnTextDisable}>
               RESEND IN {time} SECONDS
             </AppText>
-          </TouchableOpacity>
+          </Button>
         )}
       </View>
     </View>
@@ -122,19 +121,16 @@ const styles = StyleSheet.create({
     width: 330,
     backgroundColor: '#F0B528',
     paddingHorizontal: 130,
-    paddingVertical: 13,
-    borderRadius: 4,
     marginTop: 24,
   },
   btnDisable: {
     backgroundColor: '#FFF2D3',
     paddingHorizontal: 75,
-    paddingVertical: 13,
-    borderRadius: 4,
+    paddingVertical: 3,
     marginTop: 18,
   },
   btnText: {color: '#1D252D', fontSize: 14},
-  btnTextDisable: {color: '#A1A1A1', fontSize: 14},
+  btnTextDisable: {color: '#A1A1A1', fontSize: 14, paddingTop: 12},
   textLabel: {
     fontSize: 14,
     lineHeight: 21,

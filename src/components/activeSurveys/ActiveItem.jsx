@@ -1,6 +1,7 @@
 import React from 'react';
-import {StyleSheet, View, TouchableOpacity} from 'react-native';
+import {StyleSheet, View} from 'react-native';
 import AppText from '../reusableComponents/AppText';
+import Button from '../reusableComponents/Button';
 
 const ActiveItem = ({title, amount, date, text, status, navigation}) => {
   return (
@@ -15,15 +16,14 @@ const ActiveItem = ({title, amount, date, text, status, navigation}) => {
       <AppText isMedium style={styles.status}>
         {status}
       </AppText>
-      <TouchableOpacity
+      <Button
+        text="START"
         style={styles.btn}
+        styleText={styles.btnText}
         onPress={() => {
           navigation.navigate('Survey');
-        }}>
-        <AppText isBold style={styles.btnText}>
-          START
-        </AppText>
-      </TouchableOpacity>
+        }}
+      />
     </View>
   );
 };
@@ -71,11 +71,7 @@ const styles = StyleSheet.create({
   },
   btn: {
     width: 249,
-    backgroundColor: '#F0B528',
     paddingHorizontal: 100,
-    paddingVertical: 13,
-    borderRadius: 4,
     marginTop: 24,
   },
-  btnText: {color: '#1D252D', fontSize: 14},
 });

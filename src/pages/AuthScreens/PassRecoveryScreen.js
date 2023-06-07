@@ -12,6 +12,7 @@ import {
   Platform,
 } from 'react-native';
 import AppText from '../../components/reusableComponents/AppText';
+import Button from '../../components/reusableComponents/Button';
 import {AxiosContext} from '../../context/axiosContext';
 
 const PassRecoveryScreen = ({navigation}) => {
@@ -100,20 +101,19 @@ const PassRecoveryScreen = ({navigation}) => {
             </View>
 
             {email ? (
-              <TouchableOpacity style={styles.btn} onPress={handleOnEmailBtn}>
-                <AppText isBold style={styles.btnText}>
-                  SEND
-                </AppText>
-              </TouchableOpacity>
+              <Button
+                text="SEND"
+                style={styles.btn}
+                onPress={handleOnEmailBtn}
+                styleText={styles.btnText}
+              />
             ) : (
-              <TouchableOpacity
+              <Button
+                text="SEND"
                 style={styles.btnDisable}
-                disabled
-                onPress={handleOnEmailBtn}>
-                <AppText isBold style={styles.btnTextDisable}>
-                  SEND
-                </AppText>
-              </TouchableOpacity>
+                onPress={handleOnEmailBtn}
+                styleText={styles.btnTextDisable}
+              />
             )}
           </View>
         </View>
@@ -144,51 +144,38 @@ const styles = StyleSheet.create({
     marginBottom: 24,
     marginTop: 32,
     color: '#1D252D',
-    fontFamily: 'TTNorms-Medium',
   },
   textSmall: {
     fontSize: 16,
     lineHeight: 22,
     marginBottom: 24,
     color: '#46596D',
-    fontFamily: 'TTNorms-Regular',
   },
   btn: {
-    width: 330,
-    backgroundColor: '#F0B528',
     paddingHorizontal: 140,
-    paddingVertical: 13,
-    borderRadius: 4,
     marginTop: 8,
   },
   btnDisable: {
     backgroundColor: '#FFF2D3',
     paddingHorizontal: 140,
-    paddingVertical: 13,
-    borderRadius: 4,
     marginTop: 8,
   },
-  btnText: {fontFamily: 'TTNorms-Bold', color: '#1D252D', fontSize: 14},
-  btnTextDisable: {fontFamily: 'TTNorms-Bold', color: '#A1A1A1', fontSize: 14},
+  btnTextDisable: {color: '#A1A1A1'},
   textLabel: {
     fontSize: 14,
     lineHeight: 21,
     color: '#000000',
-    fontFamily: 'TTNorms-Regular',
   },
   input: {
     width: 328,
     height: 44,
     paddingVertical: 10,
     paddingHorizontal: 12,
-    // borderColor: '#DBDBDB',
     borderWidth: 1,
     borderRadius: 4,
     color: '#1D252D',
     fontSize: 16,
     marginTop: 4,
-
-    fontFamily: 'TTNorms-Regular',
   },
   textFailed: {
     alignSelf: 'flex-start',
