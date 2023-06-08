@@ -30,7 +30,7 @@ const initialState = [
 ];
 const ActiveList = ({navigation}) => {
   const [list, setList] = useState(initialState);
-  console.log(list);
+  // console.log(list);
 
   const renderItem = itemData => {
     return (

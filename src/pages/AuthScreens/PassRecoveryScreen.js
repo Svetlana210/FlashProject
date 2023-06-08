@@ -4,7 +4,6 @@ import React, {useState, useContext} from 'react';
 import {
   View,
   StyleSheet,
-  TouchableOpacity,
   TextInput,
   KeyboardAvoidingView,
   TouchableWithoutFeedback,
@@ -26,7 +25,7 @@ const PassRecoveryScreen = ({navigation}) => {
     Keyboard.dismiss();
   };
 
-  const {publicAxios} = useContext(AxiosContext);
+  const {sendEmail} = useContext(AxiosContext);
 
   const handleCheckEmail = text => {
     let re = /\S+@\S+\.\S+/;
@@ -40,20 +39,9 @@ const PassRecoveryScreen = ({navigation}) => {
     }
   };
 
-  const sendEmail = async () => {
-    try {
-      const response = await publicAxios.post('/auth/password_recovery', {
-        email,
-      });
-      console.log(response);
-    } catch (error) {
-      console.log(`error - ${error.message}`);
-    }
-  };
-
   const handleOnEmailBtn = e => {
     e.preventDefault();
-    sendEmail();
+    sendEmail(email);
     navigation.navigate('CheckEmailScreen', {
       userEmail: email,
     });

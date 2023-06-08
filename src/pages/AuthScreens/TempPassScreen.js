@@ -11,9 +11,9 @@ import {
 import AppText from '../../components/reusableComponents/AppText';
 import TextInputPassword from '../../components/reusableComponents/TextInputPassword';
 import Button from '../../components/reusableComponents/Button';
-import {AuthContext} from '../../context/authContext';
+// import {AuthContext} from '../../context/authContext';
 import {AxiosContext} from '../../context/axiosContext';
-import AsyncStorage from '@react-native-async-storage/async-storage';
+// import AsyncStorage from '@react-native-async-storage/async-storage';
 
 const TempPassScreen = ({route, navigation}) => {
   const [password, setPassword] = useState('');
@@ -23,33 +23,36 @@ const TempPassScreen = ({route, navigation}) => {
     setShowKeyboard(false);
     Keyboard.dismiss();
   };
-  const authContext = useContext(AuthContext);
-  const {publicAxios} = useContext(AxiosContext);
+  // const authContext = useContext(AuthContext);
+  const {signIn} = useContext(AxiosContext);
 
-  const setTempPassword = async () => {
-    try {
-      const response = await publicAxios.post('/auth/sign_in', {
-        email,
-        password,
-      });
-      const {access_token} = response.data;
-      console.log(response.data);
-      authContext.setAuthState({
-        access_token,
-        authenticated: false,
-      });
-      await AsyncStorage.setItem('token', JSON.stringify(access_token));
-    } catch (error) {
-      console.log(`error token - ${error.message}`);
-    }
-  };
+  const email = route.params.userEmail ? route.params.userEmail : 'your email';
+
+  // const setTempPassword = async () => {
+  //   try {
+  //     const response = await publicAxios.post('/auth/sign_in', {
+  //       email,
+  //       password,
+  //     });
+  //     const {access_token} = response.data;
+  //     console.log(response.data);
+  //     authContext.setAuthState({
+  //       access_token,
+  //       authenticated: false,
+  //     });
+  //     await AsyncStorage.setItem('token', JSON.stringify(access_token));
+  //   } catch (error) {
+  //     console.log(`error token - ${error.message}`);
+  //   }
+  // };
 
   const handleOnPasswordlBtn = e => {
     e.preventDefault();
-    setTempPassword();
+    signIn(email, password);
+    // setTempPassword();
     navigation.navigate('SetPassScreen');
   };
-  const email = route.params.userEmail ? route.params.userEmail : 'your email';
+
   return (
     <KeyboardAvoidingView
       behavior={Platform.OS === 'ios' ? 'padding' : 'height'}

@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable react-native/no-inline-styles */
 import React, {useState, useContext, useEffect} from 'react';
 import {
@@ -7,12 +8,10 @@ import {
   TouchableWithoutFeedback,
   Keyboard,
   Platform,
-  Alert,
 } from 'react-native';
 import TextInputPassword from '../../components/reusableComponents/TextInputPassword';
 import AppText from '../../components/reusableComponents/AppText';
 import Button from '../../components/reusableComponents/Button';
-import {AuthContext} from '../../context/authContext';
 import {AxiosContext} from '../../context/axiosContext';
 import Entypo from 'react-native-vector-icons/Entypo';
 import AntDesign from 'react-native-vector-icons/AntDesign';
@@ -20,7 +19,6 @@ import AntDesign from 'react-native-vector-icons/AntDesign';
 const SetPassScreen = ({route, navigation}) => {
   const [password, setPassword] = useState(null);
   const [confirmPassword, setConfirmPassword] = useState(null);
-  const [userId, setUserId] = useState('');
 
   const [lowerValidate, setLowerValidate] = useState(false);
   const [upperValidate, setUpperValidate] = useState(false);
@@ -34,9 +32,7 @@ const SetPassScreen = ({route, navigation}) => {
     Keyboard.dismiss();
   };
 
-  const authContext = useContext(AuthContext);
-  const {authAxios} = useContext(AxiosContext);
-  const {access_token} = authContext.authState;
+  const {findUser, onSignUp} = useContext(AxiosContext);
 
   const handleChange = value => {
     const lower = new RegExp('(?=.*[a-z])');
@@ -70,34 +66,14 @@ const SetPassScreen = ({route, navigation}) => {
   };
 
   useEffect(() => {
-    const findUserId = async () => {
-      try {
-        const response = await authAxios.get('/my_profile');
-        setUserId(response.data._id);
-      } catch (error) {
-        console.log(`error my-profile - ${error.message}`);
-      }
-    };
-    findUserId();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
+    findUser();
   }, []);
 
-  const onSignUp = async () => {
-    try {
-      // eslint-disable-next-line no-unused-vars
-      const response = await authAxios.post(`/users/${userId}/set_password`, {
-        password,
-      });
-      authContext.setAuthState({access_token, authenticated: true});
-    } catch (error) {
-      Alert.alert('Invalid password');
-      console.log(`error setPass - ${error.message}`);
-    }
-  };
+  // findUser();
 
   const handleOnPasswordlBtn = e => {
     e.preventDefault();
-    onSignUp();
+    onSignUp(password);
   };
 
   return (

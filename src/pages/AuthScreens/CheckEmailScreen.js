@@ -6,25 +6,27 @@ import {AxiosContext} from '../../context/axiosContext';
 
 let letter = require('../../images/letter.png');
 
-const CheckEmailScreen = ({route}) => {
+const CheckEmailScreen = ({route, navigation}) => {
   const [time, setTime] = useState(59);
   const timerRef = useRef(time);
-  const {publicAxios} = useContext(AxiosContext);
+  const {sendEmail} = useContext(AxiosContext);
 
-  const sendEmail = async () => {
-    try {
-      const response = await publicAxios.post('/auth/password_recovery', {
-        email,
-      });
-      console.log(response);
-    } catch (error) {
-      console.log(`error - ${error.message}`);
-    }
-  };
+  const email = route.params.userEmail ? route.params.userEmail : 'your email';
+
+  // const sendEmail = async () => {
+  //   try {
+  //     const response = await publicAxios.post('/auth/password_recovery', {
+  //       email,
+  //     });
+  //     console.log(response);
+  //   } catch (error) {
+  //     console.log(`error - ${error.message}`);
+  //   }
+  // };
 
   const handleOnEmailBtn = e => {
     e.preventDefault();
-    sendEmail();
+    sendEmail(email);
   };
 
   useEffect(() => {
@@ -41,7 +43,6 @@ const CheckEmailScreen = ({route}) => {
     };
   }, []);
 
-  const email = route.params.userEmail ? route.params.userEmail : 'your email';
   return (
     <View style={styles.master}>
       <View style={styles.wrap}>
@@ -69,7 +70,7 @@ const CheckEmailScreen = ({route}) => {
             styleText={styles.btnText}
           />
         ) : (
-          <Button style={styles.btnDisable} onPress={handleOnEmailBtn}>
+          <Button style={styles.btnDisable}>
             <AppText isBold style={styles.btnTextDisable}>
               RESEND IN {time} SECONDS
             </AppText>
@@ -127,33 +128,13 @@ const styles = StyleSheet.create({
     backgroundColor: '#FFF2D3',
     paddingHorizontal: 75,
     paddingVertical: 3,
-    marginTop: 18,
+    marginTop: 15,
   },
   btnText: {color: '#1D252D', fontSize: 14},
-  btnTextDisable: {color: '#A1A1A1', fontSize: 14, paddingTop: 12},
+  btnTextDisable: {color: '#A1A1A1', fontSize: 14, paddingTop: 17},
   textLabel: {
     fontSize: 14,
     lineHeight: 21,
     color: '#000000',
-  },
-  input: {
-    width: 328,
-    height: 44,
-    paddingVertical: 10,
-    paddingHorizontal: 12,
-    borderWidth: 1,
-    borderRadius: 4,
-    color: '#1D252D',
-    fontSize: 16,
-    marginTop: 4,
-  },
-  textFailed: {
-    alignSelf: 'flex-start',
-    color: 'red',
-    marginBottom: 10,
-    marginTop: 5,
-  },
-  textOk: {
-    marginTop: 0,
   },
 });

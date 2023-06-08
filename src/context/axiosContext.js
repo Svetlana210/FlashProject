@@ -1,11 +1,21 @@
-import React, {createContext, useContext} from 'react';
+import React, {createContext, useContext, useState} from 'react';
+import {Alert} from 'react-native';
 import axios from 'axios';
 import {AuthContext} from './authContext';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 const AxiosContext = createContext();
 const {Provider} = AxiosContext;
 
 const AxiosProvider = ({children}) => {
+  const [userId, setUserId] = useState('');
+  const [userInfo, setUserInfo] = useState({
+    name: '',
+    tel: '',
+    city: '',
+    role: '',
+    email: '',
+  });
   const authContext = useContext(AuthContext);
 
   const authAxios = axios.create({
@@ -29,11 +39,114 @@ const AxiosProvider = ({children}) => {
     },
   );
 
+  const signIn = async (email, password) => {
+    try {
+      const response = await publicAxios.post('/auth/sign_in', {
+        email,
+        password,
+      });
+      const {access_token} = response.data;
+      console.log(response.data);
+      authContext.setAuthState({
+        access_token,
+        authenticated: false,
+      });
+      await AsyncStorage.setItem('token', JSON.stringify(access_token));
+    } catch (error) {
+      console.log(`error token - ${error.message}`);
+    }
+  };
+
+  const checkEmail = async (email, navigation) => {
+    try {
+      const response = await publicAxios.post('/auth/user_status', {email});
+      console.log(response.data.status);
+      if (response.data.status === 'Inactive') {
+        navigation.navigate('TempPassScreen', {
+          userEmail: email,
+        });
+      } else if (response.data.status === 'Active') {
+        navigation.navigate('SignInScreen', {
+          userEmail: email,
+        });
+      }
+      console.log(response.data.status);
+    } catch (error) {
+      Alert.alert('User is not exist');
+      console.log(`error - ${error.message}`);
+    }
+  };
+  const findUser = async () => {
+    try {
+      const response = await authAxios.get('/my_profile');
+      setUserId(response.data._id);
+      setUserInfo({
+        name: response.data.full_name,
+        tel: response.data.phone_number,
+        city: response.data.location,
+        email: response.data.email,
+        role: response.data.role,
+      });
+    } catch (error) {
+      console.log(`error my-profile - ${error.message}`);
+    }
+  };
+
+  const onSignUp = async password => {
+    try {
+      const response = await authAxios.post(`/users/${userId}/set_password`, {
+        password,
+      });
+      console.log(response);
+      authContext.setAuthState({...authContext.authState, authenticated: true});
+    } catch (error) {
+      Alert.alert('Invalid password');
+      console.log(`error setPass - ${error.message}`);
+    }
+  };
+
+  const signInPass = async (email, password) => {
+    try {
+      const response = await publicAxios.post('/auth/sign_in', {
+        email,
+        password,
+      });
+      const {access_token} = response.data;
+      console.log(response.data);
+      authContext.setAuthState({
+        access_token,
+        authenticated: true,
+      });
+      await AsyncStorage.setItem('token', JSON.stringify(access_token));
+    } catch (error) {
+      Alert.alert('Incorrect password');
+      console.log(`error token - ${error.message}`);
+    }
+  };
+
+  const sendEmail = async email => {
+    try {
+      const response = await publicAxios.post('/auth/password_recovery', {
+        email,
+      });
+      console.log(response);
+    } catch (error) {
+      console.log(`error - ${error.message}`);
+    }
+  };
+
   return (
     <Provider
       value={{
         authAxios,
         publicAxios,
+        userInfo,
+        signIn,
+        checkEmail,
+        findUser,
+        onSignUp,
+        signInPass,
+        sendEmail,
       }}>
       {children}
     </Provider>

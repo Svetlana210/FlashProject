@@ -34,5 +34,6 @@ const styles = StyleSheet.create({
   mainText: {
     fontSize: 16,
     textAlignVertical: 'center',
+    color: '#1D1B20',
   },
 });

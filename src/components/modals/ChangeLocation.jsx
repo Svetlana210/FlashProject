@@ -42,7 +42,7 @@ const ChangeLocationModal = ({
         onPress={() => {
           setActive(!active);
         }}>
-        <AppText>{city}</AppText>
+        <AppText style={styles.city}>{city}</AppText>
       </TouchableOpacity>
     </View>
   );
@@ -126,6 +126,7 @@ const styles = StyleSheet.create({
     marginBottom: 18,
     fontSize: 22,
     lineHeight: 33,
+    color: '#1D1B20',
   },
   iconLocationModal: {
     width: 20,
@@ -142,5 +143,8 @@ const styles = StyleSheet.create({
   },
   item: {
     marginTop: 5,
+  },
+  city: {
+    color: '#1D1B20',
   },
 });

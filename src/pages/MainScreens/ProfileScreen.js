@@ -1,4 +1,5 @@
-import React, {useState, useContext} from 'react';
+/* eslint-disable react-hooks/exhaustive-deps */
+import React, {useState, useContext, useEffect} from 'react';
 import {StyleSheet, View, TouchableOpacity, Image} from 'react-native';
 import ChangeLocationModal from '../../components/modals/ChangeLocation';
 import LogOutModal from '../../components/modals/LogOutModal';
@@ -15,31 +16,15 @@ let location = require('../../images/location.png');
 let vectorAr = require('../../images/VectorAr.png');
 
 const ProfileScreen = () => {
-  const [name, setName] = useState('');
-  const [city, setCity] = useState('');
-  const [tel, setTel] = useState('');
-  const [role, setRole] = useState('');
-  const [email, setEmail] = useState('');
   const [modalLocationVisible, setModalLocationVisible] = useState(false);
   const [modalLogoutVisible, setModalLogoutVisible] = useState(false);
   const [changeModalVisible, setChangeModalVisible] = useState(false);
 
-  const {authAxios} = useContext(AxiosContext);
+  const {userInfo, findUser} = useContext(AxiosContext);
 
-  const findUserId = async () => {
-    try {
-      const response = await authAxios.get('/my_profile');
-      console.log(response.data);
-      setName(response.data.full_name);
-      setCity(response.data.location);
-      setEmail(response.data.email);
-      setTel(response.data.phone_number);
-      setRole(response.data.role);
-    } catch (error) {
-      console.log(`error my-profile - ${error.message}`);
-    }
-  };
-  findUserId();
+  useEffect(() => {
+    findUser();
+  }, []);
 
   return (
     <View style={styles.wrap}>
@@ -47,19 +32,19 @@ const ProfileScreen = () => {
         My account
       </AppText>
       <Image source={profile} style={styles.iconProfile} />
-      <AppText style={styles.textSmall}>{name}</AppText>
+      <AppText style={styles.textSmall}>{userInfo.name}</AppText>
       <Image source={briefcase} style={styles.iconCase} />
-      <AppText style={styles.textSmall}>{role}</AppText>
+      <AppText style={styles.textSmall}>{userInfo.role}</AppText>
       <Image source={vector} style={styles.iconVector} />
-      <AppText style={styles.textSmall}>{tel}</AppText>
+      <AppText style={styles.textSmall}>{userInfo.tel}</AppText>
       <Image source={sms} style={styles.iconSms} />
-      <AppText style={styles.textSmall}>{email}</AppText>
+      <AppText style={styles.textSmall}>{userInfo.email}</AppText>
       <AppText isBold style={styles.textLocation}>
         My location
       </AppText>
       <Image source={location} style={styles.iconLocation} />
       <View style={styles.container}>
-        <AppText style={styles.textSmall}>{city}</AppText>
+        <AppText style={styles.textSmall}>{userInfo.city}</AppText>
         <ChangeLocationModal
           modalVisible={modalLocationVisible}
           setModalVisible={setModalLocationVisible}
@@ -104,18 +89,21 @@ const styles = StyleSheet.create({
     lineHeight: 33,
     marginTop: 24,
     marginLeft: 16,
+    color: '#1D1B20',
   },
   textSmall: {
     fontSize: 16,
     lineHeight: 24,
     marginTop: 26,
     marginLeft: 52,
+    color: '#1D1B20',
   },
   textLocation: {
     fontSize: 22,
     lineHeight: 33,
     marginTop: 40,
     marginLeft: 16,
+    color: '#1D1B20',
   },
   iconProfile: {width: 20, height: 20, position: 'absolute', top: 85, left: 16},
   iconCase: {width: 20, height: 20, position: 'absolute', top: 135, left: 16},

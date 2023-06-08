@@ -4,7 +4,6 @@ import {
   View,
   StyleSheet,
   TouchableOpacity,
-  Alert,
   KeyboardAvoidingView,
   TouchableWithoutFeedback,
   Keyboard,
@@ -13,49 +12,29 @@ import {
 import TextInputPassword from '../../components/reusableComponents/TextInputPassword';
 import AppText from '../../components/reusableComponents/AppText';
 import Button from '../../components/reusableComponents/Button';
-import {AuthContext} from '../../context/authContext';
 import {AxiosContext} from '../../context/axiosContext';
-import AsyncStorage from '@react-native-async-storage/async-storage';
 
 const SignInScreen = ({route, navigation}) => {
-  const authContext = useContext(AuthContext);
-  const {publicAxios} = useContext(AxiosContext);
+  const {signInPass} = useContext(AxiosContext);
   const [password, setPassword] = useState('');
   const [showKeyboard, setShowKeyboard] = useState(false);
+
+  const email = route.params.userEmail ? route.params.userEmail : 'your email';
 
   const hideKeyboard = () => {
     setShowKeyboard(false);
     Keyboard.dismiss();
   };
 
-  const signInPass = async () => {
-    try {
-      const response = await publicAxios.post('/auth/sign_in', {
-        email,
-        password,
-      });
-      const {access_token} = response.data;
-      console.log(response.data);
-      authContext.setAuthState({
-        access_token,
-        authenticated: true,
-      });
-      await AsyncStorage.setItem('token', JSON.stringify(access_token));
-    } catch (error) {
-      Alert.alert('Incorrect password');
-      console.log(`error token - ${error.message}`);
-    }
-  };
-
   const handleOnPasswordlBtn = e => {
     e.preventDefault();
-    signInPass();
+    signInPass(email, password);
   };
   const handleOnForgotPass = e => {
     e.preventDefault();
     navigation.navigate('PassRecoveryScreen');
   };
-  const email = route.params.userEmail ? route.params.userEmail : 'your email';
+
   return (
     <KeyboardAvoidingView
       behavior={Platform.OS === 'ios' ? 'padding' : 'height'}

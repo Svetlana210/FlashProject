@@ -28,5 +28,6 @@ const styles = StyleSheet.create({
     top: 43,
     left: 18,
     fontSize: 20,
+    color: '#1D1B20',
   },
 });

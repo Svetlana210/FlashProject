@@ -5,7 +5,6 @@ import {
   View,
   StyleSheet,
   TextInput,
-  Alert,
   KeyboardAvoidingView,
   TouchableWithoutFeedback,
   Keyboard,
@@ -29,7 +28,7 @@ const EmailScreen = ({navigation, route}) => {
     Keyboard.dismiss();
   };
 
-  const {publicAxios} = useContext(AxiosContext);
+  const {checkEmail} = useContext(AxiosContext);
 
   const handleCheckEmail = text => {
     let re = /\S+@\S+\.\S+/;
@@ -43,31 +42,31 @@ const EmailScreen = ({navigation, route}) => {
     }
   };
 
-  const checkEmail = async () => {
-    try {
-      const response = await publicAxios.post('/auth/user_status', {email});
-      console.log(response.data.status);
-      if (response.data.status === 'Inactive') {
-        setUserStatus(false);
-        navigation.navigate('TempPassScreen', {
-          userEmail: email,
-        });
-      } else if (response.data.status === 'Active') {
-        setUserStatus(true);
-        navigation.navigate('SignInScreen', {
-          userEmail: email,
-        });
-      }
-      console.log(response.data.status);
-    } catch (error) {
-      Alert.alert('User is not exist');
-      console.log(`error - ${error.message}`);
-    }
-  };
+  // const checkEmail = async () => {
+  //   try {
+  //     const response = await publicAxios.post('/auth/user_status', {email});
+  //     console.log(response.data.status);
+  //     if (response.data.status === 'Inactive') {
+  //       setUserStatus(false);
+  //       navigation.navigate('TempPassScreen', {
+  //         userEmail: email,
+  //       });
+  //     } else if (response.data.status === 'Active') {
+  //       setUserStatus(true);
+  //       navigation.navigate('SignInScreen', {
+  //         userEmail: email,
+  //       });
+  //     }
+  //     console.log(response.data.status);
+  //   } catch (error) {
+  //     Alert.alert('User is not exist');
+  //     console.log(`error - ${error.message}`);
+  //   }
+  // };
 
   const handleOnEmailBtn = e => {
     e.preventDefault();
-    checkEmail();
+    checkEmail(email, navigation);
   };
   return (
     <KeyboardAvoidingView
