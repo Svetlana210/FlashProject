@@ -4,9 +4,10 @@ import AppText from '../reusableComponents/AppText';
 import Button from '../reusableComponents/Button';
 
 const ActiveItem = ({title, amount, date, text, status, navigation, index}) => {
-  const handleonStart = e => {
-    console.log(e.target);
-    navigation.navigate('Survey');
+  const handleonStart = () => {
+    console.log(`index-${index}`);
+    // console.log(e.target);
+    navigation.navigate('Survey', {id: index, title: title, amount: amount});
   };
   return (
     <View style={styles.wrap}>

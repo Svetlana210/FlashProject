@@ -124,7 +124,7 @@ const Navigation = () => {
       <NavigationContainer>
         <MainStack.Navigator>
           <MainStack.Screen
-            options={({navigation}) => ({
+            options={({navigation, route}) => ({
               header: () => (
                 <HeaderMain text="Surveys">
                   <TouchableOpacity
@@ -163,9 +163,9 @@ const Navigation = () => {
           <MainStack.Screen
             name="Survey"
             component={SurveyScreen}
-            options={() => ({
+            options={({route}) => ({
               header: () => (
-                <HeaderMain text="Survey 1" style={styles.profile}>
+                <HeaderMain text={route.params.title} style={styles.profile}>
                   <GoBackBtn style={styles.backBtn} />
                 </HeaderMain>
               ),

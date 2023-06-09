@@ -6,7 +6,9 @@ import AppText from '../../components/reusableComponents/AppText';
 
 let rect = require('../../images/Rect.png');
 
-const SurveyScreen = () => {
+const SurveyScreen = ({route}) => {
+  const {id, title, amount} = route.params;
+  // console.log(title);
   return (
     <View style={styles.container}>
       <AppText style={styles.text}>Questions</AppText>
