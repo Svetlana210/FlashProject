@@ -7,21 +7,21 @@ const initialState = [
     title: 'Survey 1',
     date: '12 Feb,12:00',
     text: 'Dear coovorkers, please take 2 min of your time and send responses as ',
-    amount: '5 Questions',
+    amount: '4 Questions',
     id: 1,
     status: 'New',
   },
   {
     title: 'Survey 2',
-    date: '12 Feb,12:00',
+    date: '10 Feb,11:00',
     text: 'Dear coovorkers, please take 2 min of your time and send responses as ',
-    amount: '5 Questions',
+    amount: '2 Questions',
     id: 2,
     status: 'New',
   },
   {
     title: 'Survey 3',
-    date: '12 Feb,12:00',
+    date: '09 Feb,10:00',
     text: 'Dear coovorkers, please take 2 min of your time and send responses as ',
     amount: '5 Questions',
     id: 3,
@@ -32,15 +32,16 @@ const ActiveList = ({navigation}) => {
   const [list, setList] = useState(initialState);
   // console.log(list);
 
-  const renderItem = itemData => {
+  const renderItem = ({item, index}) => {
     return (
       <ActiveItem
-        title={itemData.item.title}
-        date={itemData.item.date}
-        status={itemData.item.status}
-        text={itemData.item.text}
-        amount={itemData.item.amount}
+        title={item.title}
+        date={item.date}
+        status={item.status}
+        text={item.text}
+        amount={item.amount}
         navigation={navigation}
+        index={index}
       />
     );
   };

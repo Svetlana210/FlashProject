@@ -3,7 +3,11 @@ import {StyleSheet, View} from 'react-native';
 import AppText from '../reusableComponents/AppText';
 import Button from '../reusableComponents/Button';
 
-const ActiveItem = ({title, amount, date, text, status, navigation}) => {
+const ActiveItem = ({title, amount, date, text, status, navigation, index}) => {
+  const handleonStart = e => {
+    console.log(e.target);
+    navigation.navigate('Survey');
+  };
   return (
     <View style={styles.wrap}>
       <AppText isMedium style={styles.title}>
@@ -20,9 +24,7 @@ const ActiveItem = ({title, amount, date, text, status, navigation}) => {
         text="START"
         style={styles.btn}
         styleText={styles.btnText}
-        onPress={() => {
-          navigation.navigate('Survey');
-        }}
+        onPress={handleonStart}
       />
     </View>
   );
