@@ -50,6 +50,7 @@ const ProfileScreen = () => {
           setModalVisible={setModalLocationVisible}
           changeModalVisible={changeModalVisible}
           setChangeModalVisible={setChangeModalVisible}
+          userCity={userInfo.city}
         />
         <TouchableOpacity
           style={styles.btnChange}
@@ -128,19 +129,25 @@ const styles = StyleSheet.create({
   },
   iconArray: {position: 'absolute', bottom: 3, right: 20},
   btn: {
+    height: 44,
     borderWidth: 1,
     borderColor: '#DBDBDB',
     backgroundColor: '#ffffff',
+    // paddingVertical: 15,
     paddingHorizontal: 128,
     marginTop: 85,
     marginHorizontal: 25,
   },
-
+  btnText: {
+    position: 'absolute',
+    top: 10,
+    left: 135,
+  },
   btnChangeText: {
     color: '#f0b528',
     fontSize: 14,
     lineHeight: 17,
     marginTop: 31,
-    marginRight: 35,
+    marginRight: 38,
   },
 });

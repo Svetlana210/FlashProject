@@ -7,42 +7,92 @@ import {
   TouchableOpacity,
   Image,
 } from 'react-native';
-import React, {useState} from 'react';
+import React, {useState, useEffect, useRef} from 'react';
 import AppText from '../reusableComponents/AppText';
 
-const CITIES = [
-  {id: 0, city: 'Ukraine'},
-  {id: 1, city: 'Kiyv'},
-  {id: 2, city: 'Lviv'},
-  {id: 3, city: 'Odesa'},
-  {id: 4, city: 'Dnipro'},
-  {id: 5, city: 'Kharkiv'},
-  {id: 6, city: 'Sumy'},
-  {id: 7, city: 'Chernihiv'},
-  {id: 8, city: 'Kherson'},
-  {id: 9, city: 'Rovno'},
-  {id: 10, city: 'Lutsk'},
-  {id: 11, city: 'Mykolaiv'},
-];
 let location = require('../../images/location.png');
+let check = require('../../images/Vector@.png');
+const CITIES = [
+  {city: 'Ukraine'},
+  {city: 'Kiyv'},
+  {city: 'Lviv'},
+  {city: 'Odesa'},
+  {city: 'Dnipro'},
+  {city: 'Kharkiv'},
+  {city: 'Sumy'},
+  {city: 'Chernihiv'},
+  {city: 'Kherson'},
+  {city: 'Rovno'},
+  {city: 'Lutsk'},
+  {city: 'Mykolaiv'},
+];
+
+// const initialState = {
+//   activeId: active,
+// };
 
 const ChangeLocationModal = ({
   modalVisible,
   setModalVisible,
   setChangeModalVisible,
   changeModalVisible,
+  userCity,
 }) => {
-  const [active, setActive] = useState(false);
+  const [state, setState] = useState({activeId: 4});
+  console.log(state.activeId);
+  const prevRef = useRef({activeId: 4});
+  // console.log(`prev - ${prevRef.current}`);
 
-  const Item = ({city}) => (
+  useEffect(() => {
+    prevRef.current = state.activeId;
+  }, [state.activeId]);
+
+  useEffect(() => {
+    const findActive = () => {
+      for (let i = 0; i < CITIES.length; i += 1) {
+        if (CITIES[i].city === userCity) {
+          setState({activeId: i});
+        }
+      }
+    };
+    findActive();
+  }, [userCity]);
+  const makeOptionClassName = index => {
+    return index === state.activeId ? styles.cityActive : styles.city;
+  };
+
+  const changeButton = () => {
+    return prevRef.current !== state.activeId
+      ? styles.buttonClose
+      : styles.buttonDisable;
+  };
+
+  const changeText = () => {
+    return prevRef.current !== state.activeId
+      ? styles.textStyle
+      : styles.textStyleDisable;
+  };
+  const mutate = obj => {
+    setState(prevState => {
+      if (prevState.activeId === obj.activeId) {
+        return prevState;
+      }
+      return obj;
+    });
+  };
+
+  const Item = ({town, index}) => (
     <View style={styles.item}>
       <Image source={location} style={styles.iconLocationModal} />
       <TouchableOpacity
         style={styles.title}
-        onPress={() => {
-          setActive(!active);
-        }}>
-        <AppText style={styles.city}>{city}</AppText>
+        onPress={() => mutate({activeId: index})}>
+        <AppText style={makeOptionClassName(index)}>{town}</AppText>
+        {index !== state.activeId ? (
+          <></>
+        ) : (
+          <Image source={check} style={styles.checkIcon} />
+        )}
       </TouchableOpacity>
     </View>
   );
@@ -69,13 +119,14 @@ const ChangeLocationModal = ({
 
             <FlatList
               data={CITIES}
-              renderItem={({item}) => <Item city={item.city} />}
-              keyExtractor={item => item.id}
+              renderItem={({item, index}) => (
+                <Item town={item.city} index={index} />
+              )}
+              keyExtractor={item => item.city}
             />
-            <TouchableOpacity
-              style={[styles.button, styles.buttonClose]}
-              onPress={onChangeClick}>
-              <AppText isBold style={styles.textStyle}>
+
+            <TouchableOpacity style={changeButton()} onPress={onChangeClick}>
+              <AppText isBold style={changeText()}>
                 SAVE
               </AppText>
             </TouchableOpacity>
@@ -109,16 +160,18 @@ const styles = StyleSheet.create({
     shadowRadius: 4,
     elevation: 5,
   },
-  button: {
-    borderRadius: 4,
-    padding: 10,
-    elevation: 2,
-  },
   buttonClose: {
-    backgroundColor: '#FFF2D3',
+    backgroundColor: '#F0B528',
     marginTop: 20,
+    // borderRadius: 4,
+    padding: 13,
   },
+  buttonDisable: {backgroundColor: '#FFF2D3', marginTop: 20, padding: 13},
   textStyle: {
+    color: '#1D252D',
+    textAlign: 'center',
+  },
+  textStyleDisable: {
     color: '#A1A1A1',
     textAlign: 'center',
   },
@@ -127,6 +180,9 @@ const styles = StyleSheet.create({
     fontSize: 22,
     lineHeight: 33,
     color: '#1D1B20',
+  },
+  modalTextActive: {
+    fontSize: 25,
   },
   iconLocationModal: {
     width: 20,
@@ -146,5 +202,15 @@ const styles = StyleSheet.create({
   },
   city: {
     color: '#1D1B20',
+  },
+  cityActive: {
+    fontWeight: 'bold',
+  },
+  checkIcon: {
+    position: 'absolute',
+    right: 20,
+    top: 0,
+    width: 15,
+    height: 15,
   },
 });

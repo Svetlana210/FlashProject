@@ -2,37 +2,59 @@ import {StyleSheet, View, Modal, TouchableOpacity} from 'react-native';
 import React, {useContext, useState} from 'react';
 import AppText from '../reusableComponents/AppText';
 import {AuthContext} from '../../context/authContext';
-import {AxiosContext} from '../../context/axiosContext';
+// import {AxiosContext} from '../../context/axiosContext';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
 const LogOutModal = ({modalVisible, setModalVisible}) => {
   const authContext = useContext(AuthContext);
-  const {authAxios} = useContext(AxiosContext);
+  // const {authAxios} = useContext(AxiosContext);
   const [status, setStatus] = useState(null);
-  const id = Math.random();
+  // const id = Math.random();
 
-  const logOut = async () => {
+  const logout = async () => {
+    // await Keychain.resetGenericPassword();
     setStatus('loading');
-    // setModalLoadVisible(true);
     try {
-      const response = await authAxios.post('/logout/access', {id});
-      console.log(response);
-      // setModalLoadVisible(false);
+      await AsyncStorage.removeItem('token');
+      console.log('Data removed');
       authContext.setAuthState({
         access_token: null,
-        // authenticated: true,
+        //   refresh_token: null,
         authenticated: false,
       });
-
-      //   setModalLoadVisible(false);
-      await AsyncStorage.removeItem('token');
-
       setStatus('success');
-      // console.log(`modal2 ${modalLoadVisible}`);
-    } catch (error) {
+    } catch (exception) {
       setStatus('error');
-      console.log(`error token - ${error.message}`);
+      console.log(exception);
     }
+  };
+
+  // const logOut = async () => {
+  //   // setStatus('loading');
+  //   // setModalLoadVisible(true);
+  //   try {
+  //     // const response = await authAxios.post('/logout/access', {id});
+  //     // console.log(response);
+  //     // setModalLoadVisible(false);
+  //     authContext.setAuthState({
+  //       access_token: null,
+  //       // authenticated: true,
+  //       authenticated: false,
+  //     });
+
+  //     //   setModalLoadVisible(false);
+  //     await AsyncStorage.removeItem('token');
+
+  //     // setStatus('success');
+  //     // console.log(`modal2 ${modalLoadVisible}`);
+  //   } catch (error) {
+  //     // setStatus('error');
+  //     console.log(`error token - ${error.message}`);
+  //   }
+  // };
+  const onLogOut = () => {
+    logout();
+    setModalVisible(!modalVisible);
   };
   if (status === 'loading') {
     return (
@@ -70,7 +92,7 @@ const LogOutModal = ({modalVisible, setModalVisible}) => {
               </TouchableOpacity>
               <TouchableOpacity
                 style={[styles.button, styles.buttonClose]}
-                onPress={() => logOut()}>
+                onPress={onLogOut}>
                 <AppText isBold style={styles.textStyle}>
                   LOG OUT
                 </AppText>
