@@ -3,11 +3,25 @@ import {StyleSheet, View} from 'react-native';
 import AppText from '../reusableComponents/AppText';
 import Button from '../reusableComponents/Button';
 
-const ActiveItem = ({title, amount, date, text, status, navigation, index}) => {
+const ActiveItem = ({
+  title,
+  amount,
+  date,
+  text,
+  status,
+  navigation,
+  index,
+  questions,
+}) => {
   const handleonStart = () => {
     console.log(`index-${index}`);
     // console.log(e.target);
-    navigation.navigate('Survey', {id: index, title: title, amount: amount});
+    navigation.navigate('Survey', {
+      id: index,
+      title: title,
+      amount: amount,
+      questions: questions,
+    });
   };
   return (
     <View style={styles.wrap}>
@@ -16,7 +30,7 @@ const ActiveItem = ({title, amount, date, text, status, navigation, index}) => {
       </AppText>
       <AppText style={styles.text}>{text}</AppText>
       <AppText style={styles.date}>
-        {amount} | {date}
+        {amount} Questions | {date}
       </AppText>
       <AppText isMedium style={styles.status}>
         {status}

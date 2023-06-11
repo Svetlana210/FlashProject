@@ -1,26 +1,26 @@
 import React from 'react';
 import {StyleSheet, View, Image} from 'react-native';
 import AppText from '../../components/reusableComponents/AppText';
+import SurveyQuestionsIndicator from '../../components/surveyQuestions/surveyQuestionsIndicator';
+import SurveyList from '../../components/surveyQuestions/surveyList';
 
 // import {Image} from 'react-native-elements';
 
-let rect = require('../../images/Rect.png');
-
 const SurveyScreen = ({route}) => {
-  const {id, title, amount} = route.params;
-  // console.log(title);
+  const {id, title, amount, questions} = route.params;
+  console.log(questions);
+
   return (
     <View style={styles.container}>
-      <AppText style={styles.text}>Questions</AppText>
-      <View style={styles.wrap}>
-        <Image source={rect} style={styles.icon} />
-        <Image source={rect} />
-        <Image source={rect} />
-        <Image source={rect} />
+      <View style={styles.wrapper}>
+        <AppText style={styles.text}>Questions</AppText>
+        <AppText style={styles.text}>1/{amount}</AppText>
       </View>
-      <AppText isBold style={styles.title}>
+      <SurveyQuestionsIndicator amount={amount} />
+      {/* <AppText isBold style={styles.title}>
         Are you okay physically?
-      </AppText>
+      </AppText> */}
+      <SurveyList questions={questions} />
     </View>
   );
 };
@@ -32,6 +32,7 @@ const styles = StyleSheet.create({
     marginVertical: 24,
     marginHorizontal: 16,
   },
+  wrapper: {flexDirection: 'row', justifyContent: 'space-between'},
   text: {
     fontSize: 14,
     lineHeight: 17,
