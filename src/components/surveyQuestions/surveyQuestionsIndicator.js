@@ -3,29 +3,29 @@ import React from 'react';
 import * as Progress from 'react-native-progress';
 // let rect = require('../../images/Rect.png');
 
-const SurveyQuestionsIndicator = ({amount}) => {
+const SurveyQuestionsIndicator = ({amount, Question, screen}) => {
   if (amount === '5') {
     return (
       <View style={styles.wrap}>
         <Progress.Bar
           style={[styles.progress, styles.progressFive]}
-          color="red"
+          color="#FDF7E7"
         />
         <Progress.Bar
           style={[styles.progress, styles.progressFive]}
-          color="red"
+          color="#FDF7E7"
         />
         <Progress.Bar
           style={[styles.progress, styles.progressFive]}
-          color="red"
+          color="#FDF7E7"
         />
         <Progress.Bar
           style={[styles.progress, styles.progressFive]}
-          color="red"
+          color="#FDF7E7"
         />
         <Progress.Bar
           style={[styles.progress, styles.progressFive]}
-          color="red"
+          color="#FDF7E7"
         />
       </View>
     );
@@ -35,19 +35,19 @@ const SurveyQuestionsIndicator = ({amount}) => {
       <View style={styles.wrap}>
         <Progress.Bar
           style={[styles.progress, styles.progressFour]}
-          color="red"
+          color="#FDF7E7"
         />
         <Progress.Bar
           style={[styles.progress, styles.progressFour]}
-          color="red"
+          color="#FDF7E7"
         />
         <Progress.Bar
           style={[styles.progress, styles.progressFour]}
-          color="red"
+          color="#FDF7E7"
         />
         <Progress.Bar
           style={[styles.progress, styles.progressFour]}
-          color="red"
+          color="#FDF7E7"
         />
       </View>
     );
@@ -57,15 +57,15 @@ const SurveyQuestionsIndicator = ({amount}) => {
       <View style={styles.wrap}>
         <Progress.Bar
           style={[styles.progress, styles.progressThree]}
-          color="red"
+          color="#FDF7E7"
         />
         <Progress.Bar
           style={[styles.progress, styles.progressThree]}
-          color="red"
+          color="#FDF7E7"
         />
         <Progress.Bar
           style={[styles.progress, styles.progressThree]}
-          color="red"
+          color="#FDF7E7"
         />
       </View>
     );
@@ -75,11 +75,11 @@ const SurveyQuestionsIndicator = ({amount}) => {
       <View style={styles.wrap}>
         <Progress.Bar
           style={[styles.progress, styles.progressTwo]}
-          color="red"
+          color="#F0B528"
         />
         <Progress.Bar
           style={[styles.progress, styles.progressTwo]}
-          color="red"
+          color="#F0B528"
         />
       </View>
     );
@@ -89,7 +89,7 @@ const SurveyQuestionsIndicator = ({amount}) => {
       <View style={styles.wrap}>
         <Progress.Bar
           style={[styles.progress, styles.progressOne]}
-          color="red"
+          // color="#FDF7E7"
         />
       </View>
     );
@@ -110,7 +110,7 @@ const styles = StyleSheet.create({
   },
   progress: {
     // margin: 10,
-    backgroundColor: '#FDF7E7',
+    backgroundColor: '#F0B528',
   },
 
   progressFive: {width: 60},

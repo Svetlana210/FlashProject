@@ -2,9 +2,12 @@ import {StyleSheet, TouchableOpacity} from 'react-native';
 import React from 'react';
 import AppText from './AppText';
 
-const Button = ({style, styleText, text, onPress, children}) => {
+const Button = ({style, styleText, text, onPress, children, disabled}) => {
   return (
-    <TouchableOpacity style={[styles.btn, style]} onPress={onPress}>
+    <TouchableOpacity
+      style={[styles.btn, style]}
+      onPress={onPress}
+      disabled={disabled}>
       {children}
       <AppText isBold style={[styles.btnText, styleText]}>
         {text}

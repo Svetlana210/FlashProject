@@ -20,6 +20,7 @@ import CheckEmailScreen from './pages/AuthScreens/CheckEmailScreen';
 import ProfileScreen from './pages/MainScreens/ProfileScreen';
 import HistoryScreen from './pages/MainScreens/HistoryScreen';
 import SurveyScreen from './pages/MainScreens/SurveyScreen';
+import SendSurveyScreen from './pages/MainScreens/SendSurveyScreen';
 
 import GoBackBtn from './components/reusableComponents/GoBackBtn';
 import HeaderAuth from './components/headers/HeaderAuth';
@@ -167,6 +168,18 @@ const Navigation = () => {
               header: () => (
                 <HeaderMain text={route.params.title} style={styles.profile}>
                   <GoBackBtn style={styles.backBtn} />
+                </HeaderMain>
+              ),
+            })}
+          />
+          <MainStack.Screen
+            name="SendSurveyScreen"
+            component={SendSurveyScreen}
+            options={() => ({
+              header: () => (
+                <HeaderMain style={styles.profile}>
+                  {/* <GoBackBtn style={styles.backBtn} /> */}
+                  <></>
                 </HeaderMain>
               ),
             })}
