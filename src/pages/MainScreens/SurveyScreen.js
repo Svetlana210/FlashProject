@@ -4,43 +4,26 @@ import {StyleSheet, View, Image, TouchableOpacity} from 'react-native';
 import AppText from '../../components/reusableComponents/AppText';
 import SurveyQuestionsIndicator from '../../components/surveyQuestions/surveyQuestionsIndicator';
 import Button from '../../components/reusableComponents/Button';
-// import {TouchableOpacity} from 'react-native-gesture-handler';
-
-// import {Image} from 'react-native-elements';
 
 const SurveyScreen = ({route, navigation}) => {
   const {amount, questions, index, title} = route.params;
   const [selectedRadio, setSelectedRadio] = useState(0);
-  // console.log(questions[0].question);
   const [screen, setScreen] = useState(0);
-  console.log(amount);
-
+  console.log(screen);
+  console.log(Number(amount));
+  console.log(screen === Number(amount));
   let Question;
   if (amount === '1') {
-    Question = [
-      questions[0].question,
-      // questions[1].question,
-      // questions[2].question,
-      // questions[3].question,
-      // questions[4].question,
-    ];
+    Question = [questions[0].question];
   }
   if (amount === '2') {
-    Question = [
-      questions[0].question,
-      questions[1].question,
-      // questions[2].question,
-      // questions[3].question,
-      // questions[4].question,
-    ];
+    Question = [questions[0].question, questions[1].question];
   }
   if (amount === '3') {
     Question = [
       questions[0].question,
       questions[1].question,
       questions[2].question,
-      // questions[3].question,
-      // questions[4].question,
     ];
   }
   if (amount === '4') {
@@ -49,7 +32,6 @@ const SurveyScreen = ({route, navigation}) => {
       questions[1].question,
       questions[2].question,
       questions[3].question,
-      // questions[4].question,
     ];
   }
   if (amount === '5') {
@@ -61,31 +43,21 @@ const SurveyScreen = ({route, navigation}) => {
       questions[4].question,
     ];
   }
-
-  console.log(Question);
-  // const [answerFirst, setAnswerFirst] = useState(questions[0].variantFirst);
-  // const [answerSecond, setAnswerSecond] = useState(questions[0].variantSecond);
-  // console.log(questions);
   const onNextBtn = () => {
     setScreen(currScreen => currScreen + 1);
     if (screen === Question.length - 1) {
-      navigation.navigate(
-        'SendSurveyScreen',
-        //   {
-        //   id: index,
-        //   title: title,
-        //   amount: amount,
-        //   questions: questions,
-        // }
-      );
+      navigation.navigate('SendSurveyScreen');
     }
   };
+
   return (
     <View style={styles.wrapperScreen}>
       <View style={styles.container}>
         <View style={styles.wrapper}>
           <AppText style={styles.text}>Questions</AppText>
-          <AppText style={styles.text}>1/{amount}</AppText>
+          <AppText style={styles.text}>
+            {screen + 1}/{amount}
+          </AppText>
         </View>
         <SurveyQuestionsIndicator
           amount={amount}
@@ -135,13 +107,15 @@ const SurveyScreen = ({route, navigation}) => {
                     <View style={styles.radioChecked} />
                   ) : null}
                 </View>
-                <AppText
-                  style={{
-                    ...styles.radioText,
-                    fontWeight: selectedRadio === 2 ? 700 : 400,
-                  }}>
-                  {questions[0].variantSecond}
-                </AppText>
+                {screen !== Number(amount) && (
+                  <AppText
+                    style={{
+                      ...styles.radioText,
+                      fontWeight: selectedRadio === 2 ? 700 : 400,
+                    }}>
+                    {questions[0].variantSecond}
+                  </AppText>
+                )}
               </View>
             </View>
           </TouchableOpacity>
@@ -151,8 +125,15 @@ const SurveyScreen = ({route, navigation}) => {
             <>
               <Button
                 text="PREVIOUS"
-                style={styles.btnPrev}
+                style={{
+                  ...styles.btnPrev,
+                  backgroundColor: screen === 0 ? '#FFF2D3' : '#F0B528',
+                }}
+                styleText={{color: screen === 0 ? '#A1A1A1' : '#1D252D'}}
                 disabled={screen === 0}
+                onPress={() => {
+                  setScreen(currScreen => currScreen - 1);
+                }}
               />
               <Button text="NEXT" style={styles.btnNext} onPress={onNextBtn} />
             </>
