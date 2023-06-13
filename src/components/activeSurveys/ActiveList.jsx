@@ -144,21 +144,17 @@ const initialState = [
     ],
   },
 ];
-const ActiveList = ({navigation}) => {
-  const [list, setList] = useState(initialState);
-  // console.log(list);
-
+const ActiveList = ({navigation, list}) => {
   const renderItem = ({item, index}) => {
     return (
       <ActiveItem
-        title={item.title}
-        date={item.date}
-        status={item.status}
-        text={item.text}
-        amount={item.amount}
+        title={item.name}
+        date={item.created_at}
+        text={item.description}
+        amount={item.question_count}
         navigation={navigation}
         index={index}
-        questions={item.questions}
+        surveyId={item._id}
       />
     );
   };
@@ -168,7 +164,7 @@ const ActiveList = ({navigation}) => {
         data={list}
         renderItem={renderItem}
         horizontal={true}
-        keyExtractor={item => item.id}
+        keyExtractor={item => item._id}
       />
     </View>
   );

@@ -20,10 +20,13 @@ const ProfileScreen = () => {
   const [modalLogoutVisible, setModalLogoutVisible] = useState(false);
   const [changeModalVisible, setChangeModalVisible] = useState(false);
 
-  const {userInfo, findUser} = useContext(AxiosContext);
+  const [userInfo, setUserInfo] = useState({});
+  console.log(userInfo);
+
+  const {findUser} = useContext(AxiosContext);
 
   useEffect(() => {
-    findUser();
+    findUser().then(setUserInfo);
   }, []);
 
   return (
@@ -32,11 +35,11 @@ const ProfileScreen = () => {
         My account
       </AppText>
       <Image source={profile} style={styles.iconProfile} />
-      <AppText style={styles.textSmall}>{userInfo.name}</AppText>
+      <AppText style={styles.textSmall}>{userInfo.full_name}</AppText>
       <Image source={briefcase} style={styles.iconCase} />
       <AppText style={styles.textSmall}>{userInfo.role}</AppText>
       <Image source={vector} style={styles.iconVector} />
-      <AppText style={styles.textSmall}>{userInfo.tel}</AppText>
+      <AppText style={styles.textSmall}>{userInfo.phone_number}</AppText>
       <Image source={sms} style={styles.iconSms} />
       <AppText style={styles.textSmall}>{userInfo.email}</AppText>
       <AppText isBold style={styles.textLocation}>
@@ -44,7 +47,7 @@ const ProfileScreen = () => {
       </AppText>
       <Image source={location} style={styles.iconLocation} />
       <View style={styles.container}>
-        <AppText style={styles.textSmall}>{userInfo.city}</AppText>
+        <AppText style={styles.textSmall}>{userInfo.location}</AppText>
         <ChangeLocationModal
           modalVisible={modalLocationVisible}
           setModalVisible={setModalLocationVisible}

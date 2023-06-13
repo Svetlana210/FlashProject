@@ -1,14 +1,27 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable no-unused-vars */
 import {StyleSheet, Text, View, Image, TouchableOpacity} from 'react-native';
-import React, {useState} from 'react';
+import React, {useState, useContext, useEffect} from 'react';
 import HistoryList from '../../components/history/HistoryList';
 import ActiveList from '../../components/activeSurveys/ActiveList.jsx';
 import AppText from '../../components/reusableComponents/AppText';
+import {AxiosContext} from '../../context/axiosContext';
 let env = require('../../images/Env.png');
 
 const HomeScreen = ({navigation}) => {
   // const [active, setActive] = useState(false);
   const [active, setActive] = useState(true);
+  const [list, setList] = useState(true);
+  const {getActiveSurveys, findUser} = useContext(AxiosContext);
+  // console.log(list);
+
+  useEffect(() => {
+    findUser();
+  }, []);
+
+  useEffect(() => {
+    getActiveSurveys().then(setList);
+  }, [getActiveSurveys]);
 
   return (
     <View style={styles.wrap}>
@@ -18,7 +31,7 @@ const HomeScreen = ({navigation}) => {
         </AppText>
         {active ? (
           <View style={styles.imageWrapper}>
-            <ActiveList navigation={navigation} />
+            <ActiveList navigation={navigation} list={list} />
           </View>
         ) : (
           <View style={styles.imageWrapper}>

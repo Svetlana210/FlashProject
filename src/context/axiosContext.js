@@ -9,13 +9,8 @@ const {Provider} = AxiosContext;
 
 const AxiosProvider = ({children}) => {
   const [userId, setUserId] = useState('');
-  const [userInfo, setUserInfo] = useState({
-    name: '',
-    tel: '',
-    city: '',
-    role: '',
-    email: '',
-  });
+  console.log(userId);
+
   const authContext = useContext(AuthContext);
 
   const authAxios = axios.create({
@@ -80,13 +75,7 @@ const AxiosProvider = ({children}) => {
     try {
       const response = await authAxios.get('/my_profile');
       setUserId(response.data._id);
-      setUserInfo({
-        name: response.data.full_name,
-        tel: response.data.phone_number,
-        city: response.data.location,
-        email: response.data.email,
-        role: response.data.role,
-      });
+      return response.data;
     } catch (error) {
       console.log(`error my-profile - ${error.message}`);
     }
@@ -135,18 +124,37 @@ const AxiosProvider = ({children}) => {
     }
   };
 
+  const getActiveSurveys = async () => {
+    try {
+      const response = await authAxios.get(`/users/${userId}/active_surveys`);
+      return response.data.items;
+    } catch (error) {
+      console.log(`error - ${error.message}`);
+    }
+  };
+
+  const getFirstStep = async surveyId => {
+    try {
+      const response = await authAxios.get(`/surveys/${surveyId}/first_step`);
+      return response.data.questions;
+    } catch (error) {
+      console.log(`error - ${error.message}`);
+    }
+  };
   return (
     <Provider
       value={{
         authAxios,
         publicAxios,
-        userInfo,
+        userId,
         signIn,
         checkEmail,
         findUser,
         onSignUp,
         signInPass,
         sendEmail,
+        getActiveSurveys,
+        getFirstStep,
       }}>
       {children}
     </Provider>

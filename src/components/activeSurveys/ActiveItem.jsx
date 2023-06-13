@@ -1,26 +1,33 @@
-import React from 'react';
+import React, {useContext, useState} from 'react';
 import {StyleSheet, View} from 'react-native';
 import AppText from '../reusableComponents/AppText';
 import Button from '../reusableComponents/Button';
+import {AxiosContext} from '../../context/axiosContext';
 
 const ActiveItem = ({
   title,
   amount,
   date,
   text,
-  status,
+  // status,
   navigation,
   index,
-  questions,
+  surveyId,
+  // questions,
 }) => {
+  const [questions, setQuestions] = useState([]);
+  const {getFirstStep} = useContext(AxiosContext);
+
+  console.log(questions);
   const handleonStart = () => {
-    console.log(`index-${index}`);
+    getFirstStep(surveyId).then(setQuestions);
+    // console.log(`index-${index}`);
     // console.log(e.target);
     navigation.navigate('Survey', {
       id: index,
       title: title,
       amount: amount,
-      questions: questions,
+      // questions: questions,
     });
   };
   return (
@@ -33,7 +40,7 @@ const ActiveItem = ({
         {amount} Questions | {date}
       </AppText>
       <AppText isMedium style={styles.status}>
-        {status}
+        new
       </AppText>
       <Button
         text="START"
