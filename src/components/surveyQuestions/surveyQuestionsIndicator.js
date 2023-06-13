@@ -1,19 +1,23 @@
+/* eslint-disable react-native/no-inline-styles */
 import {StyleSheet, Image, View} from 'react-native';
-import React from 'react';
+import React, {useState} from 'react';
 import * as Progress from 'react-native-progress';
 // let rect = require('../../images/Rect.png');
 
 const SurveyQuestionsIndicator = ({amount, questions, Question, screen}) => {
+  const [activeId, setActiveId] = useState(0);
   const getWidth = () => {
     const width = 328 / questions.length;
     return width;
   };
   console.log(getWidth());
   const elements = questions.map((item, index) => {
+    console.log(index);
     return (
       <Progress.Bar
         style={{
           ...styles.progress,
+          backgroundColor: index === activeId ? '#F0B528' : '#FDF7E7',
           width: getWidth(),
         }}
         color="#FDF7E7"
@@ -38,10 +42,10 @@ const styles = StyleSheet.create({
   icon: {
     tintColor: '#FDF7E7',
   },
-  progress: {
-    // margin: 10,
-    backgroundColor: '#F0B528',
-  },
+  // progress: {
+  //   // margin: 10,
+  //   backgroundColor: '#F0B528',
+  // },
 
   // progressFive: {width: 60},
   // progressFour: {width: 78},
