@@ -7,6 +7,10 @@ import Button from '../../components/reusableComponents/Button';
 
 const SurveyScreen = ({route, navigation}) => {
   const {amount, questions} = route.params;
+  console.log(questions);
+  questions.map((item, index) => {
+    console.log(item);
+  });
   // console.log(amount);
   const [selectedRadio, setSelectedRadio] = useState(0);
   const [screen, setScreen] = useState(0);

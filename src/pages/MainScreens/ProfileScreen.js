@@ -35,25 +35,25 @@ const ProfileScreen = () => {
         My account
       </AppText>
       <Image source={profile} style={styles.iconProfile} />
-      <AppText style={styles.textSmall}>{userInfo.full_name}</AppText>
+      <AppText style={styles.textSmall}>{userInfo?.full_name}</AppText>
       <Image source={briefcase} style={styles.iconCase} />
-      <AppText style={styles.textSmall}>{userInfo.role}</AppText>
+      <AppText style={styles.textSmall}>{userInfo?.role}</AppText>
       <Image source={vector} style={styles.iconVector} />
-      <AppText style={styles.textSmall}>{userInfo.phone_number}</AppText>
+      <AppText style={styles.textSmall}>{userInfo?.phone_number}</AppText>
       <Image source={sms} style={styles.iconSms} />
-      <AppText style={styles.textSmall}>{userInfo.email}</AppText>
+      <AppText style={styles.textSmall}>{userInfo?.email}</AppText>
       <AppText isBold style={styles.textLocation}>
         My location
       </AppText>
       <Image source={location} style={styles.iconLocation} />
       <View style={styles.container}>
-        <AppText style={styles.textSmall}>{userInfo.location}</AppText>
+        <AppText style={styles.textSmall}>{userInfo?.location}</AppText>
         <ChangeLocationModal
           modalVisible={modalLocationVisible}
           setModalVisible={setModalLocationVisible}
           changeModalVisible={changeModalVisible}
           setChangeModalVisible={setChangeModalVisible}
-          userCity={userInfo.city}
+          userCity={userInfo?.location}
         />
         <TouchableOpacity
           style={styles.btnChange}

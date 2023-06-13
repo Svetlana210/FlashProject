@@ -10,14 +10,15 @@ const SurveyQuestionsIndicator = ({amount, questions, Question, screen}) => {
     const width = 328 / questions.length;
     return width;
   };
-  console.log(getWidth());
+  // console.log(getWidth());
   const elements = questions.map((item, index) => {
-    console.log(index);
+    // console.log(index);
     return (
       <Progress.Bar
+        key={index}
         style={{
           ...styles.progress,
-          backgroundColor: index === activeId ? '#F0B528' : '#FDF7E7',
+          backgroundColor: index <= activeId ? '#F0B528' : '#FDF7E7',
           width: getWidth(),
         }}
         color="#FDF7E7"

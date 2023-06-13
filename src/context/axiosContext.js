@@ -133,9 +133,11 @@ const AxiosProvider = ({children}) => {
     }
   };
 
-  const getFirstStep = async surveyId => {
+  const getQuestions = async surveyId => {
     try {
-      const response = await authAxios.get(`/surveys/${surveyId}/first_step`);
+      const response = await authAxios.get(
+        `/users/${userId}/surveys/${surveyId}/questions`,
+      );
       return response.data.questions;
     } catch (error) {
       console.log(`error - ${error.message}`);
@@ -154,7 +156,7 @@ const AxiosProvider = ({children}) => {
         signInPass,
         sendEmail,
         getActiveSurveys,
-        getFirstStep,
+        getQuestions,
       }}>
       {children}
     </Provider>

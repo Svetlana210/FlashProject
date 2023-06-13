@@ -1,4 +1,5 @@
-import React, {useContext, useState} from 'react';
+/* eslint-disable react-hooks/exhaustive-deps */
+import React, {useContext, useState, useEffect} from 'react';
 import {StyleSheet, View} from 'react-native';
 import AppText from '../reusableComponents/AppText';
 import Button from '../reusableComponents/Button';
@@ -17,11 +18,14 @@ const ActiveItem = ({
   questionsMy,
 }) => {
   const [questions, setQuestions] = useState([]);
-  const {getFirstStep} = useContext(AxiosContext);
-
+  const {getQuestions, findUser} = useContext(AxiosContext);
   // console.log(questions);
+  // console.log(questions);
+  useEffect(() => {
+    findUser();
+  }, []);
   const handleonStart = () => {
-    getFirstStep(surveyId).then(setQuestions);
+    getQuestions(surveyId).then(setQuestions);
     // console.log(`index-${index}`);
     // console.log(e.target);
     navigation.navigate('Survey', {

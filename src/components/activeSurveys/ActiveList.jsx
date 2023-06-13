@@ -155,7 +155,7 @@ const ActiveList = ({navigation, list}) => {
         amount={item.question_count}
         navigation={navigation}
         index={index}
-        surveyId={item._id}
+        surveyId={item.id}
         questionsMy={item.questions}
       />
     );
