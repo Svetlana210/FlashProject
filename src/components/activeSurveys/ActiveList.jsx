@@ -145,6 +145,7 @@ const initialState = [
   },
 ];
 const ActiveList = ({navigation, list}) => {
+  const [items, setItems] = useState(initialState);
   const renderItem = ({item, index}) => {
     return (
       <ActiveItem
@@ -155,16 +156,17 @@ const ActiveList = ({navigation, list}) => {
         navigation={navigation}
         index={index}
         surveyId={item._id}
+        questionsMy={item.questions}
       />
     );
   };
   return (
     <View style={styles.container}>
       <FlatList
-        data={list}
+        data={items}
         renderItem={renderItem}
         horizontal={true}
-        keyExtractor={item => item._id}
+        keyExtractor={item => item.id}
       />
     </View>
   );

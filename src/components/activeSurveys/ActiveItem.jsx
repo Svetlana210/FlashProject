@@ -14,11 +14,12 @@ const ActiveItem = ({
   index,
   surveyId,
   // questions,
+  questionsMy,
 }) => {
   const [questions, setQuestions] = useState([]);
   const {getFirstStep} = useContext(AxiosContext);
 
-  console.log(questions);
+  // console.log(questions);
   const handleonStart = () => {
     getFirstStep(surveyId).then(setQuestions);
     // console.log(`index-${index}`);
@@ -27,7 +28,7 @@ const ActiveItem = ({
       id: index,
       title: title,
       amount: amount,
-      // questions: questions,
+      questions: questionsMy,
     });
   };
   return (

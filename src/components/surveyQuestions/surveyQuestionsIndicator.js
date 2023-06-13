@@ -3,97 +3,25 @@ import React from 'react';
 import * as Progress from 'react-native-progress';
 // let rect = require('../../images/Rect.png');
 
-const SurveyQuestionsIndicator = ({amount, Question, screen}) => {
-  if (amount === '5') {
+const SurveyQuestionsIndicator = ({amount, questions, Question, screen}) => {
+  const getWidth = () => {
+    const width = 328 / questions.length;
+    return width;
+  };
+  console.log(getWidth());
+  const elements = questions.map((item, index) => {
     return (
-      <View style={styles.wrap}>
-        <Progress.Bar
-          style={[styles.progress, styles.progressFive]}
-          color="#FDF7E7"
-        />
-        <Progress.Bar
-          style={[styles.progress, styles.progressFive]}
-          color="#FDF7E7"
-        />
-        <Progress.Bar
-          style={[styles.progress, styles.progressFive]}
-          color="#FDF7E7"
-        />
-        <Progress.Bar
-          style={[styles.progress, styles.progressFive]}
-          color="#FDF7E7"
-        />
-        <Progress.Bar
-          style={[styles.progress, styles.progressFive]}
-          color="#FDF7E7"
-        />
-      </View>
+      <Progress.Bar
+        style={{
+          ...styles.progress,
+          width: getWidth(),
+        }}
+        color="#FDF7E7"
+      />
     );
-  }
-  if (amount === '4') {
-    return (
-      <View style={styles.wrap}>
-        <Progress.Bar
-          style={[styles.progress, styles.progressFour]}
-          color="#FDF7E7"
-        />
-        <Progress.Bar
-          style={[styles.progress, styles.progressFour]}
-          color="#FDF7E7"
-        />
-        <Progress.Bar
-          style={[styles.progress, styles.progressFour]}
-          color="#FDF7E7"
-        />
-        <Progress.Bar
-          style={[styles.progress, styles.progressFour]}
-          color="#FDF7E7"
-        />
-      </View>
-    );
-  }
-  if (amount === '3') {
-    return (
-      <View style={styles.wrap}>
-        <Progress.Bar
-          style={[styles.progress, styles.progressThree]}
-          color="#FDF7E7"
-        />
-        <Progress.Bar
-          style={[styles.progress, styles.progressThree]}
-          color="#FDF7E7"
-        />
-        <Progress.Bar
-          style={[styles.progress, styles.progressThree]}
-          color="#FDF7E7"
-        />
-      </View>
-    );
-  }
-  if (amount === '2') {
-    return (
-      <View style={styles.wrap}>
-        <Progress.Bar
-          style={[styles.progress, styles.progressTwo]}
-          color="#F0B528"
-        />
-        <Progress.Bar
-          style={[styles.progress, styles.progressTwo]}
-          color="#F0B528"
-        />
-      </View>
-    );
-  }
-  if (amount === '1') {
-    return (
-      <View style={styles.wrap}>
-        <Progress.Bar
-          style={[styles.progress, styles.progressOne]}
-          // color="#FDF7E7"
-        />
-      </View>
-    );
-  }
+  });
+
+  return <View style={styles.wrap}>{elements}</View>;
 };
 
 export default SurveyQuestionsIndicator;
@@ -103,7 +31,9 @@ const styles = StyleSheet.create({
     // marginHorizontal: 13,
     // width: '100%',
     flexDirection: 'row',
-    gap: 10,
+    gap: 7,
+    // alignItems: 'center',
+    justifyContent: 'center',
   },
   icon: {
     tintColor: '#FDF7E7',
@@ -113,9 +43,9 @@ const styles = StyleSheet.create({
     backgroundColor: '#F0B528',
   },
 
-  progressFive: {width: 60},
-  progressFour: {width: 78},
-  progressThree: {width: 107},
-  progressTwo: {width: 166},
-  progressOne: {width: 340},
+  // progressFive: {width: 60},
+  // progressFour: {width: 78},
+  // progressThree: {width: 107},
+  // progressTwo: {width: 166},
+  // progressOne: {width: 340},
 });
