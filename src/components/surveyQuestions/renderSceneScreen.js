@@ -1,14 +1,19 @@
 /* eslint-disable react-native/no-inline-styles */
 import {StyleSheet, TouchableOpacity, View} from 'react-native';
-import React, {useState} from 'react';
+import React from 'react';
 import AppText from '../reusableComponents/AppText';
 
-const RenderSceneScreen = ({route, index, questions}) => {
-  const [selectedRadio, setSelectedRadio] = useState(0);
+const RenderSceneScreen = ({
+  route,
+  index,
+  questions,
+  selectedRadio,
+  setSelectedRadio,
+}) => {
   return (
     <>
       <AppText isBold style={styles.question}>
-        {route.question}
+        {route.text}
       </AppText>
       <View
         style={{
@@ -30,7 +35,7 @@ const RenderSceneScreen = ({route, index, questions}) => {
                   ...styles.radioText,
                   fontWeight: selectedRadio === 1 ? 700 : 400,
                 }}>
-                {route.variantFirst}
+                {route.positive}
               </AppText>
             </View>
           </View>
@@ -56,7 +61,7 @@ const RenderSceneScreen = ({route, index, questions}) => {
                     ...styles.radioText,
                     fontWeight: selectedRadio === 2 ? 700 : 400,
                   }}>
-                  {route.variantSecond}
+                  {route.negative}
                 </AppText>
               )}
             </View>
@@ -99,5 +104,12 @@ const styles = StyleSheet.create({
   radioWrapper: {
     flexDirection: 'row',
     alignItems: 'center',
+  },
+  wrapButton: {
+    width: 320,
+    height: 64,
+    borderWidth: 1,
+    padding: 8,
+    marginBottom: 16,
   },
 });

@@ -20,14 +20,11 @@ const ActiveItem = ({
   const [questions, setQuestions] = useState([]);
   const {getQuestions, findUser} = useContext(AxiosContext);
   // console.log(questions);
-  // console.log(questions);
   useEffect(() => {
     findUser();
   }, []);
   const handleonStart = () => {
     getQuestions(surveyId).then(setQuestions);
-    // console.log(`index-${index}`);
-    // console.log(e.target);
     navigation.navigate('Survey', {
       id: index,
       title: title,

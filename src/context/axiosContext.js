@@ -134,6 +134,8 @@ const AxiosProvider = ({children}) => {
   };
 
   const getQuestions = async surveyId => {
+    // console.log(`id-${surveyId}`);
+    // console.log(userId);
     try {
       const response = await authAxios.get(
         `/users/${userId}/surveys/${surveyId}/questions`,

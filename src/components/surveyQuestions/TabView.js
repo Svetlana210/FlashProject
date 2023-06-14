@@ -5,17 +5,19 @@ import RenderSceneScreen from './renderSceneScreen';
 import {TabView} from 'react-native-tab-view';
 
 const styles = StyleSheet.create({
-  columnWrapperStyle: {
-    justifyContent: 'space-between',
-    padding: 10,
-  },
   container: {
-    height: 300,
-    backgroundColor: 'violet',
+    height: 250,
+    // backgroundColor: 'violet',
   },
 });
 
-const TabViewSurvey = ({questions, index, setIndex}) => {
+const TabViewSurvey = ({
+  questions,
+  index,
+  setIndex,
+  selectedRadio,
+  setSelectedRadio,
+}) => {
   console.log(questions);
   questions.map((question, id = index) => {
     question.key = id;
@@ -28,7 +30,13 @@ const TabViewSurvey = ({questions, index, setIndex}) => {
 
   const renderScene = ({route}) => {
     return (
-      <RenderSceneScreen route={route} index={index} questions={questions} />
+      <RenderSceneScreen
+        route={route}
+        index={index}
+        questions={questions}
+        selectedRadio={selectedRadio}
+        setSelectedRadio={setSelectedRadio}
+      />
     );
   };
 

@@ -1,15 +1,27 @@
 /* eslint-disable react-native/no-inline-styles */
 import React, {useState} from 'react';
-import {StyleSheet, View} from 'react-native';
+import {Alert, StyleSheet, View} from 'react-native';
 import AppText from '../../components/reusableComponents/AppText';
 import SurveyQuestionsIndicator from '../../components/surveyQuestions/surveyQuestionsIndicator';
 import Button from '../../components/reusableComponents/Button';
 import TabViewSurvey from '../../components/surveyQuestions/TabView';
 const SurveyScreen = ({route, navigation}) => {
   const {amount, questions} = route.params;
-
+  console.log(questions);
+  const [selectedRadio, setSelectedRadio] = useState(0);
   const [index, setIndex] = useState(0);
+  const onNext = () => {
+    if (selectedRadio !== 0) {
+      setIndex(currIndex => currIndex + 1);
+      // setSelectedRadio(0);
+    } else {
+      Alert.alert('Please choose the option');
+    }
 
+    if (index + 1 === questions.length) {
+      navigation.navigate('SendSurveyScreen');
+    }
+  };
   return (
     <View style={styles.wrapperScreen}>
       <View style={styles.container}>
@@ -28,6 +40,8 @@ const SurveyScreen = ({route, navigation}) => {
           questions={questions}
           index={index}
           setIndex={setIndex}
+          setSelectedRadio={setSelectedRadio}
+          selectedRadio={selectedRadio}
         />
 
         <View style={styles.btnWrapper}>
@@ -40,15 +54,14 @@ const SurveyScreen = ({route, navigation}) => {
             styleText={{color: index === 0 ? '#A1A1A1' : '#1D252D'}}
             disabled={index === 0}
             onPress={() => {
-              setIndex(currScreen => currScreen - 1);
+              setIndex(currIndex => currIndex - 1);
             }}
           />
           <Button
             text="NEXT"
             style={styles.btnNext}
-            onPress={() => {
-              setIndex(currScreen => currScreen + 1);
-            }}
+            onPress={onNext}
+            // disabled={selectedRadio === 0 ? true : false}
           />
         </View>
       </View>
@@ -88,15 +101,6 @@ const styles = StyleSheet.create({
     marginVertical: 32,
   },
 
-  wrapButton: {
-    width: 340,
-    height: 64,
-    // borderColor: '#E0E5EB',
-    // backgroundColor: '#ffffff',
-    borderWidth: 1,
-    padding: 8,
-    // marginBottom: 16,
-  },
   btnWrapper: {
     flexDirection: 'row',
     gap: 10,
@@ -106,17 +110,3 @@ const styles = StyleSheet.create({
   btnPrev: {width: 156, paddingHorizontal: 40},
   btnNext: {width: 156, paddingHorizontal: 55},
 });
-// import {StyleSheet, Text, View} from 'react-native';
-// import React from 'react';
-
-// const SurveyScreen = () => {
-//   return (
-//     <View>
-//       <Text>SurveyScreen</Text>
-//     </View>
-//   );
-// };
-
-// export default SurveyScreen;
-
-// const styles = StyleSheet.create({});
