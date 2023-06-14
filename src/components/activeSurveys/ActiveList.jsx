@@ -166,7 +166,7 @@ const ActiveList = ({navigation, list}) => {
         data={items}
         renderItem={renderItem}
         horizontal={true}
-        keyExtractor={item => item.id}
+        keyExtractor={item => item._id}
       />
     </View>
   );

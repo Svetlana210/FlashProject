@@ -11,7 +11,7 @@ let env = require('../../images/Env.png');
 const HomeScreen = ({navigation}) => {
   // const [active, setActive] = useState(false);
   const [active, setActive] = useState(true);
-  const [list, setList] = useState(true);
+  const [list, setList] = useState([]);
   const {getActiveSurveys, findUser} = useContext(AxiosContext);
   // console.log(list);
 

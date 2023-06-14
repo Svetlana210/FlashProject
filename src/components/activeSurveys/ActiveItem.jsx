@@ -14,8 +14,8 @@ const ActiveItem = ({
   navigation,
   index,
   surveyId,
-  // questions,
   questionsMy,
+  // questions,
 }) => {
   const [questions, setQuestions] = useState([]);
   const {getQuestions, findUser} = useContext(AxiosContext);
