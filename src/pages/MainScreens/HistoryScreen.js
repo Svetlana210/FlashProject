@@ -2,12 +2,14 @@ import {StyleSheet, View} from 'react-native';
 import React from 'react';
 import HistoryList from '../../components/history/HistoryList';
 
-const HistoryScreen = () => {
+const HistoryScreen = ({route}) => {
+  const {historyList} = route.params;
+  console.log(historyList);
   return (
     <View style={styles.wrap}>
       <View style={styles.container}>
         <View style={styles.historyWrapper}>
-          <HistoryList />
+          <HistoryList historyList={historyList} />
         </View>
       </View>
     </View>

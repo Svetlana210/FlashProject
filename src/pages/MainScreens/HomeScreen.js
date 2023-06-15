@@ -12,8 +12,9 @@ const HomeScreen = ({navigation}) => {
   // const [active, setActive] = useState(false);
   const [active, setActive] = useState(true);
   const [list, setList] = useState([]);
-  const {getActiveSurveys, findUser} = useContext(AxiosContext);
-  // console.log(list);
+  const [historyList, setHistoryList] = useState([]);
+  const {getActiveSurveys, findUser, getHistory} = useContext(AxiosContext);
+  console.log(historyList);
 
   useEffect(() => {
     findUser();
@@ -21,7 +22,11 @@ const HomeScreen = ({navigation}) => {
 
   useEffect(() => {
     getActiveSurveys().then(setList);
-  }, [getActiveSurveys]);
+    getHistory().then(setHistoryList);
+  }, [getActiveSurveys, getHistory]);
+
+  const newArray = historyList.slice(0, 4);
+  console.log(newArray);
 
   return (
     <View style={styles.wrap}>
@@ -51,13 +56,17 @@ const HomeScreen = ({navigation}) => {
           </AppText>
           <TouchableOpacity
             style={styles.btn}
-            onPress={() => navigation.navigate('History')}>
+            onPress={() =>
+              navigation.navigate('History', {
+                historyList: historyList,
+              })
+            }>
             <AppText isBold style={styles.btnAll}>
               SEE ALL
             </AppText>
           </TouchableOpacity>
         </View>
-        <HistoryList />
+        <HistoryList historyList={newArray} />
       </View>
     </View>
   );

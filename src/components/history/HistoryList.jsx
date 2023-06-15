@@ -10,22 +10,23 @@ const initialState = [
   //   {title: 'Survey 5', date: '05 Feb,10:30', status: 'Completed', id: 5},
   //   {title: 'Survey 6', date: '05 Feb,09:30', status: 'Completed', id: 6},
 ];
-const HistoryList = () => {
-  const [surveys, setSurveys] = useState(initialState);
+const HistoryList = ({historyList}) => {
+  // const [surveys, setSurveys] = useState(initialState);
 
   const renderItem = itemData => {
+    // console.log(itemData);
     return (
       <HistoryItem
-        title={itemData.item.title}
-        id={itemData.item.id}
-        date={itemData.item.date}
-        status={itemData.item.status}
+        title={itemData.item.name}
+        id={itemData.item._id}
+        date={itemData.item.end_date}
+        status={itemData.item.finished}
       />
     );
   };
   return (
     <View style={styles.container}>
-      <FlatList data={surveys} renderItem={renderItem} />
+      <FlatList data={historyList} renderItem={renderItem} />
     </View>
   );
 };

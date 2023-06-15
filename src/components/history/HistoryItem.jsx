@@ -22,10 +22,10 @@ const HistoryItem = ({title, id, date, status}) => {
         isMedium
         style={{
           ...styles.status,
-          color: status === 'Missed' ? '#FF6E5E' : '#6CC44B',
-          borderColor: status === 'Missed' ? '#FF6E5E' : '#6CC44B',
+          color: status === false ? '#FF6E5E' : '#6CC44B',
+          borderColor: status === false ? '#FF6E5E' : '#6CC44B',
         }}>
-        {status}
+        {status === true ? 'Completed' : 'Missed'}
       </AppText>
     </View>
   );

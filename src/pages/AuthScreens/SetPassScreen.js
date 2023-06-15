@@ -37,7 +37,7 @@ const SetPassScreen = ({route, navigation}) => {
   const handleChange = value => {
     const lower = new RegExp('(?=.*[a-z])');
     const upper = new RegExp('(?=.*[A-Z])');
-    const number = new RegExp('(?=.*[0-9])');
+    // const number = new RegExp('(?=.*[0-9])');
     const special = new RegExp('(?=.*[!@#$%^&*])');
     const length = new RegExp('(?=.{8,24})');
 
@@ -53,7 +53,7 @@ const SetPassScreen = ({route, navigation}) => {
     } else {
       setUpperValidate(false);
     }
-    if (number.test(value) && special.test(value)) {
+    if (special.test(value)) {
       setSymbolValidate(true);
     } else {
       setSymbolValidate(false);

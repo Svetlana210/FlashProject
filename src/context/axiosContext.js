@@ -145,6 +145,15 @@ const AxiosProvider = ({children}) => {
       console.log(`error - ${error.message}`);
     }
   };
+  const getHistory = async () => {
+    try {
+      const response = await authAxios.get(`/users/${userId}/history_surveys`);
+      // console.log(`history-${response.data.items}`);
+      return response.data.items;
+    } catch (error) {
+      console.log(`error - ${error.message}`);
+    }
+  };
   return (
     <Provider
       value={{
@@ -159,6 +168,7 @@ const AxiosProvider = ({children}) => {
         sendEmail,
         getActiveSurveys,
         getQuestions,
+        getHistory,
       }}>
       {children}
     </Provider>
