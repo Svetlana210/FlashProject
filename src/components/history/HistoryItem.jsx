@@ -5,9 +5,9 @@ import AppText from '../reusableComponents/AppText';
 let surveyC = require('../../images/surveyC.png');
 let surveyM = require('../../images/surveyM.png');
 
-const HistoryItem = ({title, id, date, status}) => {
+const HistoryItem = ({title, id, date, status, style}) => {
   return (
-    <View style={styles.listItem}>
+    <View style={[styles.listItem, style]}>
       {status === 'Missed' ? (
         <Image source={surveyM} style={styles.img} />
       ) : (
@@ -36,7 +36,7 @@ export default HistoryItem;
 const styles = StyleSheet.create({
   listItem: {
     height: 51,
-    marginBottom: 6,
+    // marginBottom: 76,
     borderBottomWidth: 1,
     borderBottomColor: '#E0E5EB',
   },

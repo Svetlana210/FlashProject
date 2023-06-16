@@ -1,36 +1,38 @@
 /* eslint-disable no-unused-vars */
 import {StyleSheet, View, FlatList} from 'react-native';
-import React, {useState} from 'react';
+import React, {useState, useCallback, useContext} from 'react';
 import HistoryItem from './HistoryItem';
-const initialState = [
-  {title: 'Survey 1', date: '12 Feb,12:00', status: 'Completed', id: 1},
-  {title: 'Survey 2', date: '10 Feb,11:00', status: 'Missed', id: 2},
-  {title: 'Survey 3', date: '09 Feb,11:00', status: 'Missed', id: 3},
-  {title: 'Survey 4', date: '07 Feb,12:00', status: 'Completed', id: 4},
-  //   {title: 'Survey 5', date: '05 Feb,10:30', status: 'Completed', id: 5},
-  //   {title: 'Survey 6', date: '05 Feb,09:30', status: 'Completed', id: 6},
-];
-const HistoryList = ({historyList}) => {
-  // const [surveys, setSurveys] = useState(initialState);
 
-  const renderItem = itemData => {
-    // console.log(itemData);
+const HistoryList = ({historyList, setHistoryList}) => {
+  const renderItem = ({item, index}) => {
+    // console.log(index);
     return (
-      <HistoryItem
-        title={itemData.item.name}
-        id={itemData.item._id}
-        date={itemData.item.end_date}
-        status={itemData.item.finished}
-      />
+      <>
+        {index < 4 ? (
+          <HistoryItem
+            title={item.name}
+            id={item._id}
+            date={item.end_date}
+            status={item.finished}
+            style={styles.item}
+          />
+        ) : null}
+      </>
     );
   };
   return (
     <View style={styles.container}>
-      <FlatList data={historyList} renderItem={renderItem} />
+      <FlatList
+        data={historyList}
+        renderItem={renderItem}
+        keyExtractor={item => item._id}
+      />
     </View>
   );
 };
 
 export default HistoryList;
 
-const styles = StyleSheet.create({});
+const styles = StyleSheet.create({
+  item: {marginBottom: 13},
+});

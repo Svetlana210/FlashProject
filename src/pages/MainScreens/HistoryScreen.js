@@ -1,15 +1,19 @@
 import {StyleSheet, View} from 'react-native';
 import React from 'react';
-import HistoryList from '../../components/history/HistoryList';
+import HistoryListLarge from '../../components/history/HistoryListLarge';
 
 const HistoryScreen = ({route}) => {
-  const {historyList} = route.params;
-  console.log(historyList);
+  const {historyList, offset, LIMIT} = route.params;
+
   return (
     <View style={styles.wrap}>
       <View style={styles.container}>
         <View style={styles.historyWrapper}>
-          <HistoryList historyList={historyList} />
+          <HistoryListLarge
+            historyList={historyList}
+            offset={offset}
+            LIMIT={LIMIT}
+          />
         </View>
       </View>
     </View>

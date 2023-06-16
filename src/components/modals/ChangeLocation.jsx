@@ -39,9 +39,9 @@ const ChangeLocationModal = ({
   userCity,
 }) => {
   const [state, setState] = useState({activeId: 4});
-  console.log(state.activeId);
+  // console.log(state.activeId);
   const prevRef = useRef({activeId: 4});
-  console.log(`prev - ${prevRef.current}`);
+  // console.log(`prev - ${prevRef.current}`);
 
   useEffect(() => {
     prevRef.current = state.activeId;

@@ -6,7 +6,7 @@ import {TabView} from 'react-native-tab-view';
 
 const styles = StyleSheet.create({
   container: {
-    height: 250,
+    height: '50%',
     // backgroundColor: 'violet',
   },
 });

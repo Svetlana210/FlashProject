@@ -7,26 +7,32 @@ import ActiveList from '../../components/activeSurveys/ActiveList.jsx';
 import AppText from '../../components/reusableComponents/AppText';
 import {AxiosContext} from '../../context/axiosContext';
 let env = require('../../images/Env.png');
-
+const LIMIT = 4;
 const HomeScreen = ({navigation}) => {
   // const [active, setActive] = useState(false);
   const [active, setActive] = useState(true);
+  const [offset, setOffset] = useState(0);
   const [list, setList] = useState([]);
   const [historyList, setHistoryList] = useState([]);
   const {getActiveSurveys, findUser, getHistory} = useContext(AxiosContext);
-  console.log(historyList);
+  // console.log(`list-${historyList}`);
 
   useEffect(() => {
     findUser();
   }, []);
 
+  const fetchData = async () => {
+    const data = await getHistory(offset, LIMIT);
+    setHistoryList(data);
+  };
+
   useEffect(() => {
+    fetchData();
     getActiveSurveys().then(setList);
-    getHistory().then(setHistoryList);
   }, [getActiveSurveys, getHistory]);
 
-  const newArray = historyList.slice(0, 4);
-  console.log(newArray);
+  // const newArray = historyList.slice(0, 4);
+  // console.log(newArray);
 
   return (
     <View style={styles.wrap}>
@@ -59,6 +65,8 @@ const HomeScreen = ({navigation}) => {
             onPress={() =>
               navigation.navigate('History', {
                 historyList: historyList,
+                LIMIT: LIMIT,
+                offset: offset,
               })
             }>
             <AppText isBold style={styles.btnAll}>
@@ -66,7 +74,7 @@ const HomeScreen = ({navigation}) => {
             </AppText>
           </TouchableOpacity>
         </View>
-        <HistoryList historyList={newArray} />
+        <HistoryList historyList={historyList} LIMIT={LIMIT} />
       </View>
     </View>
   );

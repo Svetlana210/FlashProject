@@ -5,9 +5,10 @@ import AppText from '../../components/reusableComponents/AppText';
 import SurveyQuestionsIndicator from '../../components/surveyQuestions/surveyQuestionsIndicator';
 import Button from '../../components/reusableComponents/Button';
 import TabViewSurvey from '../../components/surveyQuestions/TabView';
+
 const SurveyScreen = ({route, navigation}) => {
   const {amount, questions} = route.params;
-  console.log(questions);
+  // console.log(questions);
   const [selectedRadio, setSelectedRadio] = useState(0);
   const [index, setIndex] = useState(0);
   const onNext = () => {

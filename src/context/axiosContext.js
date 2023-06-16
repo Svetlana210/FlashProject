@@ -9,6 +9,7 @@ const {Provider} = AxiosContext;
 
 const AxiosProvider = ({children}) => {
   const [userId, setUserId] = useState('');
+  const [totalItems, setTotalItems] = useState(0);
   console.log(userId);
 
   const authContext = useContext(AuthContext);
@@ -145,10 +146,13 @@ const AxiosProvider = ({children}) => {
       console.log(`error - ${error.message}`);
     }
   };
-  const getHistory = async () => {
+  const getHistory = async (offset = 0, LIMIT = 4) => {
     try {
-      const response = await authAxios.get(`/users/${userId}/history_surveys`);
-      // console.log(`history-${response.data.items}`);
+      const response = await authAxios.get(
+        `/users/${userId}/history_surveys?offset=${offset}&limit=${LIMIT}`,
+      );
+      setTotalItems(response.data.total_items);
+      // console.log('history' - response.data.items);
       return response.data.items;
     } catch (error) {
       console.log(`error - ${error.message}`);
@@ -160,6 +164,7 @@ const AxiosProvider = ({children}) => {
         authAxios,
         publicAxios,
         userId,
+        totalItems,
         signIn,
         checkEmail,
         findUser,
