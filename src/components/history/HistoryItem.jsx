@@ -35,7 +35,7 @@ export default HistoryItem;
 
 const styles = StyleSheet.create({
   listItem: {
-    height: 51,
+    height: 67,
     // marginBottom: 76,
     borderBottomWidth: 1,
     borderBottomColor: '#E0E5EB',

@@ -23,7 +23,7 @@ const HomeScreen = ({navigation}) => {
 
   const fetchData = async () => {
     const data = await getHistory(offset, LIMIT);
-    setHistoryList(data);
+    setHistoryList(data?.items);
   };
 
   useEffect(() => {
@@ -64,9 +64,7 @@ const HomeScreen = ({navigation}) => {
             style={styles.btn}
             onPress={() =>
               navigation.navigate('History', {
-                historyList: historyList,
                 LIMIT: LIMIT,
-                offset: offset,
               })
             }>
             <AppText isBold style={styles.btnAll}>
