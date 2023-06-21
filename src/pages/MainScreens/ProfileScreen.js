@@ -21,12 +21,16 @@ const ProfileScreen = () => {
   const [changeModalVisible, setChangeModalVisible] = useState(false);
 
   const [userInfo, setUserInfo] = useState({});
-  console.log(userInfo);
+  // console.log(userInfo);
 
   const {findUser} = useContext(AxiosContext);
 
+  const fetchUserInfo = async () => {
+    const userData = await findUser();
+    setUserInfo(userData);
+  };
   useEffect(() => {
-    findUser().then(setUserInfo);
+    fetchUserInfo();
   }, []);
 
   return (

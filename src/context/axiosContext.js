@@ -9,7 +9,7 @@ const {Provider} = AxiosContext;
 
 const AxiosProvider = ({children}) => {
   const [userId, setUserId] = useState('');
-  const [totalItems, setTotalItems] = useState(0);
+  // const [totalItems, setTotalItems] = useState(0);
   console.log(userId);
 
   const authContext = useContext(AuthContext);
@@ -66,10 +66,10 @@ const AxiosProvider = ({children}) => {
           userEmail: email,
         });
       }
-      console.log(response.data.status);
+      // console.log(response.data.status);
     } catch (error) {
       Alert.alert('User is not exist');
-      console.log(`error - ${error.message}`);
+      console.log(`error email - ${error.message}`);
     }
   };
   const findUser = async () => {
@@ -128,7 +128,7 @@ const AxiosProvider = ({children}) => {
   const getActiveSurveys = async () => {
     try {
       const response = await authAxios.get(`/users/${userId}/active_surveys`);
-      return response.data.items;
+      return response.data;
     } catch (error) {
       console.log(`error - ${error.message}`);
     }
@@ -141,7 +141,7 @@ const AxiosProvider = ({children}) => {
       const response = await authAxios.get(
         `/users/${userId}/surveys/${surveyId}/questions`,
       );
-      return response.data.questions;
+      return response.data;
     } catch (error) {
       console.log(`error - ${error.message}`);
     }
@@ -151,9 +151,9 @@ const AxiosProvider = ({children}) => {
       const response = await authAxios.get(
         `/users/${userId}/history_surveys?offset=${offset}&limit=${LIMIT}`,
       );
-      setTotalItems(response.data.total_items);
+      // setTotalItems(response.data.total_items);
       // console.log('history' - response.data.items);
-      return response.data.items;
+      return response.data;
     } catch (error) {
       console.log(`error - ${error.message}`);
     }
@@ -164,7 +164,7 @@ const AxiosProvider = ({children}) => {
         authAxios,
         publicAxios,
         userId,
-        totalItems,
+        // totalItems,
         signIn,
         checkEmail,
         findUser,

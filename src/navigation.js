@@ -189,53 +189,7 @@ const Navigation = () => {
     );
   }
 };
-//   return (
-//     <NavigationContainer>
-//       <AuthStack.Navigator
-//         screenOptions={{
-//           // eslint-disable-next-line react/no-unstable-nested-components
-//           headerLeft: () => <GoBackBtn />,
-//           // eslint-disable-next-line react/no-unstable-nested-components
-//           headerRight: () => <Image source={logo} />,
-//         }}>
-//         <AuthStack.Screen
-//           name="Welcome"
-//           component={WelcomeScreen}
-//           options={{headerShown: false}}
 
-//           //   options={{title: 'Login Form', headerBackTitleVisible: false}}
-//         />
-//         <AuthStack.Screen
-//           name="EmailScreen"
-//           component={EmailScreen}
-//           options={{
-//             title: '',
-//           }}
-//         />
-//         <AuthStack.Screen
-//           name="TempPassScreen"
-//           options={{title: ''}}
-//           component={TempPassScreen}
-//         />
-//         <AuthStack.Screen
-//           name="SetPassScreen"
-//           options={{title: ''}}
-//           component={SetPassScreen}
-//         />
-//         <AuthStack.Screen
-//           name="SignInScreen"
-//           options={{title: ''}}
-//           component={SignInScreen}
-//         />
-//         <AuthStack.Screen
-//           name="HomeScreen"
-//           options={{title: ''}}
-//           component={HomeScreen}
-//         />
-//       </AuthStack.Navigator>
-//     </NavigationContainer>
-//   );
-// };
 export default Navigation;
 const styles = StyleSheet.create({
   container: {

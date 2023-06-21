@@ -10,26 +10,32 @@ const ActiveItem = ({
   amount,
   date,
   text,
-  // status,
   navigation,
   index,
   surveyId,
   questionsMy,
-  // questions,
 }) => {
   const [questions, setQuestions] = useState([]);
+  questions.map((question, id = index) => {
+    question.key = id;
+  });
   const {getQuestions, findUser} = useContext(AxiosContext);
   // console.log(questions);
   useEffect(() => {
     findUser();
+    fetchQuestions();
   }, []);
+
+  const fetchQuestions = async () => {
+    const data = await getQuestions(surveyId);
+    setQuestions(data?.questions);
+  };
   const handleonStart = () => {
-    getQuestions(surveyId).then(setQuestions);
     navigation.navigate('Survey', {
       id: index,
       title: title,
       amount: amount,
-      questions: questionsMy,
+      questions: questions,
     });
   };
   return (

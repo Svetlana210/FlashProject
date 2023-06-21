@@ -133,7 +133,8 @@ const initialState = [
   },
 ];
 const ActiveList = ({navigation, list}) => {
-  const [items, setItems] = useState(initialState);
+  // console.log(list);
+  // const [items, setItems] = useState(initialState);
   const renderItem = ({item, index}) => {
     return (
       <ActiveItem
@@ -144,14 +145,14 @@ const ActiveList = ({navigation, list}) => {
         navigation={navigation}
         index={index}
         surveyId={item._id}
-        questionsMy={item.questions}
+        // questionsMy={item.questions}
       />
     );
   };
   return (
     <View style={styles.container}>
       <FlatList
-        data={items}
+        data={list}
         renderItem={renderItem}
         horizontal={true}
         keyExtractor={item => item._id}

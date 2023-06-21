@@ -3,13 +3,7 @@ import {StyleSheet, View} from 'react-native';
 import React from 'react';
 import * as Progress from 'react-native-progress';
 
-const SurveyQuestionsIndicator = ({
-  amount,
-  questions,
-  Question,
-  screen,
-  index,
-}) => {
+const SurveyQuestionsIndicator = ({questions, index}) => {
   const getWidth = () => {
     const width = 328 / questions.length;
     return width;

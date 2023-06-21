@@ -1,4 +1,3 @@
-/* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable no-unused-vars */
 import {StyleSheet, Text, View, Image, TouchableOpacity} from 'react-native';
 import React, {useState, useContext, useEffect} from 'react';
@@ -7,32 +6,32 @@ import ActiveList from '../../components/activeSurveys/ActiveList.jsx';
 import AppText from '../../components/reusableComponents/AppText';
 import {AxiosContext} from '../../context/axiosContext';
 let env = require('../../images/Env.png');
-const LIMIT = 4;
+const LIMIT = 9;
 const HomeScreen = ({navigation}) => {
-  // const [active, setActive] = useState(false);
   const [active, setActive] = useState(true);
   const [offset, setOffset] = useState(0);
   const [list, setList] = useState([]);
   const [historyList, setHistoryList] = useState([]);
   const {getActiveSurveys, findUser, getHistory} = useContext(AxiosContext);
-  // console.log(`list-${historyList}`);
 
   useEffect(() => {
     findUser();
-  }, []);
-
-  const fetchData = async () => {
-    const data = await getHistory(offset, LIMIT);
-    setHistoryList(data);
-  };
+  }, [findUser]);
 
   useEffect(() => {
-    fetchData();
-    getActiveSurveys().then(setList);
-  }, [getActiveSurveys, getHistory]);
+    const fetchData = async () => {
+      const data = await getHistory(offset, LIMIT);
+      setHistoryList(data?.items);
+    };
 
-  // const newArray = historyList.slice(0, 4);
-  // console.log(newArray);
+    const fetchDataActive = async () => {
+      const data = await getActiveSurveys();
+      setList(data?.items);
+    };
+
+    fetchData();
+    fetchDataActive();
+  }, [getActiveSurveys, getHistory, offset]);
 
   return (
     <View style={styles.wrap}>
@@ -64,9 +63,7 @@ const HomeScreen = ({navigation}) => {
             style={styles.btn}
             onPress={() =>
               navigation.navigate('History', {
-                historyList: historyList,
                 LIMIT: LIMIT,
-                offset: offset,
               })
             }>
             <AppText isBold style={styles.btnAll}>

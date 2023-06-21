@@ -7,7 +7,6 @@ import {TabView} from 'react-native-tab-view';
 const styles = StyleSheet.create({
   container: {
     height: '50%',
-    // backgroundColor: 'violet',
   },
 });
 
@@ -18,15 +17,12 @@ const TabViewSurvey = ({
   selectedRadio,
   setSelectedRadio,
 }) => {
-  console.log(questions);
-  questions.map((question, id = index) => {
-    question.key = id;
-  });
+  // console.log(questions);
 
   const layout = useWindowDimensions();
   const [routes] = useState(questions);
 
-  console.log(routes);
+  // console.log(routes);
 
   const renderScene = ({route}) => {
     return (
