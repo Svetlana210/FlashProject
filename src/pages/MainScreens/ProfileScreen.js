@@ -91,7 +91,7 @@ const ProfileScreen = () => {
 export default ProfileScreen;
 
 const styles = StyleSheet.create({
-  wrap: {backgroundColor: '#FAFAFA', paddingBottom: 69},
+  wrap: {backgroundColor: '#FAFAFA', paddingBottom: 109, flex: 1},
   text: {
     fontSize: 22,
     lineHeight: 33,
@@ -131,7 +131,7 @@ const styles = StyleSheet.create({
     width: 20,
     height: 20,
     position: 'absolute',
-    bottom: 244,
+    bottom: 320,
     left: 16,
   },
   iconArray: {position: 'absolute', bottom: 3, right: 20},

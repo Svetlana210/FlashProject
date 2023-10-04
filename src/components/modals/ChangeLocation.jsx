@@ -11,7 +11,7 @@ import React, {useState, useEffect, useRef} from 'react';
 import AppText from '../reusableComponents/AppText';
 
 let location = require('../../images/location.png');
-let check = require('../../images/Vector@.png');
+let check = require('../../images/VectorOk.png');
 const CITIES = [
   {city: 'Ukraine'},
   {city: 'Kiyv'},

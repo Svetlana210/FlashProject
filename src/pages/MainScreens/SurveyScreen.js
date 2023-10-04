@@ -14,7 +14,7 @@ const SurveyScreen = ({route, navigation}) => {
   const onNext = () => {
     if (selectedRadio !== 0) {
       setIndex(currIndex => currIndex + 1);
-      // setSelectedRadio(0);
+      setSelectedRadio(0);
     } else {
       Alert.alert('Please choose the option');
     }
@@ -57,6 +57,7 @@ const SurveyScreen = ({route, navigation}) => {
             disabled={index === 0}
             onPress={() => {
               setIndex(currIndex => currIndex - 1);
+              setSelectedRadio(index);
             }}
           />
           <Button

@@ -25,10 +25,10 @@ export default WelcomeScreen;
 
 const styles = StyleSheet.create({
   master: {
+    flex: 1,
     backgroundColor: '#ffffff',
     alignItems: 'center',
     justifyContent: 'center',
-    paddingVertical: 210,
   },
   title: {
     fontSize: 32,

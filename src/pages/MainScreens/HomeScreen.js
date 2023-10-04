@@ -5,15 +5,144 @@ import HistoryList from '../../components/history/HistoryList';
 import ActiveList from '../../components/activeSurveys/ActiveList.jsx';
 import AppText from '../../components/reusableComponents/AppText';
 import {AxiosContext} from '../../context/axiosContext';
+const initialState = [
+  {
+    name: 'Survey 1',
+    created_at: '12 Feb,12:00',
+    description:
+      'Dear coovorkers, please take 2 min of your time and send responses as ',
+    amount: '2',
+    _id: 1,
+    status: 'New',
+    questions: [
+      {
+        text: 'Are you okay physically?',
+        id: 1,
+        positive: 'Yes, I am',
+        negative: 'I am not okay',
+      },
+      {
+        text: 'Are you okay emotionally??',
+        id: 2,
+        positive: 'Yes, I am',
+        negative: 'I am not okay',
+      },
+    ],
+  },
+  {
+    name: 'Survey 2',
+    created_at: '10 Feb,11:00',
+    description:
+      'Dear coovorkers, please take 2 min of your time and send responses as ',
+    amount: '4',
+    _id: 2,
+    status: 'New',
+    questions: [
+      {
+        text: 'Are you okay physically?',
+        id: 1,
+        positive: 'Yes, I am',
+        negative: 'I am not okay',
+      },
+      {
+        text: 'Are you okay emotionally??',
+        id: 2,
+        positive: 'Yes, I am',
+        negative: 'I am not okay',
+      },
+      {
+        text: 'Do you need help or support?',
+        id: 3,
+        positive: 'I am ok for now',
+        negative: 'Please contact me',
+      },
+      {
+        text: 'Are you changing your location?',
+        id: 4,
+        positive: 'On-track',
+        negative: 'Off-track',
+      },
+    ],
+  },
+  {
+    name: 'Survey 3',
+    created_at: '09 Feb,10:00',
+    description:
+      'Dear coovorkers, please take 2 min of your time and send responses as ',
+    amount: '5',
+    _id: 3,
+    status: 'New',
+    questions: [
+      {
+        text: 'Are you okay physically?',
+        id: 1,
+        positive: 'Yes, I am',
+        negative: 'I am not okay',
+      },
+      {
+        text: 'Are you okay emotionally??',
+        id: 2,
+        positive: 'Yes, I am',
+        negative: 'I am not okay',
+      },
+      {
+        text: 'Do you need help or support?',
+        id: 3,
+        positive: 'I am ok for now',
+        negative: 'Please contact me',
+      },
+      {
+        text: 'Are you changing your location?',
+        id: 4,
+        positive: 'On-track',
+        negative: 'Off-track',
+      },
+      {
+        text: 'Do you want to speak with psychologist?',
+        id: 5,
+        positive: 'Yes, I do',
+        negative: 'No,I do not',
+      },
+    ],
+  },
+  {
+    name: 'Survey 4',
+    created_at: '08 Feb,10:00',
+    description:
+      'Dear coovorkers, please take 2 min of your time and send responses as ',
+    amount: '3',
+    _id: 5,
+    status: 'New',
+    questions: [
+      {
+        text: 'Are you okay physically?',
+        id: 1,
+        positive: 'Yes, I am',
+        negative: 'I am not okay',
+      },
+      {
+        text: 'Are you okay emotionally??',
+        id: 2,
+        positive: 'Yes, I am',
+        negative: 'I am not okay',
+      },
+      {
+        text: 'Do you need help or support?',
+        id: 3,
+        positive: 'I am ok for now',
+        negative: 'Please contact me',
+      },
+    ],
+  },
+];
 let env = require('../../images/Env.png');
 const LIMIT = 9;
 const HomeScreen = ({navigation}) => {
-  const [active, setActive] = useState(true);
   const [offset, setOffset] = useState(0);
-  const [list, setList] = useState([]);
+  const [list, setList] = useState(initialState);
   const [historyList, setHistoryList] = useState([]);
   const {getActiveSurveys, findUser, getHistory} = useContext(AxiosContext);
-
+  console.log('list', list);
   useEffect(() => {
     findUser();
   }, [findUser]);
@@ -24,14 +153,14 @@ const HomeScreen = ({navigation}) => {
       setHistoryList(data?.items);
     };
 
-    const fetchDataActive = async () => {
-      const data = await getActiveSurveys();
-      setList(data?.items);
-    };
+    // const fetchDataActive = async () => {
+    //   const data = await getActiveSurveys();
+    //   setList(data?.items);
+    // };
 
     fetchData();
-    fetchDataActive();
-  }, [getActiveSurveys, getHistory, offset]);
+    // fetchDataActive();
+  }, [getHistory, offset]);
 
   return (
     <View style={styles.wrap}>
@@ -39,7 +168,7 @@ const HomeScreen = ({navigation}) => {
         <AppText isBold style={styles.title}>
           Active
         </AppText>
-        {active ? (
+        {list !== [] ? (
           <View style={styles.imageWrapper}>
             <ActiveList navigation={navigation} list={list} />
           </View>

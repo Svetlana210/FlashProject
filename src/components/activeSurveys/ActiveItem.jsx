@@ -16,11 +16,10 @@ const ActiveItem = ({
   questionsMy,
 }) => {
   const [questions, setQuestions] = useState([]);
-  questions.map((question, id = index) => {
+  questionsMy.map((question, id = index) => {
     question.key = id;
   });
   const {getQuestions, findUser} = useContext(AxiosContext);
-  // console.log(questions);
   useEffect(() => {
     findUser();
     fetchQuestions();
@@ -35,7 +34,7 @@ const ActiveItem = ({
       id: index,
       title: title,
       amount: amount,
-      questions: questions,
+      questions: questionsMy,
     });
   };
   return (

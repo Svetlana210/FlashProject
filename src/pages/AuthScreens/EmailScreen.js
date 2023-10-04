@@ -18,8 +18,7 @@ const EmailScreen = ({navigation, route}) => {
   const [email, setEmail] = useState('');
   const [isFocusedEmail, setIsFocusedEmail] = useState(false);
   const [checkValidEmail, setCheckValidEmail] = useState(false);
-  // eslint-disable-next-line no-unused-vars
-  const [userStatus, setUserStatus] = useState(false);
+
   // eslint-disable-next-line no-unused-vars
   const [showKeyboard, setShowKeyboard] = useState(false);
 
@@ -41,28 +40,6 @@ const EmailScreen = ({navigation, route}) => {
       setCheckValidEmail(true);
     }
   };
-
-  // const checkEmail = async () => {
-  //   try {
-  //     const response = await publicAxios.post('/auth/user_status', {email});
-  //     console.log(response.data.status);
-  //     if (response.data.status === 'Inactive') {
-  //       setUserStatus(false);
-  //       navigation.navigate('TempPassScreen', {
-  //         userEmail: email,
-  //       });
-  //     } else if (response.data.status === 'Active') {
-  //       setUserStatus(true);
-  //       navigation.navigate('SignInScreen', {
-  //         userEmail: email,
-  //       });
-  //     }
-  //     console.log(response.data.status);
-  //   } catch (error) {
-  //     Alert.alert('User is not exist');
-  //     console.log(`error - ${error.message}`);
-  //   }
-  // };
 
   const handleOnEmailBtn = e => {
     e.preventDefault();
